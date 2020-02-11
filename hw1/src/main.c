@@ -18,7 +18,18 @@
 
 int main(int argc, char **argv)
 {
-    int ret;
+
+    // char test=' ';
+
+    // for(int i = 0; i < argc; i++){
+    //     printf("%s\n", *(argv+i));
+    //     // while (test!='\0'){
+
+    //     // }
+    // }
+    // int ret = validargs(argc, argv);
+    // printf("%d\n", ret);
+
     if(validargs(argc, argv))
         USAGE(*argv, EXIT_FAILURE);
     debug("Options: 0x%x", global_options);

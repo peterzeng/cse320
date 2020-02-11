@@ -20,6 +20,8 @@ int next_nonterminal_value = FIRST_NONTERMINAL;
  */
 void init_symbols(void) {
     // To be implemented.
+    num_symbols = 0;
+    next_nonterminal_value = FIRST_NONTERMINAL;
 }
 
 /**
@@ -47,7 +49,11 @@ void init_symbols(void) {
  */
 SYMBOL *new_symbol(int value, SYMBOL *rule) {
     // To be implemented.
-    return NULL;
+    struct SYMBOL temp;
+    temp.value = value;
+    temp.rule = *rule;
+
+    return *temp;
 }
 
 /**

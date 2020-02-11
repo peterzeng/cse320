@@ -19,7 +19,7 @@ Test(basecode_tests_suite, validargs_compress_test) {
     char *argv[] = {"bin/sequitur", "-c", "-b", "10", NULL};
     int ret = validargs(argc, argv);
     int exp_ret = 0;
-    int opt = global_options;
+        int opt = global_options;
     int flag = 0x2;
     int exp_size = 10;
     int size = (opt >> 16) & 0xffff;
