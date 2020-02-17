@@ -69,9 +69,116 @@ int compress(FILE *in, FILE *out, int bsize) {
  * @return  The number of bytes written, in case of success, otherwise EOF.
  */
 int decompress(FILE *in, FILE *out) {
-    // To be implemented.
+    FILE *start = in;
+    init_symbols();
+
+    // int bytes = 0;
+
+    // If start of block
+    int start_block = 0;
+
+    // UTF to be translated
+    int final_utf = 0;
+
+    // Num of bytes in string
+    // int num_bytes = 0;
+
+    // New symbol ( as opposed to finding the rest of an old symbol )
+    int new_symbol = 1;
+
+    int bytes_left = 0;
+
+    int new_rule_check = 0;
+
+    int check = 0;
+    // printf("test: %d", check);
+    // CONVERTING TO UTF-8 TO VALUES
+    while (check != EOF){
+        // printf("test\n");
+        check = fgetc(start);
+
+        // printf("test\n");
+        if (!start_block){
+            if (check == 0x83){
+                start_block = 1;
+                new_rule_check = 1;
+                continue;
+            }
+            continue;
+        }
+
+        if (new_symbol){
+            if (check == 0x84){
+                // END OF BLOCK REACHED
+                break;
+
+            } else if (check == 0x85){
+                // NEW BLOCK
+                new_rule_check = 1;
+                printf("\n");
+                continue;
+            } else if ((check & 0b11110000) == 0b11110000){
+                new_symbol = 0;
+                bytes_left = 3;
+                final_utf = check & 0b00000111;
+
+            } else if ((check & 0b11100000) == 0b11100000){
+                new_symbol = 0;
+                bytes_left = 2;
+                final_utf = check & 0b00001111;
+
+            } else if ((check & 0b11000000) == 0b11000000){
+                new_symbol = 0;
+                bytes_left = 1;
+                final_utf = check & 0b00011111;
+
+            } else {
+                final_utf = check & 0b01111111;
+                printf("%d ",final_utf);
+                new_symbol
+            }
+
+        } else if (!new_symbol){
+            if (bytes_left == 1){
+                check = check & 0b00111111;
+                final_utf = final_utf << 6;
+                final_utf = final_utf | check;
+                printf("%d ",final_utf);
+
+                if ((new_rule_check) & (final_utf > FIRST_NONTERMINAL)){
+                    SYMBOL *current_rule = new_rule(final_utf);
+                    add_rule(current_rule);
+                }
+
+                new_symbol = 1;
+                new_rule_check = 0;
+            } else {
+                check = check & 0b00111111;
+                final_utf = final_utf << 6;
+                final_utf = final_utf | check;
+                for (int i = 0; i < bytes_left-1; i++){
+                    check = fgetc(start);
+                    check = check & 0b00111111;
+                    final_utf = final_utf << 6;
+                    final_utf = final_utf | check;
+                }
+                // if (final_utf < )
+                // new_symbol(final_utf)
+                printf("%d ",final_utf);
+
+                if ((new_rule_check) & (final_utf > FIRST_NONTERMINAL)){
+                    SYMBOL *current_rule = new_rule(final_utf);
+                    add_rule(current_rule);
+                }
+                new_symbol = 1;
+                new_rule_check = 0;
+            }
+        }
+    }
+    printf("\n");
     return EOF;
 }
+
 
 /**
  * @brief Validates command line arguments passed to the program.
@@ -222,3 +329,4 @@ int validargs(int argc, char **argv)
     // To be implemented.
     return -1;
 }
+

@@ -49,11 +49,22 @@ void init_symbols(void) {
  */
 SYMBOL *new_symbol(int value, SYMBOL *rule) {
     // To be implemented.
-    struct SYMBOL temp;
-    temp.value = value;
-    temp.rule = *rule;
+    SYMBOL new;
 
-    return *temp;
+    new.value = value;
+
+    if (value < FIRST_NONTERMINAL){
+        new.rule = NULL;
+        new.next = NULL;
+        new.prev = NULL;
+        new.nextr = NULL;
+        new.prevr = NULL;
+    } else if (value >= FIRST_NONTERMINAL){
+        new.rule = rule;
+    }
+
+    SYMBOL *temp = &new;
+    return temp;
 }
 
 /**

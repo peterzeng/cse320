@@ -30,13 +30,17 @@ int main(int argc, char **argv)
     // int ret = validargs(argc, argv);
     // printf("%d\n", ret);
 
-    if(validargs(argc, argv))
-        USAGE(*argv, EXIT_FAILURE);
-    debug("Options: 0x%x", global_options);
-    if(global_options & 1)
-        USAGE(*argv, EXIT_SUCCESS);
+// TESTING
+    decompress(stdin, stdout);
+// TESTING
 
-    return EXIT_SUCCESS;
+    // if(validargs(argc, argv))
+    //     USAGE(*argv, EXIT_FAILURE);
+    // debug("Options: 0x%x", global_options);
+    // if(global_options & 1)
+    //     USAGE(*argv, EXIT_SUCCESS);
+
+    // return EXIT_SUCCESS;
 }
 
 /*

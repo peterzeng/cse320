@@ -51,6 +51,8 @@
  */
 void init_rules(void) {
     // To be implemented.
+    main_rule = NULL;
+
 }
 
 /**
@@ -70,7 +72,16 @@ void init_rules(void) {
  */
 SYMBOL *new_rule(int v) {
     // To be implemented.
-    return NULL;
+    SYMBOL new;
+
+    if (v >= FIRST_NONTERMINAL){
+        new.value = v;
+        new.rule = &new;
+        new.next = &new;
+        new.prev = &new;
+    }
+    SYMBOL *temp = &new;
+    return temp;
 }
 
 /**
@@ -86,6 +97,17 @@ SYMBOL *new_rule(int v) {
  */
 void add_rule(SYMBOL *rule) {
     // To be implemented.
+    if (main_rule == NULL){
+        main_rule = rule;
+        main_rule->nextr = rule;
+        main_rule->prevr = rule;
+    }
+    else if (main_rule != NULL){
+        rule->prevr = main_rule->prevr;
+        rule->nextr = main_rule;
+        main_rule->prevr->nextr = rule;
+        main_rule->prevr = rule;
+    }
 }
 
 /**
