@@ -61,6 +61,7 @@ int compress(FILE *in, FILE *out, int bsize) {
 // TESTING
 int count = 0;
 void print_rules(void) {
+    count++;
     printf("Number of blocks: %d\n", count);
     SYMBOL *rule = main_rule;
     SYMBOL *symbol;
@@ -165,7 +166,7 @@ int decompress(FILE *in, FILE *out) {
             // printf("test\n");
             // print_rules();
             expand_rules(main_rule,out);
-            fflush(out);
+            // fflush(out);
 
             // printf("\n");
             check = fgetc(start);
