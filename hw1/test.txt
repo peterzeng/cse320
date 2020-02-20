@@ -1,1104 +1,741 @@
-START OF BLOCK
-nrc, finalutf: 1 256 
-ADDING NEW RULE
-New rule value: 256
-Main rule value: 256
-last_symbol: 0x55d3e29a8200
-nrc, finalutf: 0 265 
-Pointer: 0x55d3e29a8230, num_symbols: 2, rule: 0x55d3e29a8200
-1 byte value: 102
-Pointer: 0x55d3e29a8260, num_symbols: 3, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 265
-nrc, finalutf: 0 325 
-Pointer: 0x55d3e29a8290, num_symbols: 4, rule: 0x55d3e29a8200
-nrc, finalutf: 0 257 
-Pointer: 0x55d3e29a82c0, num_symbols: 5, rule: 0x55d3e29a8200
-nrc, finalutf: 0 300 
-Pointer: 0x55d3e29a82f0, num_symbols: 6, rule: 0x55d3e29a8200
-nrc, finalutf: 0 324 
-Pointer: 0x55d3e29a8320, num_symbols: 7, rule: 0x55d3e29a8200
-nrc, finalutf: 0 266 
-Pointer: 0x55d3e29a8350, num_symbols: 8, rule: 0x55d3e29a8200
-nrc, finalutf: 0 435 
-Pointer: 0x55d3e29a8380, num_symbols: 9, rule: 0x55d3e29a8200
-nrc, finalutf: 0 302 
-Pointer: 0x55d3e29a83b0, num_symbols: 10, rule: 0x55d3e29a8200
-nrc, finalutf: 0 359 
-Pointer: 0x55d3e29a83e0, num_symbols: 11, rule: 0x55d3e29a8200
-nrc, finalutf: 0 398 
-Pointer: 0x55d3e29a8410, num_symbols: 12, rule: 0x55d3e29a8200
-nrc, finalutf: 0 399 
-Pointer: 0x55d3e29a8440, num_symbols: 13, rule: 0x55d3e29a8200
-nrc, finalutf: 0 436 
-Pointer: 0x55d3e29a8470, num_symbols: 14, rule: 0x55d3e29a8200
-nrc, finalutf: 0 359 
-Pointer: 0x55d3e29a84a0, num_symbols: 15, rule: 0x55d3e29a8200
-nrc, finalutf: 0 489 
-Pointer: 0x55d3e29a84d0, num_symbols: 16, rule: 0x55d3e29a8200
-nrc, finalutf: 0 434 
-Pointer: 0x55d3e29a8500, num_symbols: 17, rule: 0x55d3e29a8200
-nrc, finalutf: 0 524 
-Pointer: 0x55d3e29a8530, num_symbols: 18, rule: 0x55d3e29a8200
-nrc, finalutf: 0 534 
-Pointer: 0x55d3e29a8560, num_symbols: 19, rule: 0x55d3e29a8200
-nrc, finalutf: 0 489 
-Pointer: 0x55d3e29a8590, num_symbols: 20, rule: 0x55d3e29a8200
-1 byte value: 105
-Pointer: 0x55d3e29a85c0, num_symbols: 21, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 489
-1 byte value: 102
-Pointer: 0x55d3e29a85f0, num_symbols: 22, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 105
-nrc, finalutf: 0 524 
-Pointer: 0x55d3e29a8620, num_symbols: 23, rule: 0x55d3e29a8200
-nrc, finalutf: 0 691 
-Pointer: 0x55d3e29a8650, num_symbols: 24, rule: 0x55d3e29a8200
-nrc, finalutf: 0 618 
-Pointer: 0x55d3e29a8680, num_symbols: 25, rule: 0x55d3e29a8200
-nrc, finalutf: 0 725 
-Pointer: 0x55d3e29a86b0, num_symbols: 26, rule: 0x55d3e29a8200
-nrc, finalutf: 0 746 
-Pointer: 0x55d3e29a86e0, num_symbols: 27, rule: 0x55d3e29a8200
-nrc, finalutf: 0 691 
-Pointer: 0x55d3e29a8710, num_symbols: 28, rule: 0x55d3e29a8200
-nrc, finalutf: 0 728 
-Pointer: 0x55d3e29a8740, num_symbols: 29, rule: 0x55d3e29a8200
-nrc, finalutf: 0 725 
-Pointer: 0x55d3e29a8770, num_symbols: 30, rule: 0x55d3e29a8200
-nrc, finalutf: 0 728 
-Pointer: 0x55d3e29a87a0, num_symbols: 31, rule: 0x55d3e29a8200
-1 byte value: 32
-Pointer: 0x55d3e29a87d0, num_symbols: 32, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 728
-nrc, finalutf: 0 730 
-Pointer: 0x55d3e29a8800, num_symbols: 33, rule: 0x55d3e29a8200
-1 byte value: 97
-Pointer: 0x55d3e29a8830, num_symbols: 34, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 730
-1 byte value: 110
-Pointer: 0x55d3e29a8860, num_symbols: 35, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 97
-1 byte value: 115
-Pointer: 0x55d3e29a8890, num_symbols: 36, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 110
-nrc, finalutf: 0 729 
-Pointer: 0x55d3e29a88c0, num_symbols: 37, rule: 0x55d3e29a8200
-nrc, finalutf: 0 730 
-Pointer: 0x55d3e29a88f0, num_symbols: 38, rule: 0x55d3e29a8200
-1 byte value: 105
-Pointer: 0x55d3e29a8920, num_symbols: 39, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 730
-1 byte value: 109
-Pointer: 0x55d3e29a8950, num_symbols: 40, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 105
-1 byte value: 109
-Pointer: 0x55d3e29a8980, num_symbols: 41, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 109
-nrc, finalutf: 0 733 
-Pointer: 0x55d3e29a89b0, num_symbols: 42, rule: 0x55d3e29a8200
-1 byte value: 83
-Pointer: 0x55d3e29a89e0, num_symbols: 43, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 733
-nrc, finalutf: 0 746 
-Pointer: 0x55d3e29a8a10, num_symbols: 44, rule: 0x55d3e29a8200
-nrc, finalutf: 0 816 
-Pointer: 0x55d3e29a8a40, num_symbols: 45, rule: 0x55d3e29a8200
-1 byte value: 101
-Pointer: 0x55d3e29a8a70, num_symbols: 46, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 816
-1 byte value: 105
-Pointer: 0x55d3e29a8aa0, num_symbols: 47, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 101
-1 byte value: 103
-Pointer: 0x55d3e29a8ad0, num_symbols: 48, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 105
-1 byte value: 104
-Pointer: 0x55d3e29a8b00, num_symbols: 49, rule: 0x55d3e29a8200
-Sentinel: 256
-Last symbol: 103
-nrc, finalutf: 0 399 
-Pointer: 0x55d3e29a8b30, num_symbols: 50, rule: 0x55d3e29a8200
-nrc, finalutf: 0 839 
-Pointer: 0x55d3e29a8b60, num_symbols: 51, rule: 0x55d3e29a8200
-nrc, finalutf: 1 257 
-ADDING NEW RULE
-New rule value: 257
-Main rule value: 256
-last_symbol: 0x55d3e29a8b90
-1 byte value: 115
-Pointer: 0x55d3e29a8bc0, num_symbols: 53, rule: 0x55d3e29a8b90
-Sentinel: 257
-Last symbol: 257
-1 byte value: 116
-Pointer: 0x55d3e29a8bf0, num_symbols: 54, rule: 0x55d3e29a8b90
-Sentinel: 257
-Last symbol: 115
-nrc, finalutf: 1 258 
-ADDING NEW RULE
-New rule value: 258
-Main rule value: 256
-last_symbol: 0x55d3e29a8c20
-1 byte value: 121
-Pointer: 0x55d3e29a8c50, num_symbols: 56, rule: 0x55d3e29a8c20
-Sentinel: 258
-Last symbol: 258
-1 byte value: 32
-Pointer: 0x55d3e29a8c80, num_symbols: 57, rule: 0x55d3e29a8c20
-Sentinel: 258
-Last symbol: 121
-nrc, finalutf: 1 259 
-ADDING NEW RULE
-New rule value: 259
-Main rule value: 256
-last_symbol: 0x55d3e29a8cb0
-1 byte value: 101
-Pointer: 0x55d3e29a8ce0, num_symbols: 59, rule: 0x55d3e29a8cb0
-Sentinel: 259
-Last symbol: 259
-1 byte value: 32
-Pointer: 0x55d3e29a8d10, num_symbols: 60, rule: 0x55d3e29a8cb0
-Sentinel: 259
-Last symbol: 101
-nrc, finalutf: 1 260 
-ADDING NEW RULE
-New rule value: 260
-Main rule value: 256
-last_symbol: 0x55d3e29a8d40
-1 byte value: 116
-Pointer: 0x55d3e29a8d70, num_symbols: 62, rule: 0x55d3e29a8d40
-Sentinel: 260
-Last symbol: 260
-1 byte value: 114
-Pointer: 0x55d3e29a8da0, num_symbols: 63, rule: 0x55d3e29a8d40
-Sentinel: 260
-Last symbol: 116
-nrc, finalutf: 1 261 
-ADDING NEW RULE
-New rule value: 261
-Main rule value: 256
-last_symbol: 0x55d3e29a8dd0
-1 byte value: 32
-Pointer: 0x55d3e29a8e00, num_symbols: 65, rule: 0x55d3e29a8dd0
-Sentinel: 261
-Last symbol: 261
-1 byte value: 112
-Pointer: 0x55d3e29a8e30, num_symbols: 66, rule: 0x55d3e29a8dd0
-Sentinel: 261
-Last symbol: 32
-nrc, finalutf: 1 262 
-ADDING NEW RULE
-New rule value: 262
-Main rule value: 256
-last_symbol: 0x55d3e29a8e60
-1 byte value: 97
-Pointer: 0x55d3e29a8e90, num_symbols: 68, rule: 0x55d3e29a8e60
-Sentinel: 262
-Last symbol: 262
-1 byte value: 114
-Pointer: 0x55d3e29a8ec0, num_symbols: 69, rule: 0x55d3e29a8e60
-Sentinel: 262
-Last symbol: 97
-nrc, finalutf: 1 263 
-ADDING NEW RULE
-New rule value: 263
-Main rule value: 256
-last_symbol: 0x55d3e29a8ef0
-1 byte value: 32
-Pointer: 0x55d3e29a8f20, num_symbols: 71, rule: 0x55d3e29a8ef0
-Sentinel: 263
-Last symbol: 263
-1 byte value: 116
-Pointer: 0x55d3e29a8f50, num_symbols: 72, rule: 0x55d3e29a8ef0
-Sentinel: 263
-Last symbol: 32
-nrc, finalutf: 1 265 
-ADDING NEW RULE
-New rule value: 265
-Main rule value: 256
-last_symbol: 0x55d3e29a8f80
-1 byte value: 84
-Pointer: 0x55d3e29a8fb0, num_symbols: 74, rule: 0x55d3e29a8f80
-Sentinel: 265
-Last symbol: 265
-1 byte value: 104
-Pointer: 0x55d3e29a8fe0, num_symbols: 75, rule: 0x55d3e29a8f80
-Sentinel: 265
-Last symbol: 84
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29a9010, num_symbols: 76, rule: 0x55d3e29a8f80
-nrc, finalutf: 1 266 
-ADDING NEW RULE
-New rule value: 266
-Main rule value: 256
-last_symbol: 0x55d3e29a9040
-1 byte value: 115
-Pointer: 0x55d3e29a9070, num_symbols: 78, rule: 0x55d3e29a9040
-Sentinel: 266
-Last symbol: 266
-1 byte value: 101
-Pointer: 0x55d3e29a90a0, num_symbols: 79, rule: 0x55d3e29a9040
-Sentinel: 266
-Last symbol: 115
-nrc, finalutf: 1 300 
-ADDING NEW RULE
-New rule value: 300
-Main rule value: 256
-last_symbol: 0x55d3e29a90d0
-nrc, finalutf: 0 839 
-Pointer: 0x55d3e29a9100, num_symbols: 81, rule: 0x55d3e29a90d0
-1 byte value: 118
-Pointer: 0x55d3e29a9130, num_symbols: 82, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 839
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29a9160, num_symbols: 83, rule: 0x55d3e29a90d0
-nrc, finalutf: 0 266 
-Pointer: 0x55d3e29a9190, num_symbols: 84, rule: 0x55d3e29a90d0
-1 byte value: 110
-Pointer: 0x55d3e29a91c0, num_symbols: 85, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 266
-1 byte value: 116
-Pointer: 0x55d3e29a91f0, num_symbols: 86, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 110
-nrc, finalutf: 0 263 
-Pointer: 0x55d3e29a9220, num_symbols: 87, rule: 0x55d3e29a90d0
-1 byte value: 111
-Pointer: 0x55d3e29a9250, num_symbols: 88, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 263
-1 byte value: 32
-Pointer: 0x55d3e29a9280, num_symbols: 89, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 111
-1 byte value: 109
-Pointer: 0x55d3e29a92b0, num_symbols: 90, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 32
-1 byte value: 101
-Pointer: 0x55d3e29a92e0, num_symbols: 91, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 109
-1 byte value: 10
-Pointer: 0x55d3e29a9310, num_symbols: 92, rule: 0x55d3e29a90d0
-Sentinel: 300
-Last symbol: 101
-nrc, finalutf: 1 301 
-ADDING NEW RULE
-New rule value: 301
-Main rule value: 256
-last_symbol: 0x55d3e29a9340
-1 byte value: 32
-Pointer: 0x55d3e29a9370, num_symbols: 94, rule: 0x55d3e29a9340
-Sentinel: 301
-Last symbol: 301
-1 byte value: 97
-Pointer: 0x55d3e29a93a0, num_symbols: 95, rule: 0x55d3e29a9340
-Sentinel: 301
-Last symbol: 32
-nrc, finalutf: 1 302 
-ADDING NEW RULE
-New rule value: 302
-Main rule value: 256
-last_symbol: 0x55d3e29a93d0
-1 byte value: 110
-Pointer: 0x55d3e29a9400, num_symbols: 97, rule: 0x55d3e29a93d0
-Sentinel: 302
-Last symbol: 302
-1 byte value: 100
-Pointer: 0x55d3e29a9430, num_symbols: 98, rule: 0x55d3e29a93d0
-Sentinel: 302
-Last symbol: 110
-nrc, finalutf: 1 324 
-ADDING NEW RULE
-New rule value: 324
-Main rule value: 256
-last_symbol: 0x55d3e29a9460
-1 byte value: 65
-Pointer: 0x55d3e29a9490, num_symbols: 100, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 324
-nrc, finalutf: 0 261 
-Pointer: 0x55d3e29a94c0, num_symbols: 101, rule: 0x55d3e29a9460
-nrc, finalutf: 0 262 
-Pointer: 0x55d3e29a94f0, num_symbols: 102, rule: 0x55d3e29a9460
-nrc, finalutf: 0 260 
-Pointer: 0x55d3e29a9520, num_symbols: 103, rule: 0x55d3e29a9460
-1 byte value: 105
-Pointer: 0x55d3e29a9550, num_symbols: 104, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 260
-1 byte value: 100
-Pointer: 0x55d3e29a9580, num_symbols: 105, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 105
-1 byte value: 103
-Pointer: 0x55d3e29a95b0, num_symbols: 106, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 100
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29a95e0, num_symbols: 107, rule: 0x55d3e29a9460
-1 byte value: 105
-Pointer: 0x55d3e29a9610, num_symbols: 108, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 259
-1 byte value: 110
-Pointer: 0x55d3e29a9640, num_symbols: 109, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 105
-nrc, finalutf: 0 301 
-Pointer: 0x55d3e29a9670, num_symbols: 110, rule: 0x55d3e29a9460
-nrc, finalutf: 0 261 
-Pointer: 0x55d3e29a96a0, num_symbols: 111, rule: 0x55d3e29a9460
-1 byte value: 101
-Pointer: 0x55d3e29a96d0, num_symbols: 112, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 261
-nrc, finalutf: 0 262 
-Pointer: 0x55d3e29a9700, num_symbols: 113, rule: 0x55d3e29a9460
-nrc, finalutf: 0 263 
-Pointer: 0x55d3e29a9730, num_symbols: 114, rule: 0x55d3e29a9460
-1 byte value: 114
-Pointer: 0x55d3e29a9760, num_symbols: 115, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 263
-1 byte value: 101
-Pointer: 0x55d3e29a9790, num_symbols: 116, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 114
-1 byte value: 101
-Pointer: 0x55d3e29a97c0, num_symbols: 117, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 101
-1 byte value: 46
-Pointer: 0x55d3e29a97f0, num_symbols: 118, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 101
-1 byte value: 10
-Pointer: 0x55d3e29a9820, num_symbols: 119, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 46
-1 byte value: 10
-Pointer: 0x55d3e29a9850, num_symbols: 120, rule: 0x55d3e29a9460
-Sentinel: 324
-Last symbol: 10
-nrc, finalutf: 0 265 
-Pointer: 0x55d3e29a9880, num_symbols: 121, rule: 0x55d3e29a9460
-nrc, finalutf: 1 325 
-ADDING NEW RULE
-New rule value: 325
-Main rule value: 256
-last_symbol: 0x55d3e29a98b0
-1 byte value: 105
-Pointer: 0x55d3e29a98e0, num_symbols: 123, rule: 0x55d3e29a98b0
-Sentinel: 325
-Last symbol: 325
-1 byte value: 114
-Pointer: 0x55d3e29a9910, num_symbols: 124, rule: 0x55d3e29a98b0
-Sentinel: 325
-Last symbol: 105
-nrc, finalutf: 1 359 
-ADDING NEW RULE
-New rule value: 359
-Main rule value: 256
-last_symbol: 0x55d3e29a9940
-nrc, finalutf: 0 300 
-Pointer: 0x55d3e29a9970, num_symbols: 126, rule: 0x55d3e29a9940
-1 byte value: 84
-Pointer: 0x55d3e29a99a0, num_symbols: 127, rule: 0x55d3e29a9940
-Sentinel: 359
-Last symbol: 300
-nrc, finalutf: 1 360 
-ADDING NEW RULE
-New rule value: 360
-Main rule value: 256
-last_symbol: 0x55d3e29a99d0
-1 byte value: 114
-Pointer: 0x55d3e29a9a00, num_symbols: 129, rule: 0x55d3e29a99d0
-Sentinel: 360
-Last symbol: 360
-1 byte value: 101
-Pointer: 0x55d3e29a9a30, num_symbols: 130, rule: 0x55d3e29a99d0
-Sentinel: 360
-Last symbol: 114
-nrc, finalutf: 1 361 
-ADDING NEW RULE
-New rule value: 361
-Main rule value: 256
-last_symbol: 0x55d3e29a9a60
-1 byte value: 115
-Pointer: 0x55d3e29a9a90, num_symbols: 132, rule: 0x55d3e29a9a60
-Sentinel: 361
-Last symbol: 361
-1 byte value: 44
-Pointer: 0x55d3e29a9ac0, num_symbols: 133, rule: 0x55d3e29a9a60
-Sentinel: 361
-Last symbol: 115
-nrc, finalutf: 1 398 
-ADDING NEW RULE
-New rule value: 398
-Main rule value: 256
-last_symbol: 0x55d3e29a9af0
-1 byte value: 119
-Pointer: 0x55d3e29a9b20, num_symbols: 135, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 398
-1 byte value: 111
-Pointer: 0x55d3e29a9b50, num_symbols: 136, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 119
-nrc, finalutf: 0 263 
-Pointer: 0x55d3e29a9b80, num_symbols: 137, rule: 0x55d3e29a9af0
-1 byte value: 117
-Pointer: 0x55d3e29a9bb0, num_symbols: 138, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 263
-1 byte value: 114
-Pointer: 0x55d3e29a9be0, num_symbols: 139, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 117
-1 byte value: 116
-Pointer: 0x55d3e29a9c10, num_symbols: 140, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 114
-1 byte value: 108
-Pointer: 0x55d3e29a9c40, num_symbols: 141, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 116
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29a9c70, num_symbols: 142, rule: 0x55d3e29a9af0
-1 byte value: 100
-Pointer: 0x55d3e29a9ca0, num_symbols: 143, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 259
-1 byte value: 111
-Pointer: 0x55d3e29a9cd0, num_symbols: 144, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 100
-1 byte value: 118
-Pointer: 0x55d3e29a9d00, num_symbols: 145, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 111
-1 byte value: 101
-Pointer: 0x55d3e29a9d30, num_symbols: 146, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 118
-nrc, finalutf: 0 361 
-Pointer: 0x55d3e29a9d60, num_symbols: 147, rule: 0x55d3e29a9af0
-nrc, finalutf: 0 301 
-Pointer: 0x55d3e29a9d90, num_symbols: 148, rule: 0x55d3e29a9af0
-nrc, finalutf: 0 302 
-Pointer: 0x55d3e29a9dc0, num_symbols: 149, rule: 0x55d3e29a9af0
-1 byte value: 10
-Pointer: 0x55d3e29a9df0, num_symbols: 150, rule: 0x55d3e29a9af0
-Sentinel: 398
-Last symbol: 302
-nrc, finalutf: 0 324 
-Pointer: 0x55d3e29a9e20, num_symbols: 151, rule: 0x55d3e29a9af0
-nrc, finalutf: 1 399 
-ADDING NEW RULE
-New rule value: 399
-Main rule value: 256
-last_symbol: 0x55d3e29a9e50
-1 byte value: 116
-Pointer: 0x55d3e29a9e80, num_symbols: 153, rule: 0x55d3e29a9e50
-Sentinel: 399
-Last symbol: 399
-1 byte value: 104
-Pointer: 0x55d3e29a9eb0, num_symbols: 154, rule: 0x55d3e29a9e50
-Sentinel: 399
-Last symbol: 116
-nrc, finalutf: 1 434 
-ADDING NEW RULE
-New rule value: 434
-Main rule value: 256
-last_symbol: 0x55d3e29a9ee0
-1 byte value: 111
-Pointer: 0x55d3e29a9f10, num_symbols: 156, rule: 0x55d3e29a9ee0
-Sentinel: 434
-Last symbol: 434
-1 byte value: 117
-Pointer: 0x55d3e29a9f40, num_symbols: 157, rule: 0x55d3e29a9ee0
-Sentinel: 434
-Last symbol: 111
-1 byte value: 114
-Pointer: 0x55d3e29a9f70, num_symbols: 158, rule: 0x55d3e29a9ee0
-Sentinel: 434
-Last symbol: 117
-nrc, finalutf: 1 435 
-ADDING NEW RULE
-New rule value: 435
-Main rule value: 256
-last_symbol: 0x55d3e29a9fa0
-1 byte value: 99
-Pointer: 0x55d3e29a9fd0, num_symbols: 160, rule: 0x55d3e29a9fa0
-Sentinel: 435
-Last symbol: 435
-1 byte value: 111
-Pointer: 0x55d3e29aa000, num_symbols: 161, rule: 0x55d3e29a9fa0
-Sentinel: 435
-Last symbol: 99
-nrc, finalutf: 1 436 
-ADDING NEW RULE
-New rule value: 436
-Main rule value: 256
-last_symbol: 0x55d3e29aa030
-nrc, finalutf: 0 325 
-Pointer: 0x55d3e29aa060, num_symbols: 163, rule: 0x55d3e29aa030
-1 byte value: 100
-Pointer: 0x55d3e29aa090, num_symbols: 164, rule: 0x55d3e29aa030
-Sentinel: 436
-Last symbol: 325
-nrc, finalutf: 1 438 
-ADDING NEW RULE
-New rule value: 438
-Main rule value: 256
-last_symbol: 0x55d3e29aa0c0
-nrc, finalutf: 0 525 
-Pointer: 0x55d3e29aa0f0, num_symbols: 166, rule: 0x55d3e29aa0c0
-1 byte value: 84
-Pointer: 0x55d3e29aa120, num_symbols: 167, rule: 0x55d3e29aa0c0
-Sentinel: 438
-Last symbol: 525
-nrc, finalutf: 1 489 
-ADDING NEW RULE
-New rule value: 489
-Main rule value: 256
-last_symbol: 0x55d3e29aa150
-nrc, finalutf: 0 583 
-Pointer: 0x55d3e29aa180, num_symbols: 169, rule: 0x55d3e29aa150
-1 byte value: 102
-Pointer: 0x55d3e29aa1b0, num_symbols: 170, rule: 0x55d3e29aa150
-Sentinel: 489
-Last symbol: 583
-nrc, finalutf: 1 524 
-ADDING NEW RULE
-New rule value: 524
-Main rule value: 256
-last_symbol: 0x55d3e29aa1e0
-nrc, finalutf: 0 617 
-Pointer: 0x55d3e29aa210, num_symbols: 172, rule: 0x55d3e29aa1e0
-1 byte value: 70
-Pointer: 0x55d3e29aa240, num_symbols: 173, rule: 0x55d3e29aa1e0
-Sentinel: 524
-Last symbol: 617
-nrc, finalutf: 1 525 
-ADDING NEW RULE
-New rule value: 525
-Main rule value: 256
-last_symbol: 0x55d3e29aa270
-nrc, finalutf: 0 361 
-Pointer: 0x55d3e29aa2a0, num_symbols: 175, rule: 0x55d3e29aa270
-1 byte value: 10
-Pointer: 0x55d3e29aa2d0, num_symbols: 176, rule: 0x55d3e29aa270
-Sentinel: 525
-Last symbol: 361
-nrc, finalutf: 1 534 
-ADDING NEW RULE
-New rule value: 534
-Main rule value: 256
-last_symbol: 0x55d3e29aa300
-nrc, finalutf: 0 434 
-Pointer: 0x55d3e29aa330, num_symbols: 178, rule: 0x55d3e29aa300
-1 byte value: 32
-Pointer: 0x55d3e29aa360, num_symbols: 179, rule: 0x55d3e29aa300
-Sentinel: 534
-Last symbol: 434
-nrc, finalutf: 0 435 
-Pointer: 0x55d3e29aa390, num_symbols: 180, rule: 0x55d3e29aa300
-1 byte value: 108
-Pointer: 0x55d3e29aa3c0, num_symbols: 181, rule: 0x55d3e29aa300
-Sentinel: 534
-Last symbol: 435
-1 byte value: 108
-Pointer: 0x55d3e29aa3f0, num_symbols: 182, rule: 0x55d3e29aa300
-Sentinel: 534
-Last symbol: 108
-nrc, finalutf: 0 258 
-Pointer: 0x55d3e29aa420, num_symbols: 183, rule: 0x55d3e29aa300
-1 byte value: 98
-Pointer: 0x55d3e29aa450, num_symbols: 184, rule: 0x55d3e29aa300
-Sentinel: 534
-Last symbol: 258
-nrc, finalutf: 0 436 
-Pointer: 0x55d3e29aa480, num_symbols: 185, rule: 0x55d3e29aa300
-nrc, finalutf: 0 438 
-Pointer: 0x55d3e29aa4b0, num_symbols: 186, rule: 0x55d3e29aa300
-nrc, finalutf: 1 583 
-ADDING NEW RULE
-New rule value: 583
-Main rule value: 256
-last_symbol: 0x55d3e29aa4e0
-1 byte value: 104
-Pointer: 0x55d3e29aa510, num_symbols: 188, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 583
-nrc, finalutf: 0 360 
-Pointer: 0x55d3e29aa540, num_symbols: 189, rule: 0x55d3e29aa4e0
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29aa570, num_symbols: 190, rule: 0x55d3e29aa4e0
-1 byte value: 70
-Pointer: 0x55d3e29aa5a0, num_symbols: 191, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 259
-nrc, finalutf: 0 360 
-Pointer: 0x55d3e29aa5d0, num_symbols: 192, rule: 0x55d3e29aa4e0
-1 byte value: 110
-Pointer: 0x55d3e29aa600, num_symbols: 193, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 360
-1 byte value: 99
-Pointer: 0x55d3e29aa630, num_symbols: 194, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 110
-1 byte value: 104
-Pointer: 0x55d3e29aa660, num_symbols: 195, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 99
-1 byte value: 32
-Pointer: 0x55d3e29aa690, num_symbols: 196, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 104
-1 byte value: 104
-Pointer: 0x55d3e29aa6c0, num_symbols: 197, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 32
-1 byte value: 101
-Pointer: 0x55d3e29aa6f0, num_symbols: 198, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 104
-1 byte value: 110
-Pointer: 0x55d3e29aa720, num_symbols: 199, rule: 0x55d3e29aa4e0
-Sentinel: 583
-Last symbol: 101
-nrc, finalutf: 0 438 
-Pointer: 0x55d3e29aa750, num_symbols: 200, rule: 0x55d3e29aa4e0
-nrc, finalutf: 0 398 
-Pointer: 0x55d3e29aa780, num_symbols: 201, rule: 0x55d3e29aa4e0
-nrc, finalutf: 1 617 
-ADDING NEW RULE
-New rule value: 617
-Main rule value: 256
-last_symbol: 0x55d3e29aa7b0
-nrc, finalutf: 0 399 
-Pointer: 0x55d3e29aa7e0, num_symbols: 203, rule: 0x55d3e29aa7b0
-nrc, finalutf: 0 300 
-Pointer: 0x55d3e29aa810, num_symbols: 204, rule: 0x55d3e29aa7b0
-nrc, finalutf: 1 618 
-ADDING NEW RULE
-New rule value: 618
-Main rule value: 256
-last_symbol: 0x55d3e29aa840
-1 byte value: 105
-Pointer: 0x55d3e29aa870, num_symbols: 206, rule: 0x55d3e29aa840
-Sentinel: 618
-Last symbol: 618
-1 byte value: 120
-Pointer: 0x55d3e29aa8a0, num_symbols: 207, rule: 0x55d3e29aa840
-Sentinel: 618
-Last symbol: 105
-nrc, finalutf: 1 620 
-ADDING NEW RULE
-New rule value: 620
-Main rule value: 256
-last_symbol: 0x55d3e29aa8d0
-1 byte value: 105
-Pointer: 0x55d3e29aa900, num_symbols: 209, rule: 0x55d3e29aa8d0
-Sentinel: 620
-Last symbol: 620
-1 byte value: 110
-Pointer: 0x55d3e29aa930, num_symbols: 210, rule: 0x55d3e29aa8d0
-Sentinel: 620
-Last symbol: 105
-1 byte value: 103
-Pointer: 0x55d3e29aa960, num_symbols: 211, rule: 0x55d3e29aa8d0
-Sentinel: 620
-Last symbol: 110
-nrc, finalutf: 1 691 
-ADDING NEW RULE
-New rule value: 691
-Main rule value: 256
-last_symbol: 0x55d3e29aa990
-nrc, finalutf: 0 816 
-Pointer: 0x55d3e29aa9c0, num_symbols: 213, rule: 0x55d3e29aa990
-1 byte value: 115
-Pointer: 0x55d3e29aa9f0, num_symbols: 214, rule: 0x55d3e29aa990
-Sentinel: 691
-Last symbol: 816
-nrc, finalutf: 1 725 
-ADDING NEW RULE
-New rule value: 725
-Main rule value: 256
-last_symbol: 0x55d3e29aaa20
-nrc, finalutf: 0 617 
-Pointer: 0x55d3e29aaa50, num_symbols: 216, rule: 0x55d3e29aaa20
-1 byte value: 83
-Pointer: 0x55d3e29aaa80, num_symbols: 217, rule: 0x55d3e29aaa20
-Sentinel: 725
-Last symbol: 617
-nrc, finalutf: 1 728 
-ADDING NEW RULE
-New rule value: 728
-Main rule value: 256
-last_symbol: 0x55d3e29aaab0
-1 byte value: 101
-Pointer: 0x55d3e29aaae0, num_symbols: 219, rule: 0x55d3e29aaab0
-Sentinel: 728
-Last symbol: 728
-1 byte value: 118
-Pointer: 0x55d3e29aab10, num_symbols: 220, rule: 0x55d3e29aaab0
-Sentinel: 728
-Last symbol: 101
-1 byte value: 101
-Pointer: 0x55d3e29aab40, num_symbols: 221, rule: 0x55d3e29aaab0
-Sentinel: 728
-Last symbol: 118
-1 byte value: 110
-Pointer: 0x55d3e29aab70, num_symbols: 222, rule: 0x55d3e29aaab0
-Sentinel: 728
-Last symbol: 101
-nrc, finalutf: 1 729 
-ADDING NEW RULE
-New rule value: 729
-Main rule value: 256
-last_symbol: 0x55d3e29aaba0
-nrc, finalutf: 0 301 
-Pointer: 0x55d3e29aabd0, num_symbols: 224, rule: 0x55d3e29aaba0
-1 byte value: 32
-Pointer: 0x55d3e29aac00, num_symbols: 225, rule: 0x55d3e29aaba0
-Sentinel: 729
-Last symbol: 301
-nrc, finalutf: 1 730 
-ADDING NEW RULE
-New rule value: 730
-Main rule value: 256
-last_symbol: 0x55d3e29aac30
-1 byte value: 115
-Pointer: 0x55d3e29aac60, num_symbols: 227, rule: 0x55d3e29aac30
-Sentinel: 730
-Last symbol: 730
-1 byte value: 119
-Pointer: 0x55d3e29aac90, num_symbols: 228, rule: 0x55d3e29aac30
-Sentinel: 730
-Last symbol: 115
-nrc, finalutf: 1 733 
-ADDING NEW RULE
-New rule value: 733
-Main rule value: 256
-last_symbol: 0x55d3e29aacc0
-nrc, finalutf: 0 620 
-Pointer: 0x55d3e29aacf0, num_symbols: 230, rule: 0x55d3e29aacc0
-1 byte value: 44
-Pointer: 0x55d3e29aad20, num_symbols: 231, rule: 0x55d3e29aacc0
-Sentinel: 733
-Last symbol: 620
-1 byte value: 10
-Pointer: 0x55d3e29aad50, num_symbols: 232, rule: 0x55d3e29aacc0
-Sentinel: 733
-Last symbol: 44
-nrc, finalutf: 1 746 
-ADDING NEW RULE
-New rule value: 746
-Main rule value: 256
-last_symbol: 0x55d3e29aad80
-nrc, finalutf: 0 618 
-Pointer: 0x55d3e29aadb0, num_symbols: 234, rule: 0x55d3e29aad80
-1 byte value: 32
-Pointer: 0x55d3e29aade0, num_symbols: 235, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 618
-1 byte value: 103
-Pointer: 0x55d3e29aae10, num_symbols: 236, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 32
-1 byte value: 101
-Pointer: 0x55d3e29aae40, num_symbols: 237, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 103
-1 byte value: 101
-Pointer: 0x55d3e29aae70, num_symbols: 238, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 101
-nrc, finalutf: 0 266 
-Pointer: 0x55d3e29aaea0, num_symbols: 239, rule: 0x55d3e29aad80
-nrc, finalutf: 0 729 
-Pointer: 0x55d3e29aaed0, num_symbols: 240, rule: 0x55d3e29aad80
-1 byte value: 108
-Pointer: 0x55d3e29aaf00, num_symbols: 241, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 729
-1 byte value: 97
-Pointer: 0x55d3e29aaf30, num_symbols: 242, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 108
-1 byte value: 121
-Pointer: 0x55d3e29aaf60, num_symbols: 243, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 97
-nrc, finalutf: 0 733 
-Pointer: 0x55d3e29aaf90, num_symbols: 244, rule: 0x55d3e29aad80
-1 byte value: 70
-Pointer: 0x55d3e29aafc0, num_symbols: 245, rule: 0x55d3e29aad80
-Sentinel: 746
-Last symbol: 733
-nrc, finalutf: 1 816 
-ADDING NEW RULE
-New rule value: 816
-Main rule value: 256
-last_symbol: 0x55d3e29aaff0
-1 byte value: 105
-Pointer: 0x55d3e29ab020, num_symbols: 247, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 816
-1 byte value: 118
-Pointer: 0x55d3e29ab050, num_symbols: 248, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 105
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29ab080, num_symbols: 249, rule: 0x55d3e29aaff0
-1 byte value: 103
-Pointer: 0x55d3e29ab0b0, num_symbols: 250, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 259
-1 byte value: 111
-Pointer: 0x55d3e29ab0e0, num_symbols: 251, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 103
-1 byte value: 108
-Pointer: 0x55d3e29ab110, num_symbols: 252, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 111
-1 byte value: 100
-Pointer: 0x55d3e29ab140, num_symbols: 253, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 108
-1 byte value: 32
-Pointer: 0x55d3e29ab170, num_symbols: 254, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 100
-1 byte value: 114
-Pointer: 0x55d3e29ab1a0, num_symbols: 255, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 32
-nrc, finalutf: 0 620 
-Pointer: 0x55d3e29ab1d0, num_symbols: 256, rule: 0x55d3e29aaff0
-nrc, finalutf: 0 525 
-Pointer: 0x55d3e29ab200, num_symbols: 257, rule: 0x55d3e29aaff0
-1 byte value: 70
-Pointer: 0x55d3e29ab230, num_symbols: 258, rule: 0x55d3e29aaff0
-Sentinel: 816
-Last symbol: 525
-nrc, finalutf: 0 534 
-Pointer: 0x55d3e29ab260, num_symbols: 259, rule: 0x55d3e29aaff0
-nrc, finalutf: 0 583 
-Pointer: 0x55d3e29ab290, num_symbols: 260, rule: 0x55d3e29aaff0
-nrc, finalutf: 1 839 
-ADDING NEW RULE
-New rule value: 839
-Main rule value: 256
-last_symbol: 0x55d3e29ab2c0
-1 byte value: 32
-Pointer: 0x55d3e29ab2f0, num_symbols: 262, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 839
-1 byte value: 100
-Pointer: 0x55d3e29ab320, num_symbols: 263, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 32
-1 byte value: 97
-Pointer: 0x55d3e29ab350, num_symbols: 264, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 100
-nrc, finalutf: 0 258 
-Pointer: 0x55d3e29ab380, num_symbols: 265, rule: 0x55d3e29ab2c0
-1 byte value: 111
-Pointer: 0x55d3e29ab3b0, num_symbols: 266, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 258
-1 byte value: 102
-Pointer: 0x55d3e29ab3e0, num_symbols: 267, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 111
-1 byte value: 32
-Pointer: 0x55d3e29ab410, num_symbols: 268, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 102
-1 byte value: 67
-Pointer: 0x55d3e29ab440, num_symbols: 269, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 32
-1 byte value: 104
-Pointer: 0x55d3e29ab470, num_symbols: 270, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 67
-1 byte value: 114
-Pointer: 0x55d3e29ab4a0, num_symbols: 271, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 104
-1 byte value: 105
-Pointer: 0x55d3e29ab4d0, num_symbols: 272, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 114
-nrc, finalutf: 0 257 
-Pointer: 0x55d3e29ab500, num_symbols: 273, rule: 0x55d3e29ab2c0
-1 byte value: 109
-Pointer: 0x55d3e29ab530, num_symbols: 274, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 257
-1 byte value: 97
-Pointer: 0x55d3e29ab560, num_symbols: 275, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 109
-1 byte value: 115
-Pointer: 0x55d3e29ab590, num_symbols: 276, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 97
-1 byte value: 44
-Pointer: 0x55d3e29ab5c0, num_symbols: 277, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 115
-1 byte value: 10
-Pointer: 0x55d3e29ab5f0, num_symbols: 278, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 44
-1 byte value: 77
-Pointer: 0x55d3e29ab620, num_symbols: 279, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 10
-nrc, finalutf: 0 258 
-Pointer: 0x55d3e29ab650, num_symbols: 280, rule: 0x55d3e29ab2c0
-nrc, finalutf: 0 260 
-Pointer: 0x55d3e29ab680, num_symbols: 281, rule: 0x55d3e29ab2c0
-1 byte value: 117
-Pointer: 0x55d3e29ab6b0, num_symbols: 282, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 260
-nrc, finalutf: 0 259 
-Pointer: 0x55d3e29ab6e0, num_symbols: 283, rule: 0x55d3e29ab2c0
-1 byte value: 108
-Pointer: 0x55d3e29ab710, num_symbols: 284, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 259
-1 byte value: 111
-Pointer: 0x55d3e29ab740, num_symbols: 285, rule: 0x55d3e29ab2c0
-Sentinel: 839
-Last symbol: 108
-REACHED END OFF BLOCK
-The first day of Christmas,
-My true love sent to me
-A partridge in a pear tree.
+Rule value: 256
+Symbol value: 256
+Symbol value: 265
+Symbol value: 102
+Symbol value: 325
+Symbol value: 257
+Symbol value: 300
+Symbol value: 324
+Symbol value: 266
+Symbol value: 435
+Symbol value: 302
+Symbol value: 359
+Symbol value: 398
+Symbol value: 399
+Symbol value: 436
+Symbol value: 359
+Symbol value: 489
+Symbol value: 434
+Symbol value: 524
+Symbol value: 534
+Symbol value: 489
+Symbol value: 105
+Symbol value: 102
+Symbol value: 524
+Symbol value: 691
+Symbol value: 618
+Symbol value: 725
+Symbol value: 746
+Symbol value: 691
+Symbol value: 728
+Symbol value: 725
+Symbol value: 728
+Symbol value: 32
+Symbol value: 730
+Symbol value: 97
+Symbol value: 110
+Symbol value: 115
+Symbol value: 729
+Symbol value: 730
+Symbol value: 105
+Symbol value: 109
+Symbol value: 109
+Symbol value: 733
+Symbol value: 83
+Symbol value: 746
+Symbol value: 816
+Symbol value: 101
+Symbol value: 105
+Symbol value: 103
+Symbol value: 104
+Symbol value: 399
+Symbol value: 839
 
-The second day of Christmas,
-My true love sent to me
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 257
+Symbol value: 257
+Symbol value: 115
+Symbol value: 116
 
-The third day of Christmas,
-My true love sent to me
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 258
+Symbol value: 258
+Symbol value: 121
+Symbol value: 32
 
-The fourth day of Christmas,
-My true love sent to me
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 259
+Symbol value: 259
+Symbol value: 101
+Symbol value: 32
 
-The fifth day of Christmas,
-My true love sent to me
-Five gold rings,
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 260
+Symbol value: 260
+Symbol value: 116
+Symbol value: 114
 
-The sixth day of Christmas,
-My true love sent to me
-Six geese a laying,
-Five gold rings,
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 261
+Symbol value: 261
+Symbol value: 32
+Symbol value: 112
 
-The seventh day of Christmas,
-My true love sent to me
-Seven swans a swimming,
-Six geese a laying,
-Five gold rings,
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 262
+Symbol value: 262
+Symbol value: 97
+Symbol value: 114
 
-The eighth day of Christmas,
-My true lo
-The first day of Christmas,
-My true love sent to me
-A partridge in a pear tree.
+Rule value: 263
+Symbol value: 263
+Symbol value: 32
+Symbol value: 116
 
-The second day of Christmas,
-My true love sent to me
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 265
+Symbol value: 265
+Symbol value: 84
+Symbol value: 104
+Symbol value: 259
 
-The third day of Christmas,
-My true love sent to me
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 266
+Symbol value: 266
+Symbol value: 115
+Symbol value: 101
 
-The fourth day of Christmas,
-My true love sent to me
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 300
+Symbol value: 300
+Symbol value: 839
+Symbol value: 118
+Symbol value: 259
+Symbol value: 266
+Symbol value: 110
+Symbol value: 116
+Symbol value: 263
+Symbol value: 111
+Symbol value: 32
+Symbol value: 109
+Symbol value: 101
+Symbol value: 10
 
-The fifth day of Christmas,
-My true love sent to me
-Five gold rings,
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 301
+Symbol value: 301
+Symbol value: 32
+Symbol value: 97
 
-The sixth day of Christmas,
-My true love sent to me
-Six geese a laying,
-Five gold rings,
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 302
+Symbol value: 302
+Symbol value: 110
+Symbol value: 100
 
-The seventh day of Christmas,
-My true love sent to me
-Seven swans a swimming,
-Six geese a laying,
-Five gold rings,
-Four colly birds,
-Three French hens,
-Two turtle doves, and
-A partridge in a pear tree.
+Rule value: 324
+Symbol value: 324
+Symbol value: 65
+Symbol value: 261
+Symbol value: 262
+Symbol value: 260
+Symbol value: 105
+Symbol value: 100
+Symbol value: 103
+Symbol value: 259
+Symbol value: 105
+Symbol value: 110
+Symbol value: 301
+Symbol value: 261
+Symbol value: 101
+Symbol value: 262
+Symbol value: 263
+Symbol value: 114
+Symbol value: 101
+Symbol value: 101
+Symbol value: 46
+Symbol value: 10
+Symbol value: 10
+Symbol value: 265
 
-The eighth day of Christmas,
-My true lo
+Rule value: 325
+Symbol value: 325
+Symbol value: 105
+Symbol value: 114
+
+Rule value: 359
+Symbol value: 359
+Symbol value: 300
+Symbol value: 84
+
+Rule value: 360
+Symbol value: 360
+Symbol value: 114
+Symbol value: 101
+
+Rule value: 361
+Symbol value: 361
+Symbol value: 115
+Symbol value: 44
+
+Rule value: 398
+Symbol value: 398
+Symbol value: 119
+Symbol value: 111
+Symbol value: 263
+Symbol value: 117
+Symbol value: 114
+Symbol value: 116
+Symbol value: 108
+Symbol value: 259
+Symbol value: 100
+Symbol value: 111
+Symbol value: 118
+Symbol value: 101
+Symbol value: 361
+Symbol value: 301
+Symbol value: 302
+Symbol value: 10
+Symbol value: 324
+
+Rule value: 399
+Symbol value: 399
+Symbol value: 116
+Symbol value: 104
+
+Rule value: 434
+Symbol value: 434
+Symbol value: 111
+Symbol value: 117
+Symbol value: 114
+
+Rule value: 435
+Symbol value: 435
+Symbol value: 99
+Symbol value: 111
+
+Rule value: 436
+Symbol value: 436
+Symbol value: 325
+Symbol value: 100
+
+Rule value: 438
+Symbol value: 438
+Symbol value: 525
+Symbol value: 84
+
+Rule value: 489
+Symbol value: 489
+Symbol value: 583
+Symbol value: 102
+
+Rule value: 524
+Symbol value: 524
+Symbol value: 617
+Symbol value: 70
+
+Rule value: 525
+Symbol value: 525
+Symbol value: 361
+Symbol value: 10
+
+Rule value: 534
+Symbol value: 534
+Symbol value: 434
+Symbol value: 32
+Symbol value: 435
+Symbol value: 108
+Symbol value: 108
+Symbol value: 258
+Symbol value: 98
+Symbol value: 436
+Symbol value: 438
+
+Rule value: 583
+Symbol value: 583
+Symbol value: 104
+Symbol value: 360
+Symbol value: 259
+Symbol value: 70
+Symbol value: 360
+Symbol value: 110
+Symbol value: 99
+Symbol value: 104
+Symbol value: 32
+Symbol value: 104
+Symbol value: 101
+Symbol value: 110
+Symbol value: 438
+Symbol value: 398
+
+Rule value: 617
+Symbol value: 617
+Symbol value: 399
+Symbol value: 300
+
+Rule value: 618
+Symbol value: 618
+Symbol value: 105
+Symbol value: 120
+
+Rule value: 620
+Symbol value: 620
+Symbol value: 105
+Symbol value: 110
+Symbol value: 103
+
+Rule value: 691
+Symbol value: 691
+Symbol value: 816
+Symbol value: 115
+
+Rule value: 725
+Symbol value: 725
+Symbol value: 617
+Symbol value: 83
+
+Rule value: 728
+Symbol value: 728
+Symbol value: 101
+Symbol value: 118
+Symbol value: 101
+Symbol value: 110
+
+Rule value: 729
+Symbol value: 729
+Symbol value: 301
+Symbol value: 32
+
+Rule value: 730
+Symbol value: 730
+Symbol value: 115
+Symbol value: 119
+
+Rule value: 733
+Symbol value: 733
+Symbol value: 620
+Symbol value: 44
+Symbol value: 10
+
+Rule value: 746
+Symbol value: 746
+Symbol value: 618
+Symbol value: 32
+Symbol value: 103
+Symbol value: 101
+Symbol value: 101
+Symbol value: 266
+Symbol value: 729
+Symbol value: 108
+Symbol value: 97
+Symbol value: 121
+Symbol value: 733
+Symbol value: 70
+
+Rule value: 816
+Symbol value: 816
+Symbol value: 105
+Symbol value: 118
+Symbol value: 259
+Symbol value: 103
+Symbol value: 111
+Symbol value: 108
+Symbol value: 100
+Symbol value: 32
+Symbol value: 114
+Symbol value: 620
+Symbol value: 525
+Symbol value: 70
+Symbol value: 534
+Symbol value: 583
+
+Rule value: 839
+Symbol value: 839
+Symbol value: 32
+Symbol value: 100
+Symbol value: 97
+Symbol value: 258
+Symbol value: 111
+Symbol value: 102
+Symbol value: 32
+Symbol value: 67
+Symbol value: 104
+Symbol value: 114
+Symbol value: 105
+Symbol value: 257
+Symbol value: 109
+Symbol value: 97
+Symbol value: 115
+Symbol value: 44
+Symbol value: 10
+Symbol value: 77
+Symbol value: 258
+Symbol value: 260
+Symbol value: 117
+Symbol value: 259
+Symbol value: 108
+Symbol value: 111
+
+rule-map_value 256
+rule-map_value 257
+
+Rule value: 256
+Symbol value: 256
+Symbol value: 265
+Symbol value: 102
+Symbol value: 325
+Symbol value: 257
+Symbol value: 300
+Symbol value: 324
+Symbol value: 266
+Symbol value: 435
+Symbol value: 302
+Symbol value: 359
+Symbol value: 398
+Symbol value: 399
+Symbol value: 436
+Symbol value: 359
+Symbol value: 489
+Symbol value: 434
+Symbol value: 524
+Symbol value: 534
+Symbol value: 489
+Symbol value: 105
+Symbol value: 102
+Symbol value: 524
+Symbol value: 691
+Symbol value: 618
+Symbol value: 725
+Symbol value: 746
+Symbol value: 691
+Symbol value: 728
+Symbol value: 725
+Symbol value: 728
+Symbol value: 32
+Symbol value: 730
+Symbol value: 97
+Symbol value: 110
+Symbol value: 115
+Symbol value: 729
+Symbol value: 730
+Symbol value: 105
+Symbol value: 109
+Symbol value: 109
+Symbol value: 733
+Symbol value: 83
+Symbol value: 746
+Symbol value: 816
+Symbol value: 101
+Symbol value: 105
+Symbol value: 103
+Symbol value: 104
+Symbol value: 399
+Symbol value: 839
+
+Rule value: 257
+Symbol value: 257
+Symbol value: 115
+Symbol value: 116
+
+Rule value: 258
+Symbol value: 258
+Symbol value: 121
+Symbol value: 32
+
+Rule value: 259
+Symbol value: 259
+Symbol value: 101
+Symbol value: 32
+
+Rule value: 260
+Symbol value: 260
+Symbol value: 116
+Symbol value: 114
+
+Rule value: 261
+Symbol value: 261
+Symbol value: 32
+Symbol value: 112
+
+Rule value: 262
+Symbol value: 262
+Symbol value: 97
+Symbol value: 114
+
+Rule value: 263
+Symbol value: 263
+Symbol value: 32
+Symbol value: 116
+
+Rule value: 265
+Symbol value: 265
+Symbol value: 84
+Symbol value: 104
+Symbol value: 259
+
+Rule value: 266
+Symbol value: 266
+Symbol value: 115
+Symbol value: 101
+
+Rule value: 300
+Symbol value: 300
+Symbol value: 839
+Symbol value: 118
+Symbol value: 259
+Symbol value: 266
+Symbol value: 110
+Symbol value: 116
+Symbol value: 263
+Symbol value: 111
+Symbol value: 32
+Symbol value: 109
+Symbol value: 101
+Symbol value: 10
+
+Rule value: 301
+Symbol value: 301
+Symbol value: 32
+Symbol value: 97
+
+Rule value: 302
+Symbol value: 302
+Symbol value: 110
+Symbol value: 100
+
+Rule value: 324
+Symbol value: 324
+Symbol value: 65
+Symbol value: 261
+Symbol value: 262
+Symbol value: 260
+Symbol value: 105
+Symbol value: 100
+Symbol value: 103
+Symbol value: 259
+Symbol value: 105
+Symbol value: 110
+Symbol value: 301
+Symbol value: 261
+Symbol value: 101
+Symbol value: 262
+Symbol value: 263
+Symbol value: 114
+Symbol value: 101
+Symbol value: 101
+Symbol value: 46
+Symbol value: 10
+Symbol value: 10
+Symbol value: 265
+
+Rule value: 325
+Symbol value: 325
+Symbol value: 105
+Symbol value: 114
+
+Rule value: 359
+Symbol value: 359
+Symbol value: 300
+Symbol value: 84
+
+Rule value: 360
+Symbol value: 360
+Symbol value: 114
+Symbol value: 101
+
+Rule value: 361
+Symbol value: 361
+Symbol value: 115
+Symbol value: 44
+
+Rule value: 398
+Symbol value: 398
+Symbol value: 119
+Symbol value: 111
+Symbol value: 263
+Symbol value: 117
+Symbol value: 114
+Symbol value: 116
+Symbol value: 108
+Symbol value: 259
+Symbol value: 100
+Symbol value: 111
+Symbol value: 118
+Symbol value: 101
+Symbol value: 361
+Symbol value: 301
+Symbol value: 302
+Symbol value: 10
+Symbol value: 324
+
+Rule value: 399
+Symbol value: 399
+Symbol value: 116
+Symbol value: 104
+
+Rule value: 434
+Symbol value: 434
+Symbol value: 111
+Symbol value: 117
+Symbol value: 114
+
+Rule value: 435
+Symbol value: 435
+Symbol value: 99
+Symbol value: 111
+
+Rule value: 436
+Symbol value: 436
+Symbol value: 325
+Symbol value: 100
+
+Rule value: 438
+Symbol value: 438
+Symbol value: 525
+Symbol value: 84
+
+Rule value: 489
+Symbol value: 489
+Symbol value: 583
+Symbol value: 102
+
+Rule value: 524
+Symbol value: 524
+Symbol value: 617
+Symbol value: 70
+
+Rule value: 525
+Symbol value: 525
+Symbol value: 361
+Symbol value: 10
+
+Rule value: 534
+Symbol value: 534
+Symbol value: 434
+Symbol value: 32
+Symbol value: 435
+Symbol value: 108
+Symbol value: 108
+Symbol value: 258
+Symbol value: 98
+Symbol value: 436
+Symbol value: 438
+
+Rule value: 583
+Symbol value: 583
+Symbol value: 104
+Symbol value: 360
+Symbol value: 259
+Symbol value: 70
+Symbol value: 360
+Symbol value: 110
+Symbol value: 99
+Symbol value: 104
+Symbol value: 32
+Symbol value: 104
+Symbol value: 101
+Symbol value: 110
+Symbol value: 438
+Symbol value: 398
+
+Rule value: 617
+Symbol value: 617
+Symbol value: 399
+Symbol value: 300
+
+Rule value: 618
+Symbol value: 618
+Symbol value: 105
+Symbol value: 120
+
+Rule value: 620
+Symbol value: 620
+Symbol value: 105
+Symbol value: 110
+Symbol value: 103
+
+Rule value: 691
+Symbol value: 691
+Symbol value: 816
+Symbol value: 115
+
+Rule value: 725
+Symbol value: 725
+Symbol value: 617
+Symbol value: 83
+
+Rule value: 728
+Symbol value: 728
+Symbol value: 101
+Symbol value: 118
+Symbol value: 101
+Symbol value: 110
+
+Rule value: 729
+Symbol value: 729
+Symbol value: 301
+Symbol value: 32
+
+Rule value: 730
+Symbol value: 730
+Symbol value: 115
+Symbol value: 119
+
+Rule value: 733
+Symbol value: 733
+Symbol value: 620
+Symbol value: 44
+Symbol value: 10
+
+Rule value: 746
+Symbol value: 746
+Symbol value: 618
+Symbol value: 32
+Symbol value: 103
+Symbol value: 101
+Symbol value: 101
+Symbol value: 266
+Symbol value: 729
+Symbol value: 108
+Symbol value: 97
+Symbol value: 121
+Symbol value: 733
+Symbol value: 70
+
+Rule value: 816
+Symbol value: 816
+Symbol value: 105
+Symbol value: 118
+Symbol value: 259
+Symbol value: 103
+Symbol value: 111
+Symbol value: 108
+Symbol value: 100
+Symbol value: 32
+Symbol value: 114
+Symbol value: 620
+Symbol value: 525
+Symbol value: 70
+Symbol value: 534
+Symbol value: 583
+
+Rule value: 839
+Symbol value: 839
+Symbol value: 32
+Symbol value: 100
+Symbol value: 97
+Symbol value: 258
+Symbol value: 111
+Symbol value: 102
+Symbol value: 32
+Symbol value: 67
+Symbol value: 104
+Symbol value: 114
+Symbol value: 105
+Symbol value: 257
+Symbol value: 109
+Symbol value: 97
+Symbol value: 115
+Symbol value: 44
+Symbol value: 10
+Symbol value: 77
+Symbol value: 258
+Symbol value: 260
+Symbol value: 117
+Symbol value: 259
+Symbol value: 108
+Symbol value: 111
+
+rule-map_value 256
+rule-map_value 257
+
 -1

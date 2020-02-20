@@ -41,6 +41,7 @@ int main(int argc, char **argv)
 
     if(global_options == 4){
         int bytes = decompress(stdin, stdout);
+        printf("\n");
         printf("%d\n", bytes);
     }
 

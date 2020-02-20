@@ -58,7 +58,7 @@ SYMBOL *new_symbol(int value, SYMBOL *rule) {
         abort();
     }
 
-    printf("Pointer: %p, num_symbols: %d, rule: %p\n",storage_pointer,num_symbols,rule);
+    // printf("Pointer: %p, num_symbols: %d, rule: %p\n",storage_pointer,num_symbols,rule);
 
     storage_pointer->value = value;
 
@@ -75,7 +75,7 @@ SYMBOL *new_symbol(int value, SYMBOL *rule) {
         storage_pointer->prev = NULL;
         storage_pointer->nextr = NULL;
         storage_pointer->prevr = NULL;
-        rule->refcnt++;
+        // rule->refcnt++;
         storage_pointer->refcnt = 0;
     }
 

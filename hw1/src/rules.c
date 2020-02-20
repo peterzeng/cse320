@@ -100,6 +100,7 @@ void add_rule(SYMBOL *rule) {
         main_rule = rule;
         main_rule->nextr = rule;
         main_rule->prevr = rule;
+        // printf("THE VALUE OF THIS MAIN_RULE IS: %d\n",main_rule->value);
     }
     else if (main_rule != NULL){
         rule->prevr = main_rule->prevr;

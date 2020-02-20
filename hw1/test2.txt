@@ -1,0 +1,73 @@
+Rule value: 256
+Symbol value: 256
+Symbol value: 265
+Symbol value: 266
+Symbol value: 261
+Symbol value: 44
+Symbol value: 10
+Symbol value: 65
+Symbol value: 261
+Symbol value: 32
+Symbol value: 265
+Symbol value: 272
+Symbol value: 85
+Symbol value: 112
+Symbol value: 111
+Symbol value: 110
+Symbol value: 266
+Symbol value: 257
+Symbol value: 108
+Symbol value: 271
+Symbol value: 116
+Symbol value: 101
+Symbol value: 100
+Symbol value: 261
+Symbol value: 10
+Symbol value: 270
+Symbol value: 271
+Symbol value: 272
+
+Rule value: 257
+Symbol value: 257
+Symbol value: 32
+Symbol value: 115
+
+Rule value: 261
+Symbol value: 261
+Symbol value: 257
+Symbol value: 104
+Symbol value: 101
+Symbol value: 101
+Symbol value: 116
+
+Rule value: 265
+Symbol value: 265
+Symbol value: 270
+Symbol value: 108
+Symbol value: 105
+Symbol value: 116
+
+Rule value: 266
+Symbol value: 266
+Symbol value: 32
+Symbol value: 97
+
+Rule value: 270
+Symbol value: 270
+Symbol value: 73
+Symbol value: 257
+
+Rule value: 271
+Symbol value: 271
+Symbol value: 105
+Symbol value: 116
+
+Rule value: 272
+Symbol value: 272
+Symbol value: 46
+Symbol value: 10
+
+rule-map_value 256
+rule-map_value 257
+
+-1

@@ -58,42 +58,36 @@ int compress(FILE *in, FILE *out, int bsize) {
     return EOF;
 }
 
-// void print_rules(void) {
-//     SYMBOL *rule = main_rule;
-//     SYMBOL *symbol;
+// TESTING
+int count = 0;
+void print_rules(void) {
+    printf("Number of blocks: %d\n", count);
+    SYMBOL *rule = main_rule;
+    SYMBOL *symbol;
 
-//     while (1) {
-//         symbol = rule;
-//         printf("Rule value: %d\n", symbol->value);
+    while (1) {
+        symbol = rule;
+        printf("Rule value: %d\n", symbol->value);
 
-//         while(1) {
-//             printf("Symbol value: %d\n", symbol->value);
-//             symbol = symbol->next;
+        while(1) {
+            printf("Symbol value: %d\n", symbol->value);
+            symbol = symbol->next;
 
-//             if (symbol == rule)
-//                 break;
-//         }
-//         printf("\n");
-//         rule = rule->nextr;
+            if (symbol == rule)
+                break;
+        }
+        printf("\n");
+        rule = rule->nextr;
 
-//         if (rule == main_rule)
-//             break;
-//     }
+        if (rule == main_rule)
+            break;
+    }
 
-//     printf("rule-map_valuen%d\n", (*(rule_map+256))->value);
-//     printf("rule-map_valuen%d\n", (*(rule_map+257))->value);
-//     printf("rule-map_valuen%d\n", (*(rule_map+271))->value);
+    // printf("rule-map_valuen%d\n", (*(rule_map+256))->value);
+    // printf("rule-map_valuen%d\n", (*(rule_map+257))->value);
 
-// }
+}
 
-
-// void expand_rules(SYMBOL* rule, FILE *out){
-//     if (rule->nextr == main_rule){
-//         return;
-//     } else if (rule->next ){
-
-//     }
-// }
 
 void expand_rules(SYMBOL* rule, FILE *out){
     // TESTING
@@ -158,7 +152,7 @@ int decompress(FILE *in, FILE *out) {
     SYMBOL* sentinel;
 
     // The pointer to the symbol that was last made
-    SYMBOL* last_symbol;
+    // SYMBOL* last_symbol;
 
     // The pointer to the newest symbol made
     SYMBOL* new;
@@ -171,16 +165,23 @@ int decompress(FILE *in, FILE *out) {
             // printf("test\n");
             // print_rules();
             expand_rules(main_rule,out);
-            printf("\n");
+            fflush(out);
+
+            // printf("\n");
             check = fgetc(start);
+
+            // printf("\n\ncheck: %d\n", check);
             if (check == 0x82){
                 // REACHED END TRANSMISSION
-                printf("REACHED END OF TRANSMISSION\n");
-                bytes_written++;
-                fflush(stdout);
+                // printf("REACHED END OF TRANSMISSION\n");
+                // bytes_written++;
+                fflush(out);
                 break;
             } else if (check == 0x83){
                 start_block = 1;
+                end_block = 0;
+                new_rule_check = 1;
+                new_symbol_check = 1;
                 continue;
             } else {
                 return EOF;
@@ -198,7 +199,7 @@ int decompress(FILE *in, FILE *out) {
                 // printf("Should start\n");
                 start_transmission = 1;
                 new_rule_check = 1;
-                bytes_written++;
+                // bytes_written++;
                 continue;
             } else if (check == EOF) {
                 return EOF;
@@ -215,10 +216,10 @@ int decompress(FILE *in, FILE *out) {
 
         if (!start_block){
             if (check == 0x83 && new_rule_check){
-                printf("START OF BLOCK\n");
+                // printf("START OF BLOCK\n");
                 start_block = 1;
                 new_rule_check = 1;
-                bytes_written++;
+                // bytes_written++;
                 continue;
             } else if (check == EOF){
                 return EOF;
@@ -228,6 +229,7 @@ int decompress(FILE *in, FILE *out) {
 
 // EVERY BLOCK WE NEED TO INITIALIZE SYMBOLS AND RULES
         if (start_block){
+            // printf("reinitialized\n");
             init_rules();
             init_symbols();
 
@@ -236,9 +238,10 @@ int decompress(FILE *in, FILE *out) {
                 check = fgetc(start);
                 if (check == 0x84 && new_symbol_check){
                     // REACHED END OF BLOCK
-                    printf("REACHED END OFF BLOCK\n");
+                    // printf("REACHED END OFF BLOCK\n");
+                    start_block = 0;
                     end_block = 1;
-                    bytes_written++;
+                    // bytes_written++;
                     break;
                 }
                 // printf("check: %d\n", check);
@@ -277,11 +280,11 @@ int decompress(FILE *in, FILE *out) {
 
                     } else if ((check & 0b10000000) != 0b10000000) {
                         final_utf = check & 0b01111111;
-                        printf("1 byte value: %d\n",final_utf);
+                        // printf("1 byte value: %d\n",final_utf);
                         new = new_symbol(final_utf, sentinel);
 
-                        printf("Sentinel: %d\n", sentinel->value);
-                        printf("Last symbol: %d\n", sentinel->prev->value);
+                        // printf("Sentinel: %d\n", sentinel->value);
+                        // printf("Last symbol: %d\n", sentinel->prev->value);
 
                         sentinel->prev->next = new;
                         new->prev = sentinel->prev;
@@ -301,20 +304,19 @@ int decompress(FILE *in, FILE *out) {
                         final_utf = final_utf << 6;
                         final_utf = final_utf | check;
                         // printf("test: %d \n",final_utf);
-                        printf("nrc, finalutf: %d %d \n", new_rule_check, final_utf);
+                        // printf("nrc, finalutf: %d %d \n", new_rule_check, final_utf);
 
                         // WE'RE ADDING A NEW RULE
                         if ((new_rule_check) && (final_utf >= FIRST_NONTERMINAL)){
-                            printf("ADDING NEW RULE\n");
+                            // printf("ADDING NEW RULE\n");
                             // printf("nrc%d\n",FIRST_NONTERMINAL);
                             sentinel = new_rule(final_utf);
-                            printf("New rule value: %d\n", final_utf);
+                            // printf("New rule value: %d\n", final_utf);
                             add_rule(sentinel);
-                            printf("Main rule value: %d\n", main_rule->value);
+                            // printf("Main rule value: %d\n", main_rule->value);
 
                             *(rule_map+final_utf) = sentinel;
-                            last_symbol = sentinel;
-                            printf("last_symbol: %p\n", last_symbol);
+                            // printf("last_symbol: %p\n", last_symbol);
 
                             new_rule_check = 0;
                             new_symbol_check = 1;
@@ -347,17 +349,16 @@ int decompress(FILE *in, FILE *out) {
                         }
                         // if (final_utf < )
                         // new_symbol(final_utf)
-                        printf("check value: %d\n",final_utf);
+                        // printf("check value: %d\n",final_utf);
 
                        if ((new_rule_check) && (final_utf >= FIRST_NONTERMINAL)){
                             // printf("nrc%d\n",FIRST_NONTERMINAL);
-                            printf("ADDING NEW RULE\n");
+                            // printf("ADDING NEW RULE\n");
                             sentinel = new_rule(final_utf);
                             add_rule(sentinel);
                             *(rule_map+final_utf) = sentinel;
 
-                            last_symbol = sentinel;
-                            printf("last_symbol: %p\n", last_symbol);
+                            // printf("last_symbol: %p\n", last_symbol);
                             new_rule_check = 0;
 
                             new_symbol_check = 1;
@@ -384,8 +385,7 @@ int decompress(FILE *in, FILE *out) {
 
         }
     }
-    printf("The number of bytes is: %d\n", bytes_written);
-    return EOF;
+    return bytes_written;
 }
 
 
@@ -538,4 +538,3 @@ int validargs(int argc, char **argv)
     // To be implemented.
     return -1;
 }
-
