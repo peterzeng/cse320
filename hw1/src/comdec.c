@@ -58,6 +58,61 @@ int compress(FILE *in, FILE *out, int bsize) {
     return EOF;
 }
 
+// void print_rules(void) {
+//     SYMBOL *rule = main_rule;
+//     SYMBOL *symbol;
+
+//     while (1) {
+//         symbol = rule;
+//         printf("Rule value: %d\n", symbol->value);
+
+//         while(1) {
+//             printf("Symbol value: %d\n", symbol->value);
+//             symbol = symbol->next;
+
+//             if (symbol == rule)
+//                 break;
+//         }
+//         printf("\n");
+//         rule = rule->nextr;
+
+//         if (rule == main_rule)
+//             break;
+//     }
+
+//     printf("rule-map_valuen%d\n", (*(rule_map+256))->value);
+//     printf("rule-map_valuen%d\n", (*(rule_map+257))->value);
+//     printf("rule-map_valuen%d\n", (*(rule_map+271))->value);
+
+// }
+
+
+// void expand_rules(SYMBOL* rule, FILE *out){
+//     if (rule->nextr == main_rule){
+//         return;
+//     } else if (rule->next ){
+
+//     }
+// }
+
+void expand_rules(SYMBOL* rule, FILE *out){
+    // TESTING
+    // printf("test value: %d\n", check->value);
+    SYMBOL* symbol = rule->next;
+    while (symbol != rule){
+        // printf("symbol value: %d\n", symbol->value);
+        if (symbol->value < FIRST_NONTERMINAL){
+            fputc(symbol->value, out);
+            // expand_rules(rule->next, out);
+            symbol = symbol->next;
+            // rule = rule->next;
+        } else {
+            expand_rules(*(rule_map+(symbol->value)), out);
+            symbol = symbol->next;
+        }
+    }
+
+}
 /**
  * Main decompression function.
  * Reads a compressed data transmission from an input stream, expands it,
@@ -70,112 +125,266 @@ int compress(FILE *in, FILE *out, int bsize) {
  */
 int decompress(FILE *in, FILE *out) {
     FILE *start = in;
-    init_symbols();
 
-    // int bytes = 0;
+    int bytes_written = 0;
+
+    // If start of transmission
+    int start_transmission = 0;
 
     // If start of block
     int start_block = 0;
 
+    // If End block
+    int end_block = 0;
     // UTF to be translated
     int final_utf = 0;
 
     // Num of bytes in string
     // int num_bytes = 0;
 
-    // New symbol ( as opposed to finding the rest of an old symbol )
-    int new_symbol = 1;
+    // New symbol ( as opposed to finding the rest of an old symbol / starts at true)
+    int new_symbol_check = 1;
 
+    // bytes left to check in symbol, if new_symbol_check == 0
     int bytes_left = 0;
 
+    // If we're looking for a new rule, only after we find rd 0x85
     int new_rule_check = 0;
 
+    // The current byte we're checking
     int check = 0;
+
+    // The current head of the rule that symbols are added to
+    SYMBOL* sentinel;
+
+    // The pointer to the symbol that was last made
+    SYMBOL* last_symbol;
+
+    // The pointer to the newest symbol made
+    SYMBOL* new;
+
     // printf("test: %d", check);
     // CONVERTING TO UTF-8 TO VALUES
     while (check != EOF){
-        // printf("test\n");
-        check = fgetc(start);
 
-        // printf("test\n");
-        if (!start_block){
-            if (check == 0x83){
+        if (end_block){
+            // printf("test\n");
+            // print_rules();
+            expand_rules(main_rule,out);
+            printf("\n");
+            check = fgetc(start);
+            if (check == 0x82){
+                // REACHED END TRANSMISSION
+                printf("REACHED END OF TRANSMISSION\n");
+                bytes_written++;
+                fflush(stdout);
+                break;
+            } else if (check == 0x83){
                 start_block = 1;
-                new_rule_check = 1;
                 continue;
+            } else {
+                return EOF;
+            }
+        }
+// THIS LOGIC PREVENTS CALLING fgetc() AN INACCURATE NUMBER OF TIMES
+        if (!start_transmission || !start_block){
+            check = fgetc(start);
+        }
+
+// SHOULD BE WORKING
+
+        if (!start_transmission){
+            if (check == 0x81){
+                // printf("Should start\n");
+                start_transmission = 1;
+                new_rule_check = 1;
+                bytes_written++;
+                continue;
+            } else if (check == EOF) {
+                return EOF;
             }
             continue;
         }
 
-        if (new_symbol){
-            if (check == 0x84){
-                // END OF BLOCK REACHED
-                break;
+// SHOULD BE WORKING
 
-            } else if (check == 0x85){
-                // NEW BLOCK
+
+// CAN HAVE ONE OR MORE BLOCKS
+// CAN ONLY BE A NEW BLOCK IF IT'S A NEW SYMBOL
+// ONC NEW BLOCK LOOK FOR NEW RULE: n_r_c == 1
+
+        if (!start_block){
+            if (check == 0x83 && new_rule_check){
+                printf("START OF BLOCK\n");
+                start_block = 1;
                 new_rule_check = 1;
-                printf("\n");
+                bytes_written++;
                 continue;
-            } else if ((check & 0b11110000) == 0b11110000){
-                new_symbol = 0;
-                bytes_left = 3;
-                final_utf = check & 0b00000111;
+            } else if (check == EOF){
+                return EOF;
+            }
+            continue;
+        }
 
-            } else if ((check & 0b11100000) == 0b11100000){
-                new_symbol = 0;
-                bytes_left = 2;
-                final_utf = check & 0b00001111;
+// EVERY BLOCK WE NEED TO INITIALIZE SYMBOLS AND RULES
+        if (start_block){
+            init_rules();
+            init_symbols();
 
-            } else if ((check & 0b11000000) == 0b11000000){
-                new_symbol = 0;
-                bytes_left = 1;
-                final_utf = check & 0b00011111;
+// ESSENTIALLY GO UNTIL WE REACH END OF BLOCK
+            while (!((check == 0x84) & new_symbol_check)){
+                check = fgetc(start);
+                if (check == 0x84 && new_symbol_check){
+                    // REACHED END OF BLOCK
+                    printf("REACHED END OFF BLOCK\n");
+                    end_block = 1;
+                    bytes_written++;
+                    break;
+                }
+                // printf("check: %d\n", check);
+                if (new_symbol_check){
+                    // printf("new_symbo_check, check %d %d\n",new_symbol_check, check);
+                    if (check == 0x85){
+                        // IF NEW RULE DELIMITER, WE NEED NEW RULE OBVIOUSLY
+                        new_rule_check = 1;
+                        bytes_written++;
 
-            } else {
-                final_utf = check & 0b01111111;
-                printf("%d ",final_utf);
-                new_symbol
+                        // // IN ORDER TO GET NEXT BYTE, WE CALL FGETC
+                        // check = fgetc(start);
+                        // // WE GOT THE FIRST BYTE OF A RULE SO new_symbol_check = 0
+                        // new_symbol_check = 0;
+                        // bytes_left = 1;
+
+
+                    } else if ((check & 0b11110000) == 0b11110000){
+                        new_symbol_check = 0;
+                        bytes_left = 3;
+                        final_utf = check & 0b00000111;
+                        // check = fgetc(start);
+
+                    } else if ((check & 0b11100000) == 0b11100000){
+                        new_symbol_check = 0;
+                        bytes_left = 2;
+                        final_utf = check & 0b00001111;
+                        // check = fgetc(start);
+
+                    } else if ((check & 0b11000000) == 0b11000000){
+                        // printf("2 bytes\n");
+                        new_symbol_check = 0;
+                        bytes_left = 1;
+                        final_utf = check & 0b00011111;
+                        // check = fgetc(start);
+
+                    } else if ((check & 0b10000000) != 0b10000000) {
+                        final_utf = check & 0b01111111;
+                        printf("1 byte value: %d\n",final_utf);
+                        new = new_symbol(final_utf, sentinel);
+
+                        printf("Sentinel: %d\n", sentinel->value);
+                        printf("Last symbol: %d\n", sentinel->prev->value);
+
+                        sentinel->prev->next = new;
+                        new->prev = sentinel->prev;
+
+                        sentinel->prev = new;
+                        new->next = sentinel;
+
+                        bytes_written++;
+                        // check = fgetc(start);
+                    } else {
+                        return EOF;
+                    }
+
+                } else if (!new_symbol_check){
+                    if (bytes_left == 1){
+                        check = check & 0b00111111;
+                        final_utf = final_utf << 6;
+                        final_utf = final_utf | check;
+                        // printf("test: %d \n",final_utf);
+                        printf("nrc, finalutf: %d %d \n", new_rule_check, final_utf);
+
+                        // WE'RE ADDING A NEW RULE
+                        if ((new_rule_check) && (final_utf >= FIRST_NONTERMINAL)){
+                            printf("ADDING NEW RULE\n");
+                            // printf("nrc%d\n",FIRST_NONTERMINAL);
+                            sentinel = new_rule(final_utf);
+                            printf("New rule value: %d\n", final_utf);
+                            add_rule(sentinel);
+                            printf("Main rule value: %d\n", main_rule->value);
+
+                            *(rule_map+final_utf) = sentinel;
+                            last_symbol = sentinel;
+                            printf("last_symbol: %p\n", last_symbol);
+
+                            new_rule_check = 0;
+                            new_symbol_check = 1;
+                            bytes_written++;
+
+                        } else if (!new_rule_check){
+                            // printf("does this not work? \n");
+
+                            new = new_symbol(final_utf, sentinel);
+
+                            sentinel->prev->next = new;
+                            new->prev = sentinel->prev;
+
+                            sentinel->prev = new;
+                            new->next = sentinel;
+                            new_symbol_check = 1;
+                            bytes_written++;
+                        };
+
+
+                    } else if (bytes_left > 1 && bytes_left <= 3){
+                        check = check & 0b00111111;
+                        final_utf = final_utf << 6;
+                        final_utf = final_utf | check;
+                        for (int i = 0; i < bytes_left-1; i++){
+                            check = fgetc(start);
+                            check = check & 0b00111111;
+                            final_utf = final_utf << 6;
+                            final_utf = final_utf | check;
+                        }
+                        // if (final_utf < )
+                        // new_symbol(final_utf)
+                        printf("check value: %d\n",final_utf);
+
+                       if ((new_rule_check) && (final_utf >= FIRST_NONTERMINAL)){
+                            // printf("nrc%d\n",FIRST_NONTERMINAL);
+                            printf("ADDING NEW RULE\n");
+                            sentinel = new_rule(final_utf);
+                            add_rule(sentinel);
+                            *(rule_map+final_utf) = sentinel;
+
+                            last_symbol = sentinel;
+                            printf("last_symbol: %p\n", last_symbol);
+                            new_rule_check = 0;
+
+                            new_symbol_check = 1;
+                            bytes_written++;
+
+                        } else if (!new_rule_check){
+                            // printf("does this not work? \n");
+
+                            new = new_symbol(final_utf, sentinel);
+                            sentinel->prev->next = new;
+                            new->prev = sentinel->prev;
+
+                            sentinel->prev = new;
+                            new->next = sentinel;
+                            new_symbol_check = 1;
+                            bytes_written++;
+                        };
+                    } else {
+                        // ERROR
+                        return EOF;
+                    }
+                }
             }
 
-        } else if (!new_symbol){
-            if (bytes_left == 1){
-                check = check & 0b00111111;
-                final_utf = final_utf << 6;
-                final_utf = final_utf | check;
-                printf("%d ",final_utf);
-
-                if ((new_rule_check) & (final_utf > FIRST_NONTERMINAL)){
-                    SYMBOL *current_rule = new_rule(final_utf);
-                    add_rule(current_rule);
-                }
-
-                new_symbol = 1;
-                new_rule_check = 0;
-            } else {
-                check = check & 0b00111111;
-                final_utf = final_utf << 6;
-                final_utf = final_utf | check;
-                for (int i = 0; i < bytes_left-1; i++){
-                    check = fgetc(start);
-                    check = check & 0b00111111;
-                    final_utf = final_utf << 6;
-                    final_utf = final_utf | check;
-                }
-                // if (final_utf < )
-                // new_symbol(final_utf)
-                printf("%d ",final_utf);
-
-                if ((new_rule_check) & (final_utf > FIRST_NONTERMINAL)){
-                    SYMBOL *current_rule = new_rule(final_utf);
-                    add_rule(current_rule);
-                }
-                new_symbol = 1;
-                new_rule_check = 0;
-            }
         }
     }
-    printf("\n");
+    printf("The number of bytes is: %d\n", bytes_written);
     return EOF;
 }
 

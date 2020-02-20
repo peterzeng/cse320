@@ -72,16 +72,15 @@ void init_rules(void) {
  */
 SYMBOL *new_rule(int v) {
     // To be implemented.
-    SYMBOL new;
+    SYMBOL *sym = symbol_storage + (num_symbols++);
 
-    if (v >= FIRST_NONTERMINAL){
-        new.value = v;
-        new.rule = &new;
-        new.next = &new;
-        new.prev = &new;
-    }
-    SYMBOL *temp = &new;
-    return temp;
+    sym->value = v;
+    sym->rule = sym;
+    sym->next = sym;
+    sym->prev = sym;
+
+
+    return sym;
 }
 
 /**

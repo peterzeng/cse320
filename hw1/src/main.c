@@ -31,16 +31,20 @@ int main(int argc, char **argv)
     // printf("%d\n", ret);
 
 // TESTING
-    decompress(stdin, stdout);
 // TESTING
 
-    // if(validargs(argc, argv))
-    //     USAGE(*argv, EXIT_FAILURE);
-    // debug("Options: 0x%x", global_options);
-    // if(global_options & 1)
-    //     USAGE(*argv, EXIT_SUCCESS);
+    if(validargs(argc, argv))
+        USAGE(*argv, EXIT_FAILURE);
+    debug("Options: 0x%x", global_options);
+    if(global_options & 1)
+        USAGE(*argv, EXIT_SUCCESS);
 
-    // return EXIT_SUCCESS;
+    if(global_options == 4){
+        int bytes = decompress(stdin, stdout);
+        printf("%d\n", bytes);
+    }
+
+    return EXIT_SUCCESS;
 }
 
 /*

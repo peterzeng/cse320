@@ -49,22 +49,40 @@ void init_symbols(void) {
  */
 SYMBOL *new_symbol(int value, SYMBOL *rule) {
     // To be implemented.
-    SYMBOL new;
 
-    new.value = value;
 
-    if (value < FIRST_NONTERMINAL){
-        new.rule = NULL;
-        new.next = NULL;
-        new.prev = NULL;
-        new.nextr = NULL;
-        new.prevr = NULL;
-    } else if (value >= FIRST_NONTERMINAL){
-        new.rule = rule;
+    SYMBOL* storage_pointer = (symbol_storage + num_symbols++);
+
+    if (num_symbols == MAX_SYMBOLS){
+        fprintf(stderr, "Symbol storage  is exhausted and a new symbol can't be created");
+        abort();
     }
 
-    SYMBOL *temp = &new;
-    return temp;
+    printf("Pointer: %p, num_symbols: %d, rule: %p\n",storage_pointer,num_symbols,rule);
+
+    storage_pointer->value = value;
+
+    if (value < FIRST_NONTERMINAL){
+        storage_pointer->rule = NULL;
+        storage_pointer->next = NULL;
+        storage_pointer->prev = NULL;
+        storage_pointer->nextr = NULL;
+        storage_pointer->prevr = NULL;
+        storage_pointer->refcnt = 0;
+    } else if (value >= FIRST_NONTERMINAL){
+        storage_pointer->rule = rule;
+        storage_pointer->next = NULL;
+        storage_pointer->prev = NULL;
+        storage_pointer->nextr = NULL;
+        storage_pointer->prevr = NULL;
+        rule->refcnt++;
+        storage_pointer->refcnt = 0;
+    }
+
+
+
+    // SYMBOL *temp = &new;
+    return storage_pointer;
 }
 
 /**
