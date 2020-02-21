@@ -89,9 +89,10 @@ SYMBOL *digram_get(int v1, int v2) {
  */
 int digram_delete(SYMBOL *digram) {
     // To be implemented.
+    // int c = &TOMBSTONE;
     for (int i = 0; i < MAX_DIGRAMS; i++){
         if (*(digram_table+i) == digram){
-            (*(digram_table+i))->value = TOMBSTONE;
+            (*(digram_table+i)) = TOMBSTONE;
             return 0;
         }
     }

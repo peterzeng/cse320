@@ -158,7 +158,6 @@ void unref_rule(SYMBOL *rule) {
     // To be implemented.
     if (rule != NULL && rule > 0){
         rule->refcnt--;
-        return rule;
     } else if (rule <= 0){
         fprintf(stderr, "Decreasing the refcnt will make it negative!\n");
         abort();

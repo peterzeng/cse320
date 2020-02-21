@@ -65,9 +65,11 @@ int compress(FILE *in, FILE *out, int bsize) {
         init_rules();
         init_digram_hash();
         for (int i = 0; i < bsize; i++){
-            insert_after(check);
+            SYMBOL* new = new_symbol(check, main_rule);
+            insert_after(new, new->prev);
         }
     }
+    return EOF;
 
 }
 
