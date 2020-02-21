@@ -55,7 +55,20 @@
  */
 int compress(FILE *in, FILE *out, int bsize) {
     // To be implemented.
-    return EOF;
+    fputc(0x81, out);
+    FILE* start = in;
+    int check = fgetc(start);
+
+    while (check != EOF){
+        // NEW BLOCK
+        init_symbols();
+        init_rules();
+        init_digram_hash();
+        for (int i = 0; i < bsize; i++){
+            insert_after(check);
+        }
+    }
+
 }
 
 // TESTING

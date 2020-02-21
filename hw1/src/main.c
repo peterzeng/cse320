@@ -39,10 +39,21 @@ int main(int argc, char **argv)
     if(global_options & 1)
         USAGE(*argv, EXIT_SUCCESS);
 
-    if(global_options == 4){
+    if (global_options == 4){
         int bytes = decompress(stdin, stdout);
-        printf("\n");
-        printf("%d\n", bytes);
+        if (bytes == EOF){
+            return EXIT_FAILURE;
+        } else {
+            return EXIT_SUCCESS;
+        }
+    } else if ((global_options & 2) == 2){
+        int blocksize = global_options >> 16;
+        int bytes = compress(stdin, stdout, blocksize);
+        if (bytes == EOF){
+            return EXIT_FAILURE;
+        } else {
+            return EXIT_SUCCESS;
+        }
     }
 
     return EXIT_SUCCESS;

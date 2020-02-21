@@ -14,6 +14,9 @@
  */
 void init_digram_hash(void) {
     // To be implemented.
+    for (int i = 0; i < MAX_DIGRAMS; i++){
+        *(digram_table+i) = NULL;
+    }
 }
 
 /**
@@ -26,7 +29,42 @@ void init_digram_hash(void) {
  */
 SYMBOL *digram_get(int v1, int v2) {
     // To be implemented.
+    int index = DIGRAM_HASH(v1, v2);
+    int indexCopy = index;
+    printf("test: %d\n", index);
+
+    // LOOP TO FIND DIGRAM
+    SYMBOL* start = *(digram_table+index);
+
+    if ((start->value == v1) && (start->next->value == v2)){
+        return start;
+    } else if (start == NULL){
+        return NULL;
+    } else {
+        while (index < MAX_DIGRAMS){
+            if (start == NULL){
+                return NULL;
+            } else if ((start->value != v1)){
+                index++;
+            } else if ((start->value == v1) && (start->next->value == v2)){
+                return start;
+            }
+        }
+
+        if (index >= MAX_DIGRAMS){
+            index = 0;
+        }
+        while (index < indexCopy){
+            if (start == NULL){
+                return NULL;
+            } else if ((start->value != v1)){
+                index++;
+            } else if ((start->value == v1) && (start->next->value == v2)){
+                return start;
+            }
+        }
     return NULL;
+    }
 }
 
 /**
@@ -51,6 +89,12 @@ SYMBOL *digram_get(int v1, int v2) {
  */
 int digram_delete(SYMBOL *digram) {
     // To be implemented.
+    for (int i = 0; i < MAX_DIGRAMS; i++){
+        if (*(digram_table+i) == digram){
+            (*(digram_table+i))->value = TOMBSTONE;
+            return 0;
+        }
+    }
     return -1;
 }
 
@@ -65,5 +109,33 @@ int digram_delete(SYMBOL *digram) {
  */
 int digram_put(SYMBOL *digram) {
     // To be implemented.
+    if (digram->next == NULL){
+        return -1;
+    }
+    int v1 = digram->value;
+    int v2 = digram->next->value;
+    int index = DIGRAM_HASH(v1, v2);
+    int indexCopy = index;
+    SYMBOL* start = *(digram_table+index);
+
+    while (index < MAX_DIGRAMS){
+        if (start == digram){
+            return 1;
+        } else if (start == NULL || start == TOMBSTONE){
+            start = digram;
+            return 0;
+        }
+    }
+    if (index >= MAX_DIGRAMS){
+        index = 0;
+    }
+    while (index < indexCopy){
+        if (start == digram){
+            return 1;
+        } else if (start == NULL || start == TOMBSTONE){
+            start = digram;
+            return 0;
+        }
+    }
     return -1;
 }

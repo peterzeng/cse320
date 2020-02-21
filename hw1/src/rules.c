@@ -122,6 +122,12 @@ void add_rule(SYMBOL *rule) {
  * the disposition of those symbols is the responsibility of the caller.
  */
 void delete_rule(SYMBOL *rule) {
+    if (rule->value == 0){
+        recycle_symbol(rule);
+    } else if (rule !=  NULL){
+        rule->prev->next = rule->next;
+        rule->next->prev = rule->prev;
+    }
     // To be implemented.
 }
 
@@ -133,7 +139,11 @@ void delete_rule(SYMBOL *rule) {
  */
 SYMBOL *ref_rule(SYMBOL *rule) {
     // To be implemented.
-    return NULL;
+    if (rule != NULL){
+        rule->refcnt++;
+        return rule;
+    } else
+       return NULL;
 }
 
 /**
@@ -146,4 +156,12 @@ SYMBOL *ref_rule(SYMBOL *rule) {
  */
 void unref_rule(SYMBOL *rule) {
     // To be implemented.
+    if (rule != NULL && rule > 0){
+        rule->refcnt--;
+        return rule;
+    } else if (rule <= 0){
+        fprintf(stderr, "Decreasing the refcnt will make it negative!\n");
+        abort();
+    }
+
 }

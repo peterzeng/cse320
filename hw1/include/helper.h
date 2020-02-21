@@ -7,4 +7,6 @@
 /*
  * Pointer to the last symbol in the recycling list
  */
-SYMBOL *recycle_end;
+SYMBOL *last_recycled_symbol;
+
+#endif

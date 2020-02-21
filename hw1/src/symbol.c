@@ -1,5 +1,6 @@
 #include "const.h"
 #include "sequitur.h"
+#include "helper.h"
 
 /*
  * Symbol management.
@@ -32,14 +33,15 @@ void init_symbols(void) {
  * "small" values (i.e. < FIRST_NONTERMINAL), and nonterminal symbols have "large" values
  * (i.e. >= FIRST_NONTERMINAL).
  * @param rule  For a terminal symbol, this parameter should be NULL.  For a nonterminal
- * symbol, this parameter can be used to specify a rule having that nonterminal at its head.
+ * symbol, this parameter can be used to specify a rule
+    next_nonterminal_value = FIRST_NON having that nonterminal at its head.
  * In that case, the reference count of the rule is increased by one and a pointer to the rule
  * is stored in the symbol.  This parameter can also be NULL for a nonterminal symbol if the
  * associated rule is not currently known and will be assigned later.
  * @return  A pointer to the new symbol, whose value and rule fields have been initialized
  * according to the parameters passed, and with other fields zeroed.  If the symbol storage
  * is exhausted and a new symbol cannot be created, then a message is printed to stderr and
- * abort() is called.
+ * abort() is callhttps://gitlab02.cs.stonybrook.edu/cse320/hw1-doced.
  *
  * When this function is called, if there are any recycled symbols, then one of those is removed
  * from the recycling list and used to satisfy the request.
@@ -98,4 +100,13 @@ SYMBOL *new_symbol(int value, SYMBOL *rule) {
  */
 void recycle_symbol(SYMBOL *s) {
     // To be implemented.
+    if (s != NULL){
+        if (last_recycled_symbol == NULL){
+            last_recycled_symbol = s;
+        } else {
+            s->next = last_recycled_symbol;
+            last_recycled_symbol = s;
+        }
+    }
+
 }
