@@ -55,7 +55,9 @@
  */
 int compress(FILE *in, FILE *out, int bsize) {
     // To be implemented.
+    int bytes_counter = 0;
     fputc(0x81, out);
+    bytes_counter++;
     FILE* start = in;
     int check = fgetc(start);
 
@@ -64,11 +66,16 @@ int compress(FILE *in, FILE *out, int bsize) {
         init_symbols();
         init_rules();
         init_digram_hash();
+        SYMBOL* mrule = new_rule(next_nonterminal_value);
+        add_rule(mrule);
         for (int i = 0; i < bsize; i++){
             SYMBOL* new = new_symbol(check, main_rule);
             insert_after(new, new->prev);
+            check_digram(main_rule->prev->prev);
         }
     }
+    fputc(0x82, out);
+
     return EOF;
 
 }
