@@ -46,7 +46,7 @@
 **		was too long.  It caused vtree to mess up the tree
 **		being printed.
 */
-
+#include <unistd.h>
 #include <stdlib.h>
 #include "patchlevel.h"
 #include <string.h>
@@ -477,11 +477,11 @@ char           *path;
 
 
  /*
-  * Get the aged data on a file whose name is given.  If the file is a
+  * Get the aged data on a file whose nsame is given.  If the file is a
   * directory, go down into it, and get the data from all files inside.
   */
 
-get_data(path,cont)
+void get_data(path,cont)
 char           *path;
 int		cont;
 {
