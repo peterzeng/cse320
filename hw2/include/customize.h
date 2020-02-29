@@ -1,9 +1,17 @@
-/* 
+/*
    This is the customizations file.  It changes our ideas of
    how to read directories.
 */
 
 #define NAMELEN	512		/* max size of a full pathname */
+
+#ifdef LINUX
+// #   include     <sys/dirent.h>
+#   define OPEN     struct direct
+#   define READ     struct direct
+#   define NAME(x) ((x).d_name)
+#endif
+
 
 #ifdef BSD
 #	include		<sys/dir.h>
@@ -41,6 +49,6 @@
 
 #endif
 
-#if !(defined(BSD) || !defined(SYS_V) || !defined(SYS_III) || !defined(SCO_XENIX))
+#if !(defined(BSD) || !defined(SYS_V) || !defined(SYS_III) || !defined(SCO_XENIX) || !(defined(LINUX)))
 "This is an Error"
 #endif

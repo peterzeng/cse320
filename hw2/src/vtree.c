@@ -162,7 +162,7 @@ int	last_subdir = FALSE;	/* the visual display */
 
 
 
-down(subdir)
+void down(subdir)
 char	*subdir;
 {
 OPEN	*dp;			/* stream from a directory */
