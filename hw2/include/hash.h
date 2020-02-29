@@ -20,3 +20,9 @@ struct htable {
 
 #define OLD	0		/* inode was in hash already */
 #define NEW	1		/* inode has been added to hash */
+
+// lastfield prototype
+char *lastfield(char *, int);
+
+//get_data prototype
+void get_data(char* path, int cont);

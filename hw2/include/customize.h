@@ -7,9 +7,10 @@
 
 #ifdef LINUX
 // #   include     <sys/dirent.h>
-#   define OPEN     struct direct
-#   define READ     struct direct
+#   define OPEN     DIR
+#   define READ     struct dirent
 #   define NAME(x) ((x).d_name)
+#   define INO(x) ((x).d_ino)
 #endif
 
 

@@ -7,6 +7,21 @@
  *	for use on System III machines that don't have any other
  *	alternative.
  */
+#include "patchlevel.h"
+
+#include <ctype.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/param.h>
+#ifdef  BSD
+#include <strings.h>
+#else
+#include <string.h>
+#endif
+
+#include "customize.h"
+#include "hash.h"
+
 
 #define NAMELENGTH	14
 #ifdef	SYS_III
@@ -15,6 +30,9 @@
 	#define opendir(name)	fopen(name, "r")
 #endif
 #define closedir(fp)	fclose(fp)
+
+// readdir function prototype
+READ* readdir(OPEN *dp);
 
 struct dir_entry {		/* What the system uses internally. */
     ino_t           d_ino;
@@ -31,7 +49,7 @@ struct direct {			/* What these routines return. */
  /*
   * Read a directory, returning the next (non-empty) slot.
   */
-
+#ifdef SYS_III
 READ           *
 readdir(dp)
     OPEN           *dp;
@@ -48,3 +66,4 @@ readdir(dp)
 
     return (READ *) NULL;
 }
+#endif

@@ -47,8 +47,9 @@
 **		being printed.
 */
 
+#include <stdlib.h>
 #include "patchlevel.h"
-
+#include <string.h>
 #include <ctype.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -57,7 +58,6 @@
 #ifdef	BSD
 #include <strings.h>
 #else
-#include <string.h>
 #endif
 
 #include "customize.h"
@@ -131,6 +131,15 @@ char            topdir[NAMELEN];	/* our starting directory */
 
 // lastfield prototype
 char *lastfield(char *, int);
+
+// get_data prototype
+void get_data(char* path, int cont);
+
+// is_directory prototype
+int is_directory(char* path);
+
+// chk_4_dir prototype
+int chk_4_dir(char* path);
 
 
 /*
