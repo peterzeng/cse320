@@ -46,12 +46,13 @@
 **		was too long.  It caused vtree to mess up the tree
 **		being printed.
 */
+#include <sys/types.h>
+#include <getopt.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "patchlevel.h"
 #include <string.h>
 #include <ctype.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/param.h>
 #include <stdio.h>
@@ -287,7 +288,7 @@ READ		tmp_entry;
 
 
 #ifdef	MEMORY_BASED
-	head = tmp_RD;
+	// head = tmp_RD;
 	for (file = readdir(dp); file != NULL; file = readdir(dp)) {
 		if ((!quick && !visual ) ||
  		    ( strcmp(NAME(*file), "..") != SAME &&
@@ -295,21 +296,26 @@ READ		tmp_entry;
 		     chk_4_dir(NAME(*file)) ) ) {
 			tmp_RD = (struct RD_list *) malloc(sizeof(struct RD_list));
 			memcpy(&tmp_RD->entry, file, sizeof(tmp_entry));
-			tmp_RD->bptr = head;
+
+			tmp_RD->bptr = tail;
 			tmp_RD->fptr = NULL;
-			if (head == NULL) head = tmp_RD;
-				else tail->fptr = tmp_RD;
+			if (head == NULL) {
+				head = tmp_RD;
+			}	else {
+				tail->fptr = tmp_RD;
+			}
 			tail = tmp_RD;
 		}
 	}
 
 				/* screwy, inefficient, bubble sort	*/
-				/* but it works				*/
+				/* but it works	*/
+	tmp_RD = head;
 	if (sort) {
 		while (tmp_RD) {
 			tmp1_RD = tmp_RD->fptr;
 			while (tmp1_RD) {
-				if (NAME(tmp_RD->entry) > NAME(tmp1_RD->entry)) {
+				if (strcmp(NAME(tmp_RD->entry),NAME(tmp1_RD->entry)) > 0){
 					/* swap the two */
 					memcpy(&tmp_entry, &tmp_RD->entry, sizeof(tmp_entry));
 					memcpy(&tmp_RD->entry, &tmp1_RD->entry, sizeof(tmp_entry));
@@ -417,8 +423,9 @@ READ		tmp_entry;
 				/* free the allocated memory */
 	tmp_RD = head;
 	while (tmp_RD) {
+		struct RD_list *temp = tmp_RD->fptr;
 		free(tmp_RD);
-		tmp_RD = tmp_RD->fptr;
+		tmp_RD = temp;
 	}
 #endif
 
@@ -446,7 +453,7 @@ READ		tmp_entry;
 	cur_depth--;
 
 	chdir(cwd);			/* go back where we were */
-
+	closedir(dp);
 
 } /* down */
 
@@ -497,8 +504,12 @@ int		cont;
 int		i;
 
 	if (cont) {
-		if (is_directory(path))
+		if (is_directory(path)){
+			inodes++;
+			sizes += stb.st_blocks/2;
 			down(path);
+		}
+
 	}
 	else {
 		if (is_directory(path)) return;
@@ -508,7 +519,7 @@ int		i;
 		if ( (h_enter(stb.st_dev, stb.st_ino) == OLD) && (!dupe) )
 			return;
 		inodes++;
-		sizes+= K(stb.st_size);
+		sizes += stb.st_blocks/2;
 	}
 } /* get_data */
 
@@ -527,8 +538,19 @@ int	user_file_list_supplied = 0;
 	Program = *argv;		/* save our name for error messages */
 
     /* Pick up options from command line */
-
-	while ((option = getopt(argc, argv, "dfh:iostqvV")) != EOF) {
+	static struct option long_options[] = {
+		{"duplicates", no_argument, 0, 'd'},
+		{"floating-column-widths", no_argument, 0, 'f'},
+		{"height", required_argument, 0, 'h'},
+		{"inodes", no_argument, 0, 'i'},
+		{"sort-directories", no_argument, 0, 'o'},
+		{"totals", no_argument, 0, 't'},
+		{"quick-display", no_argument, 0, 'q'},
+		{"visual-display", no_argument, 0, 'v'},
+		{"version", no_argument, 0, 'V'},
+		{0,0,0,0}
+	};
+	while ((option = getopt_long(argc, argv, "dfh:iostqvV", long_options, NULL)) != EOF) {
 		switch (option) {
 			case 'f':	floating = TRUE; break;
 			case 'h':	depth = atoi(optarg);
