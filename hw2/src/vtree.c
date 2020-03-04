@@ -131,13 +131,13 @@ char            topdir[NAMELEN];	/* our starting directory */
 
 
 // lastfield prototype
-char *lastfield(char *, int);
+static char *lastfield(char *, int);
 
 // get_data prototype
-void get_data(char* path, int cont);
+static void get_data(char* path, int cont);
 
 // is_directory prototype
-int is_directory(char* path);
+static int is_directory(char* path);
 
 // chk_4_dir prototype
 int chk_4_dir(char* path);
@@ -548,6 +548,9 @@ int	user_file_list_supplied = 0;
 		{"quick-display", no_argument, 0, 'q'},
 		{"visual-display", no_argument, 0, 'v'},
 		{"version", no_argument, 0, 'V'},
+		#ifdef LSTAT
+			{"no-follow-symlinks", no_argument, 0, 'l'},
+		#endif
 		{0,0,0,0}
 	};
 	while ((option = getopt_long(argc, argv, "dfh:iostqvV", long_options, NULL)) != EOF) {
@@ -580,6 +583,10 @@ int	user_file_list_supplied = 0;
 					break;
 			case 'V':	version++;
 					break;
+			#ifdef LSTAT
+					case 'l': sw_follow_links = 0;
+					break;
+			#endif
 			default:	err = TRUE;
 		}
 		if (err) {
@@ -595,6 +602,10 @@ int	user_file_list_supplied = 0;
 			fprintf(stderr,"	-v	visual display\n");
 			fprintf(stderr,"	-V	show current version\n");
 			fprintf(stderr,"		(2 Vs shows specified options)\n");
+
+			#ifdef LSTAT
+				fprintf(stderr,"	-l	not following symbolic link\n");
+			#endif
 			exit(-1);
 		}
 
@@ -607,6 +618,9 @@ int	user_file_list_supplied = 0;
 #else
 		printf("%s disk based\n",VERSION);
 #endif
+
+// #ifdef LSTAT
+// 		printf("")
 
 		if (version>1) {
 			printf("Tree height:	%d\n",depth);
