@@ -28,7 +28,7 @@ LIBS :=
 OS := LINUX
 
 # The following can include any combination of: -DHSTATS -DMEMORY_BASED -DONEPERLINE -DLSTAT
-OPTIONS := -DMEMORY_BASED
+OPTIONS := -DLSTAT
 
 CFLAGS += $(STD) -D$(OS) $(OPTIONS)
 
