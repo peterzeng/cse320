@@ -26,3 +26,6 @@ char *lastfield(char *, int);
 
 //get_data prototype
 void get_data(char* path, int cont);
+
+//h_enter prototyp
+int h_enter(dev_t dev, ino_t ino);

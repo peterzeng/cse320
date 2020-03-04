@@ -6,6 +6,8 @@
 #define NAMELEN	512		/* max size of a full pathname */
 
 #ifdef LINUX
+#   include     <dirent.h>
+#   include     <sys/types.h>
 // #   include     <sys/dirent.h>
 #   define OPEN     DIR
 #   define READ     struct dirent

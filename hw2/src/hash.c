@@ -13,7 +13,7 @@
  28 March 1987		David S. Hayes (merlin@hqda-ai.UUCP)
 	Initial version.
 */
-
+#include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include "hash.h"
@@ -32,11 +32,12 @@
 
 #include "customize.h"
 
-
+// #ifndef LINUX
 static struct htable *tables[TABLES];
-extern char *malloc();		/* added 6/17/88 */
-extern char *realloc();		/* added 6/17/88 */
-extern char *calloc();		/* added 6/17/88 */
+extern void *malloc();		/* added 6/17/88 */
+extern void *realloc();		/* added 6/17/88 */
+extern void *calloc();		/* added 6/17/88 */
+// #endif
 
 /* These are for statistical use later on. */
 static int      hs_tables = 0,	/* number of tables allocated */
@@ -55,7 +56,7 @@ static int      hs_tables = 0,	/* number of tables allocated */
   * number, so separate file systems each have their own table.
   */
 
-h_enter(dev, ino)
+int h_enter(dev, ino)
     dev_t           dev;
     ino_t           ino;
 {

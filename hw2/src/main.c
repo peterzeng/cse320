@@ -3,7 +3,10 @@
  * IT WILL BE REPLACED DURING GRADING
  */
 
-#include <stdlib.h>
+#ifdef LINUX
+// #include <stdlib.h>
+// printf("test\n");
+#endif
 #include <stdio.h>
 #include <sys/types.h>
 #include "hash.h"

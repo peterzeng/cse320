@@ -100,7 +100,7 @@ int		indent = 0,		/* current indent */
 		depth = 9999,		/* max depth */
 		cur_depth = 0,
 		sum = FALSE,		/* sum the subdirectories */
-		dup = FALSE,		/* use duplicate inodes */
+		dupe = FALSE,		/* use duplicate inodes */
 		floating = FALSE,	/* floating column widths */
 		sort = FALSE,
 		cnt_inodes = FALSE,	/* count inodes */
@@ -186,6 +186,14 @@ struct	stat	stb;
 #ifdef	MEMORY_BASED
 struct RD_list	*head, *tail, *tmp_RD, *tmp1_RD;		/* head and tail of directory list */
 struct RD_list	sz;
+
+// Initializing to Null
+head = NULL;
+tail = NULL;
+tmp_RD = NULL;
+tmp1_RD = NULL;
+// INITIALIZING TO NULL
+
 READ		tmp_entry;
 #endif
 
@@ -279,13 +287,13 @@ READ		tmp_entry;
 
 
 #ifdef	MEMORY_BASED
-
+	head = tmp_RD;
 	for (file = readdir(dp); file != NULL; file = readdir(dp)) {
 		if ((!quick && !visual ) ||
  		    ( strcmp(NAME(*file), "..") != SAME &&
 		     strcmp(NAME(*file), ".") != SAME &&
 		     chk_4_dir(NAME(*file)) ) ) {
-			tmp_RD = (struct RD_list *) malloc(sizeof(struct RD_list *));
+			tmp_RD = (struct RD_list *) malloc(sizeof(struct RD_list));
 			memcpy(&tmp_RD->entry, file, sizeof(tmp_entry));
 			tmp_RD->bptr = head;
 			tmp_RD->fptr = NULL;
@@ -497,7 +505,7 @@ int		i;
 
 		    /* Don't do it again if we've already done it once. */
 
-		if ( (h_enter(stb.st_dev, stb.st_ino) == OLD) && (!dup) )
+		if ( (h_enter(stb.st_dev, stb.st_ino) == OLD) && (!dupe) )
 			return;
 		inodes++;
 		sizes+= K(stb.st_size);
@@ -532,7 +540,7 @@ int	user_file_list_supplied = 0;
 						optarg++;
 					}
 					break;
-			case 'd':	dup = TRUE;
+			case 'd':	dupe = TRUE;
 					break;
 			case 'i':	cnt_inodes = TRUE;
 					break;
@@ -542,7 +550,7 @@ int	user_file_list_supplied = 0;
 			case 't':	sw_summary = TRUE;
 					break;
 			case 'q':	quick = TRUE;
-					dup = FALSE;
+					dupe = FALSE;
 					sum = FALSE;
 					cnt_inodes = FALSE;
 					break;
@@ -580,7 +588,7 @@ int	user_file_list_supplied = 0;
 
 		if (version>1) {
 			printf("Tree height:	%d\n",depth);
-			if (dup) printf("Include duplicate inodes\n");
+			if (dupe) printf("Include duplicate inodes\n");
 			if (cnt_inodes) printf("Count inodes\n");
 			if (sum) printf("Include unseen subdirectories in totals\n");
 			if (sw_summary) printf("Print totals at end\n");
