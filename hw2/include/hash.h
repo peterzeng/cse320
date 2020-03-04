@@ -22,10 +22,12 @@ struct htable {
 #define NEW	1		/* inode has been added to hash */
 
 // lastfield prototype
-char *lastfield(char *, int);
+// char *lastfield(char *, int);
 
 //get_data prototype
-void get_data(char* path, int cont);
+// void get_data(char* path, int cont);
 
 //h_enter prototyp
 int h_enter(dev_t dev, ino_t ino);
+
+void h_stats();
