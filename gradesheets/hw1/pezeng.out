@@ -1,0 +1,143 @@
+[----] Criterion v2.3.2
+[====] Running 4 tests from basecode_tests_suite:
+[RUN ] basecode_tests_suite::help_system_test
+USAGE: bin/sequitur [-h] -c|-d [-b]
+   -h       Help: displays this help menu.
+   -c       Compress: read bytes from standard input, output compressed data to standard output.
+   -d       Decompress: read compressed data from standard input, output raw data to standard output.
+            Optional additional parameter for -c (not permitted with -d):
+               -b           BLOCKSIZE is the blocksize (in Kbytes, range [1, 1024])
+                            to be used in compression.
+
+[PASS] basecode_tests_suite::help_system_test: (0.07s)
+[RUN ] basecode_tests_suite::validargs_compress_test
+[PASS] basecode_tests_suite::validargs_compress_test: (0.00s)
+[RUN ] basecode_tests_suite::validargs_error_test
+[PASS] basecode_tests_suite::validargs_error_test: (0.00s)
+[RUN ] basecode_tests_suite::validargs_help_test
+[PASS] basecode_tests_suite::validargs_help_test: (0.00s)
+[====] Running 2 tests from blackbox_suite:
+[RUN ] blackbox_suite::blackbox_pipecomp_1
+Killed
+Missing SOT!
+Aborted (core dumped)
+[----] tests/hw1_grading_tests.c:55: Assertion failed: The exit status was wrong: expected 0, was 134
+[FAIL] blackbox_suite::blackbox_pipecomp_1: (10.10s)
+[RUN ] blackbox_suite::blackbox_pipedecomp_1
+[PASS] blackbox_suite::blackbox_pipedecomp_1: (0.07s)
+[====] Running 7 tests from compress_suite:
+[RUN ] compress_suite::comp_ret_1
+[----] tests/hw1_grading_tests.c:928: Unexpected signal caught below this line!
+[FAIL] compress_suite::comp_ret_1: CRASH!
+[RUN ] compress_suite::comp_ret_2
+[----] tests/hw1_grading_tests.c:948: Unexpected signal caught below this line!
+[FAIL] compress_suite::comp_ret_2: CRASH!
+[RUN ] compress_suite::comp_ret_3
+[----] tests/hw1_grading_tests.c:968: Unexpected signal caught below this line!
+[FAIL] compress_suite::comp_ret_3: CRASH!
+[RUN ] compress_suite::compress_2mb
+[----] tests/hw1_grading_tests.c:839: Unexpected signal caught below this line!
+[FAIL] compress_suite::compress_2mb: CRASH!
+[RUN ] compress_suite::compress_empty
+[----] tests/hw1_grading_tests.c:830: Assertion failed: Wrong return value from function: expected 2, was -1
+[FAIL] compress_suite::compress_empty: (0.00s)
+[RUN ] compress_suite::inverse_1
+[----] tests/hw1_grading_tests.c:859: Unexpected signal caught below this line!
+[FAIL] compress_suite::inverse_1: CRASH!
+[RUN ] compress_suite::inverse_2
+[----] tests/hw1_grading_tests.c:894: Unexpected signal caught below this line!
+[FAIL] compress_suite::inverse_2: CRASH!
+[====] Running 6 tests from decompress_suite:
+[RUN ] decompress_suite::decomp_empty
+[PASS] decompress_suite::decomp_empty: (0.00s)
+[RUN ] decompress_suite::decomp_no_eot
+[PASS] decompress_suite::decomp_no_eot: (0.05s)
+[RUN ] decompress_suite::decomp_trunc
+[PASS] decompress_suite::decomp_trunc: (0.05s)
+[RUN ] decompress_suite::decomp_trunc_compare
+[PASS] decompress_suite::decomp_trunc_compare: (0.11s)
+[RUN ] decompress_suite::decomp_unexp_sob
+[PASS] decompress_suite::decomp_unexp_sob: (0.11s)
+[RUN ] decompress_suite::decomp_valid_compare
+[PASS] decompress_suite::decomp_valid_compare: (0.00s)
+[====] Running 12 tests from digram_suite:
+[RUN ] digram_suite::digram_delete_1
+[PASS] digram_suite::digram_delete_1: (0.00s)
+[RUN ] digram_suite::digram_delete_2
+[PASS] digram_suite::digram_delete_2: (0.01s)
+[RUN ] digram_suite::digram_delete_3
+[PASS] digram_suite::digram_delete_3: (0.00s)
+[RUN ] digram_suite::digram_get_1
+[PASS] digram_suite::digram_get_1: (0.00s)
+test: 191
+[RUN ] digram_suite::digram_get_2
+[----] tests/hw1_grading_tests.c:475: Assertion failed: failed to return existing digram from digram_table (with collision)
+[FAIL] digram_suite::digram_get_2: (0.00s)
+test: 191
+[RUN ] digram_suite::digram_get_3
+[----] tests/hw1_grading_tests.c:482: Unexpected signal caught below this line!
+[FAIL] digram_suite::digram_get_3: CRASH!
+[RUN ] digram_suite::digram_get_4
+[----] tests/hw1_grading_tests.c:495: Unexpected signal caught below this line!
+[FAIL] digram_suite::digram_get_4: CRASH!
+[RUN ] digram_suite::digram_put_1
+[----] tests/hw1_grading_tests.c:606: Assertion failed: new, unique digram wasn't inserted correctly into digram_table
+[FAIL] digram_suite::digram_put_1: (0.00s)
+[RUN ] digram_suite::digram_put_2
+[FAIL] digram_suite::digram_put_2: Timed out. (15.00s)
+[RUN ] digram_suite::digram_put_3
+[PASS] digram_suite::digram_put_3: (0.00s)
+[RUN ] digram_suite::digram_put_4
+[----] tests/hw1_grading_tests.c:673: Assertion failed: inserted digram didn't replace TOMBSTONE
+[FAIL] digram_suite::digram_put_4: (0.00s)
+[RUN ] digram_suite::init_digram_hash_1
+[PASS] digram_suite::init_digram_hash_1: (0.03s)
+[====] Running 4 tests from rules_suite:
+[RUN ] rules_suite::add_rule_1
+[PASS] rules_suite::add_rule_1: (0.00s)
+[RUN ] rules_suite::init_rules
+[----] tests/hw1_grading_tests.c:324: Assertion failed: rule_map at index 0 not NULL!
+[FAIL] rules_suite::init_rules: (0.01s)
+[RUN ] rules_suite::new_rule_1
+[PASS] rules_suite::new_rule_1: (0.00s)
+[RUN ] rules_suite::new_rule_2
+[PASS] rules_suite::new_rule_2: (0.00s)
+[====] Running 4 tests from symbols_suite:
+[RUN ] symbols_suite::init_symbols
+[PASS] symbols_suite::init_symbols: (0.00s)
+[RUN ] symbols_suite::new_symbol_1
+[PASS] symbols_suite::new_symbol_1: (0.00s)
+[RUN ] symbols_suite::new_symbol_2
+[PASS] symbols_suite::new_symbol_2: (0.00s)
+[RUN ] symbols_suite::new_symbol_3
+[----] tests/hw1_grading_tests.c:375: Assertion failed: failed to abort when symbol_storage was full!
+[FAIL] symbols_suite::new_symbol_3: (0.00s)
+[====] Running 12 tests from validargs_suite:
+[RUN ] validargs_suite::validargs_1
+[PASS] validargs_suite::validargs_1: (0.00s)
+[RUN ] validargs_suite::validargs_10
+[PASS] validargs_suite::validargs_10: (0.00s)
+[RUN ] validargs_suite::validargs_11
+[PASS] validargs_suite::validargs_11: (0.00s)
+[RUN ] validargs_suite::validargs_12
+[PASS] validargs_suite::validargs_12: (0.00s)
+[RUN ] validargs_suite::validargs_2
+[----] tests/hw1_grading_tests.c:104: Assertion failed: Wrong value for global_options: expected 0x4000002, was 0x2
+[FAIL] validargs_suite::validargs_2: (0.00s)
+[RUN ] validargs_suite::validargs_3
+[PASS] validargs_suite::validargs_3: (0.00s)
+[RUN ] validargs_suite::validargs_4
+[PASS] validargs_suite::validargs_4: (0.00s)
+[RUN ] validargs_suite::validargs_5
+[PASS] validargs_suite::validargs_5: (0.00s)
+[RUN ] validargs_suite::validargs_6
+[----] tests/hw1_grading_tests.c:177: Assertion failed: Wrong value for global_options: expected 0x4000002, was 0x2
+[FAIL] validargs_suite::validargs_6: (0.00s)
+[RUN ] validargs_suite::validargs_7
+[PASS] validargs_suite::validargs_7: (0.00s)
+[RUN ] validargs_suite::validargs_8
+[PASS] validargs_suite::validargs_8: (0.00s)
+[RUN ] validargs_suite::validargs_9
+[PASS] validargs_suite::validargs_9: (0.00s)
+[----] Writing xml report in `crit.xml`.
+[====] Synthesis: Tested: 51 | Passing: 33 | Failing: 18 | Crashing: 8 

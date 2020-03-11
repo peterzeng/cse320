@@ -1,0 +1,55 @@
+Graded Commit:44c5ee6cc1fdce303c0312c42a3fcde6984057a8
+
+TEST NAME, POINTS,OUT OF
+basecode_tests_suite/help_system_test,1,1,
+basecode_tests_suite/validargs_compress_test,1,1,
+basecode_tests_suite/validargs_error_test,1,1,
+basecode_tests_suite/validargs_help_test,1,1,
+blackbox_suite/blackbox_pipecomp_1,0,1,"1 assertion(s) failed.: tests/hw1_grading_tests.c:55: The exit status was wrong: expected 0, was 134"
+blackbox_suite/blackbox_pipedecomp_1,1,1,
+compress_suite/comp_ret_1,0,1,
+compress_suite/comp_ret_2,0,1,
+compress_suite/comp_ret_3,0,1,
+compress_suite/compress_2mb,0,1,
+compress_suite/compress_empty,0,1,"1 assertion(s) failed.: tests/hw1_grading_tests.c:830: Wrong return value from function: expected 2, was -1"
+compress_suite/inverse_1,0,1,
+compress_suite/inverse_2,0,1,
+decompress_suite/decomp_empty,1,1,
+decompress_suite/decomp_no_eot,1,1,
+decompress_suite/decomp_trunc,1,1,
+decompress_suite/decomp_trunc_compare,1,1,
+decompress_suite/decomp_unexp_sob,1,1,
+decompress_suite/decomp_valid_compare,1,1,
+digram_suite/digram_delete_1,1,1,
+digram_suite/digram_delete_2,1,1,
+digram_suite/digram_delete_3,1,1,
+digram_suite/digram_get_1,1,1,
+digram_suite/digram_get_2,0,1,1 assertion(s) failed.: tests/hw1_grading_tests.c:475: failed to return existing digram from digram_table (with collision)
+digram_suite/digram_get_3,0,1,
+digram_suite/digram_get_4,0,1,
+digram_suite/digram_put_1,0,1,"1 assertion(s) failed.: tests/hw1_grading_tests.c:606: new, unique digram wasn't inserted correctly into digram_table"
+digram_suite/digram_put_2,0,1,
+digram_suite/digram_put_3,1,1,
+digram_suite/digram_put_4,0,1,1 assertion(s) failed.: tests/hw1_grading_tests.c:673: inserted digram didn't replace TOMBSTONE
+digram_suite/init_digram_hash_1,1,1,
+rules_suite/add_rule_1,1,1,
+rules_suite/init_rules,0,1,1 assertion(s) failed.: tests/hw1_grading_tests.c:324: rule_map at index 0 not NULL!
+rules_suite/new_rule_1,1,1,
+rules_suite/new_rule_2,1,1,
+symbols_suite/init_symbols,1,1,
+symbols_suite/new_symbol_1,1,1,
+symbols_suite/new_symbol_2,1,1,
+symbols_suite/new_symbol_3,0,1,1 assertion(s) failed.: tests/hw1_grading_tests.c:375: failed to abort when symbol_storage was full!
+validargs_suite/validargs_1,1,1,
+validargs_suite/validargs_10,1,1,
+validargs_suite/validargs_11,1,1,
+validargs_suite/validargs_12,1,1,
+validargs_suite/validargs_2,0,1,"1 assertion(s) failed.: tests/hw1_grading_tests.c:104: Wrong value for global_options: expected 0x4000002, was 0x2"
+validargs_suite/validargs_3,1,1,
+validargs_suite/validargs_4,1,1,
+validargs_suite/validargs_5,1,1,
+validargs_suite/validargs_6,0,1,"1 assertion(s) failed.: tests/hw1_grading_tests.c:177: Wrong value for global_options: expected 0x4000002, was 0x2"
+validargs_suite/validargs_7,1,1,
+validargs_suite/validargs_8,1,1,
+validargs_suite/validargs_9,1,1,
+total,33,51
