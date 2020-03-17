@@ -10,6 +10,9 @@
 #include "sfmm.h"
 
 void *sf_malloc(size_t size) {
+    if (size == 0){
+        return NULL;
+    }
     return NULL;
 }
 
