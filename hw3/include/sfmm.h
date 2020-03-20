@@ -50,8 +50,8 @@
     |                               Pointer to previous free block                            |
     |                                        (1 row)                                          |
     +-----------------------------------------------------------------------------------------+
-    |                                                                                         | 
-    |                                         Unused                                          | 
+    |                                                                                         |
+    |                                         Unused                                          |
     |                                        (N rows)                                         |
     |                                                                                         |
     |                                                                                         |
@@ -76,7 +76,7 @@ typedef struct sf_block {
     sf_footer prev_footer;  // NOTE: This actually belongs to the *previous* block.
     sf_header header;       // This is where the current block really starts.
     union {
-        /* A free block contains links to other blocks in a free list. */
+        /* A free block contains links to other blocks in a free lhttps://gitlab02.cs.stonybrook.edu/cse320/hw3-docist. */
         struct {
             struct sf_block *next;
             struct sf_block *prev;
@@ -108,7 +108,7 @@ typedef struct sf_block {
     |                                         unused                                          | padding
     |                                        (7 rows)                                         |
     +--------------------------------------------+------------------------+---------+---------+ <- prologue start
-    |                                     block_size (= 64)               |prv alloc|  alloc  | 
+    |                                     block_size (= 64)               |prv alloc|  alloc  |
     |                                  (2 LSB's implicitly 0)             |   (1)   |   (1)   | prologue
     |                                         (1 row)                     |  1 bit  |  1 bit  | header
     +--------------------------------------------+------------------------+---------+---------+ <- (aligned)
