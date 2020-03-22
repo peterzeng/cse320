@@ -76,7 +76,7 @@ typedef struct sf_block {
     sf_footer prev_footer;  // NOTE: This actually belongs to the *previous* block.
     sf_header header;       // This is where the current block really starts.
     union {
-        /* A free block contains links to other blocks in a free lhttps://gitlab02.cs.stonybrook.edu/cse320/hw3-docist. */
+        /* A free block contains links to other blocks in a free list. */
         struct {
             struct sf_block *next;
             struct sf_block *prev;
