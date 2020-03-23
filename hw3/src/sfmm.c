@@ -41,27 +41,80 @@ void initialize_heap(void* start)  {
     }
 }
 
+int check_more_mem(int size_of_block){
+    // Start after prologue to see if we have blocks that will fit the requested malloc
+    sf_block *where = prologue + 2;
+    while (where < epilogue){
+        // printf("Where: %p, epilogue: %p\n", where,epilogue);
+        if (((where->header) & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
+            // printf("current header: %ld\n",whaere->header);
+            where += (where->header & BLOCK_SIZE_MASK)/32;
+        } else {
+            if (size_of_block > (where->header & BLOCK_SIZE_MASK)){
+                where += (where->header & BLOCK_SIZE_MASK)/32;
+            } else if (size_of_block <= (where->header & BLOCK_SIZE_MASK)){
+                return 1;
+            }
+        }
+
+    }
+    return 0;
+}
+
+// int find_index(int m){
+//     if (m == 1){
+//         return 0;
+//     } else if (m == 2){
+//         return 1;
+//     } else if (m == 3){
+//         return 2;
+//     } else if (m > 3 && m <= 5){
+//         return 3;
+//     } else if (m > 5 && m <= 8){
+//         return 4;
+//     } else if (m > 8 && m <= 13){
+//         return 5;
+//     } else if (m > 13 && m <= 21){
+//         return 6;
+//     } else if (m > 21 && m <= 34){
+//         return 7;
+//     } else if (m > 34){
+//         return 8;
+//     }
+//     return -1;
+// }
+
 int find_index(int m){
+    int value1 = 3;
+    int value2 = 5;
+
+    // printf("value1: %d, value2: %d, index: %d, m: %d\n", value1,value2,index,m);
     if (m == 1){
         return 0;
     } else if (m == 2){
         return 1;
     } else if (m == 3){
         return 2;
-    } else if (m > 3 && m <= 5){
-        return 3;
-    } else if (m > 5 && m <= 8){
-        return 4;
-    } else if (m > 8 && m <= 13){
-        return 5;
-    } else if (m > 13 && m <= 21){
-        return 6;
-    } else if (m > 21 && m <= 34){
-        return 7;
-    } else if (m > 34){
-        return 8;
+    } else {
+    // for (int i = 0; i < NUM_FREE_LISTS; i++){
+
+        for (int i = 3; i < NUM_FREE_LISTS-1; i++){
+            // printf("value1: %d, value2: %d, i: %d\n",value1, value2, i);
+            if (m > value1 && m <= value2){
+                return i;
+            } else if (i == NUM_FREE_LISTS-2){
+                return i;
+            }
+
+            else {
+                int temp = value1+value2;
+                value1 = value2;
+                value2 = temp;
+            }
+        }
     }
     return -1;
+
 }
 
 sf_block *find_block(int startIndex, sf_block* sentinel){
@@ -82,32 +135,17 @@ sf_block *find_block(int startIndex, sf_block* sentinel){
 }
 
 void *sf_malloc(size_t size) {
-    // sf_block *heapTrackm ==;
+
     printf("size: %zu\n",size);
-    if (size == 0){
+    if (size <= 0){
         return NULL;
     }
     if (sf_mem_start() == sf_mem_end()){
         sf_mem_grow();
-        // TEST
-        // void* start = sf_mem_start();
-        // void* end = sf_mem_end();
-        // printf("start: %p\nend: %p\n",start, end);
-        // // TEST
-        // sf_mem_grow();
-        // start = sf_mem_start();
-        // end = sf_mem_end();
-        // printf("start: %p\nend: %p\n",start, end);
-
         initialize_heap(sf_mem_start());
-
     }
-    // printf("showing heap \n");
-    // sf_show_heap();
 
-    // printf("segfault? \n");
-    // sf_show_free_lists();
-    // sf_show_heap();
+    // FIND SIZE OF BLOCK TO BE ALLOCATED //
 
     size_t asize; /* Adjusted size */
     int m; /* Multiple of 64 */
@@ -125,13 +163,23 @@ void *sf_malloc(size_t size) {
         asize = 64* (temp + 1);
         m = temp + 1;
     }
+
+    while(check_more_mem(asize) == 0){
+        sf_block *new_end = sf_mem_grow();
+        if (new_end == NULL){
+            sf_errno = ENOMEM;
+            return NULL;
+        };
+
+        wilderness->header += 4096;
+        epilogue = wilderness + (4096/32);
+        epilogue->prev_footer = wilderness->header;
+    }
+
     int startIndex = find_index(m); /* Starting index of list head to look */
 
     sf_block* block_to_be_allocated = find_block(startIndex, &sf_free_list_heads[startIndex]);
-    // sf_show_heap();
-    // sf_show_heap();s
-    // printf("wilderness: %p\n", sf_free_list_heads[9].body.links.next);
-    // // sf_show_free_lists();
+
     // printf("Wilderness test: %p\n", block_to_be_allocated);
 
     size_t check_alloc_block; /*  Mask alloc block and see if it's larger or equal to size of data to be allocated */
@@ -142,10 +190,10 @@ void *sf_malloc(size_t size) {
     // printf("size of check_alloc_block: %zu\n", check_alloc_block);
     // What's left of the block after the asize is used
     check_alloc_block = check_alloc_block-asize; /* subtract asize from block to see if it's proper size */
-    printf("size of check_alloc_block: %zu, asize: %zu\n", check_alloc_block,asize);
-    // sf_show_blocks();
-    if (check_alloc_block == 0){ /* Perfect Size */
+    // printf("size of check_alloc_block: %zu, asize: %zu\n", check_alloc_block,asize);
 
+    if (check_alloc_block == 0){ /* Perfect Size */
+        // block_to_be_allocated->header
     } else {
         if (wild_check == 1){
             /* Set the header size of the space to be allocated first to asize */
@@ -155,18 +203,18 @@ void *sf_malloc(size_t size) {
             block_to_be_allocated->header = asize | THIS_BLOCK_ALLOCATED;
 
             if (test == 2){
-                printf("wilderness header, %zu\n", wilderness->header);
+                // printf("wilderness header, %zu\n", wilderness->header);
                 block_to_be_allocated->header = block_to_be_allocated->header | PREV_BLOCK_ALLOCATED;
             }
-            printf("test epilogue, wilderness: %p, %p\n\n",epilogue, wilderness);
+            // printf("test epilogue, wilderness: %p, %p\n\n",epilogue, wilderness);
 
             wilderness = block_to_be_allocated + (asize/32);
 
-            printf("test epilogue, wilderness: %p, %p\n\n",epilogue, wilderness);
+            // printf("test epilogue, wilderness: %p, %p\n\n",epilogue, wilderness);
 
             epilogue = wilderness + (check_alloc_block/32); /* Setting new prologue */
 
-            printf("test epilogue, wilderness: %p, %p\n\n",epilogue, wilderness);
+            // printf("test epilogue, wilderness: %p, %p\n\n",epilogue, wilderness);
 
             // wilderness->header = check_alloc_block | THIS_BLOCK_ALLOCATED;
             wilderness->header = check_alloc_block | PREV_BLOCK_ALLOCATED;
@@ -176,8 +224,7 @@ void *sf_malloc(size_t size) {
             wilderness->body.links.next = (sf_free_list_heads+ 9);
             wilderness->body.links.prev = (sf_free_list_heads + 9);
             epilogue->prev_footer = wilderness->header;
-            sf_show_heap();
-            return block_to_be_allocated;
+            return block_to_be_allocated->body.payload;
         }
     }
     // if (wild_check){
