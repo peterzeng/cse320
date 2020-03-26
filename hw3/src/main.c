@@ -18,13 +18,16 @@ int main(int argc, char const *argv[]) {
     // *ptr = 30;
     // printf("%f\n", *ptr);
 
-    // void *x = sf_malloc(200);
-    // void *y = sf_malloc(300);
-    // /* void *z = */ sf_malloc(4);
-
+    void *x = sf_malloc(sizeof(double) * 8);
+    void *y = sf_realloc(x, sizeof(int));
     // sf_free(y);
+
+    // sf_show_heap();
     // sf_free(x);
-    // printf("IGNORE: %p%p\n",x,y);
+    // sf_malloc(140);
+    // sf_malloc(sizeof(double));
+    // // sf_free(y);
+    printf("\n\nIGNORE:%p%p\n\n",x,y);
     // sf_malloc(140);
     // sf_malloc(4200);
     // sf_malloc(sizeof(double));
@@ -38,3 +41,4 @@ int main(int argc, char const *argv[]) {
 
     return EXIT_SUCCESS;
 }
+

@@ -1,4 +1,4 @@
-#include <criterion/criterion.h>
+	#include <criterion/criterion.h>
 #include <errno.h>
 #include <signal.h>
 #include "debug.h"
@@ -100,6 +100,7 @@ Test(sf_memsuite_student, free_quick, .init = sf_mem_init, .fini = sf_mem_fini) 
 Test(sf_memsuite_student, free_no_coalesce, .init = sf_mem_init, .fini = sf_mem_fini) {
 	sf_errno = 0;
 	/* void *x = */ sf_malloc(8);
+
 	void *y = sf_malloc(200);
 	/* void *z = */ sf_malloc(1);
 
