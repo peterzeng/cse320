@@ -271,6 +271,7 @@ void *sf_malloc(size_t size) {
     }
     if (sf_mem_start() == sf_mem_end()){
         sf_mem_grow();
+        // void* start = sf_mem_start();
         initialize_heap(sf_mem_start());
     }
 
@@ -710,6 +711,111 @@ void *sf_realloc(void *pp, size_t rsize) {
     return NULL;
 }
 
+/*
+    @ param, int casted align size to test if is a power of 2
+    returns 0, indicating not power of 2, or 1 indicating power of 2
+
+*/
+int power_check(int align){
+    /*
+        Two scenarios where we exit the loop, if we reached end and power/2 == 1
+        or if (power % 2 != 0)
+    */
+    int break_loop = 0;
+    int power = align;
+
+    if (power % 2 != 0){
+        // printf("test1 \n");
+        return 0;
+    }
+
+    while (break_loop == 0){
+
+        power = power/2;
+        // printf("power: %d\n", power);
+        if ((power != 1 && power % 2 != 0)){
+            return 0;
+        } else if (power == 1){
+            break_loop = 1;
+        }
+    }
+
+    return 1;
+}
+
 void *sf_memalign(size_t size, size_t align) {
+
+    if (size == 0){
+        return NULL;
+    }
+    // int power_check = 1;
+    // int a = size;
+    int check = align;
+    // printf("size of size: %d, size_t: %lu, size of align: %d, size_t: %lu\n",a, size, b, align);
+
+    // Check if the requested align is at least as large as minimum block size (2)
+    // In terms of size_t, that's (2) * 32 = 64 bytes
+
+    if (align < 64){
+        sf_errno = EINVAL;
+        return NULL;
+    } else {
+        int power = power_check(check);
+        // printf("power test: %d\n",power);
+        if (power == 0){
+            sf_errno = EINVAL;
+            return NULL;
+        }
+    }
+
+    /* Three cases:
+        1: Immediately use payload (64 byte aligned?), Free afterwards
+        2: Payload that is after the initial block, and uses rest of allocated block: Free previous
+        3: Payload that is after the initial block, but doesn't use the rest of the block
+    */
+
+    int multiple = align-1;
+    size_t asize;
+    size_t align_block_size;
+    size_t big_block_size;
+    int blocks_before;
+    int blocks_after;
+
+    asize = size + align + 2;
+    align_block_size =  (size + sizeof(sf_header) + multiple) & (~multiple);
+
+    // printf("align block size: %lu\n", align_block_size);
+
+    // printf("asize: %lu, align block size: %lu, big block size: %lu\n",asize,align_block_size,big_block_size);
+
+    sf_block* big_block = (sf_malloc(asize)) - 16;
+
+    big_block_size = big_block->header & BLOCK_SIZE_MASK;
+
+
+    printf("\nasize: %lu, align block size: %lu, big block size: %lu\n\n",asize,align_block_size,big_block_size);
+
+    /* STEPS:
+        1) Find the next block that satisfies alignment request: The pointer returned by malloc-16 casted to sf_block* + ((align-1)/32)
+        2)
+    */
+
+    blocks_before = (align-64)/64;
+    blocks_after = (big_block_size-(blocks_before * 32)-align_block_size)/64;
+
+    printf("blocks_before: %d, blocks_after: %d\n", blocks_before, blocks_after);
+
+    if (align == 64){
+        sf_block* next_block = big_block + (2 * (align_block_size/align));
+        next_block->header = (big_block_size-(blocks_before * 64 + align_block_size)) | THIS_BLOCK_ALLOCATED;
+        next_block->header = next_block->header | PREV_BLOCK_ALLOCATED;
+        sf_free(next_block->body.payload);
+
+        if ((big_block->header & PREV_BLOCK_ALLOCATED) == 1){
+            big_block->header = align_block_size | PREV_BLOCK_ALLOCATED;
+        }
+        big_block->header = big_block->header | THIS_BLOCK_ALLOCATED;
+        return big_block->body.payload;
+    }
     return NULL;
 }

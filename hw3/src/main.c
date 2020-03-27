@@ -5,36 +5,13 @@
 extern int find_index();
 int main(int argc, char const *argv[]) {
 
-    // int a = find_index(30);
-    // int b = find_index(1);
-    // int c = find_index(45);
-    // printf("a: %d, b: %d, c: %d\n", a,b,c);
+
     sf_mem_init();
-    // sf_malloc(3 * PAGE_SZ - ((1 << 6) - sizeof(sf_header)) - 64 - 2*sizeof(sf_header));
-    // double* ptr = sf_malloc(sizeof(double));
+    // sf_memalign(50, 65);
+    // sf_memalign(50, 70);
+    sf_memalign(400, 64);
+    // sf_memalign(50, 0);
 
-    // *ptr = 320320320e-320;
-
-    // *ptr = 30;
-    // printf("%f\n", *ptr);
-
-    void *x = sf_malloc(sizeof(double) * 8);
-    void *y = sf_realloc(x, sizeof(int));
-    // sf_free(y);
-
-    // sf_show_heap();
-    // sf_free(x);
-    // sf_malloc(140);
-    // sf_malloc(sizeof(double));
-    // // sf_free(y);
-    printf("\n\nIGNORE:%p%p\n\n",x,y);
-    // sf_malloc(140);
-    // sf_malloc(4200);
-    // sf_malloc(sizeof(double));
-    // sf_free(ptr);
-    // sf_malloc(140);
-    // sf_malloc(4200);
-    // sf_malloc(sizeof(double));;
     sf_show_heap();
 
     sf_mem_fini();
