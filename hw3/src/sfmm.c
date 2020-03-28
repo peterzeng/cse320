@@ -438,7 +438,7 @@ void sf_free(void *pp) {
     } else {
         sf_block* block = pp-16;
 
-        if ((long)pp % 64 != 0){
+        if (((unsigned long)pp & 63) != 0){
 
             // printf("stupid test cause im stupid 1\n");
 
@@ -449,14 +449,14 @@ void sf_free(void *pp) {
 
             printf("The pointer is invalid. Aborting...\n");
             abort();
-        } else if ((pp-8) < (sf_mem_start()+56) || (((pp-16)+(block->header & BLOCK_SIZE_MASK))>(sf_mem_end()-8))){
+        } else if ((pp-sizeof(sf_header)) < (sf_mem_start()+56) || (((pp-16)+(block->header & BLOCK_SIZE_MASK))>(sf_mem_end()-8))){
             // printf("stupid test cause im stupid 3\n");
 
             printf("The pointer is invalid. Aborting...\n");
             abort();
         } else if ((block->header & PREV_BLOCK_ALLOCATED) == 0){
             int size = block->prev_footer & BLOCK_SIZE_MASK;
-            sf_block* prev_block = pp-8-size;
+            sf_block* prev_block = pp-sizeof(sf_header)-size;
             if ((prev_block->header & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
                 // printf("stupid test cause im stupid 4\n");
 
@@ -583,7 +583,11 @@ void sf_free(void *pp) {
         // printf("total size test: %d\n",total_size);
 
         sf_block* coalesce_block = block;
-        coalesce_block->header = total_size;
+        if ((block->header & PREV_BLOCK_ALLOCATED) == PREV_BLOCK_ALLOCATED){
+            coalesce_block->header = total_size | PREV_BLOCK_ALLOCATED;
+        } else
+            coalesce_block->header = total_size;
+
         sf_block* next_block = coalesce_block + total_size/32;
         next_block->prev_footer = coalesce_block->header;
 
@@ -641,8 +645,7 @@ void *sf_realloc(void *pp, size_t rsize) {
     } else {
         sf_block* block = pp-16;
 
-        if ((long)pp % 64 != 0){
-
+        if (((unsigned long)pp & 63) != 0){
             // printf("stupid test cause im stupid 1\n");
 
             printf("The pointer is invalid. Aborting...\n");
@@ -652,14 +655,14 @@ void *sf_realloc(void *pp, size_t rsize) {
 
             printf("The pointer is invalid. Aborting...\n");
             abort();
-        } else if ((pp-8) < (sf_mem_start()+56) || (((pp-16)+(block->header & BLOCK_SIZE_MASK))>(sf_mem_end()-8))){
+        } else if ((pp-sizeof(sf_header)) < (sf_mem_start()+56) || (((pp-16)+(block->header & BLOCK_SIZE_MASK))>(sf_mem_end()-8))){
             // printf("stupid test cause im stupid 3\n");
 
             printf("The pointer is invalid. Aborting...\n");
             abort();
         } else if ((block->header & PREV_BLOCK_ALLOCATED) == 0){
             int size = block->prev_footer & BLOCK_SIZE_MASK;
-            sf_block* prev_block = pp-8-size;
+            sf_block* prev_block = pp-sizeof(sf_header)-size;
             if ((prev_block->header & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
                 // printf("stupid test cause im stupid 4\n");
 
@@ -683,7 +686,7 @@ void *sf_realloc(void *pp, size_t rsize) {
 
     if (asize > csize){
         void* larger_block = sf_malloc(rsize);
-        memcpy(larger_block, pp, csize-8);
+        memcpy(larger_block, pp, csize-sizeof(sf_header));
         sf_free(pp);
         return larger_block;
     } else if (asize < csize){
@@ -769,53 +772,108 @@ void *sf_memalign(size_t size, size_t align) {
     }
 
     /* Three cases:
-        1: Immediately use payload (64 byte aligned?), Free afterwards
-        2: Payload that is after the initial block, and uses rest of allocated block: Free previous
+        1: Immediately use payload (User-defined aligned)), Free afterwards
+        2: Payload that is after the initial block, and uses rest of allocated block: Free previous unlikely
         3: Payload that is after the initial block, but doesn't use the rest of the block
     */
 
-    int multiple = align-1;
     size_t asize;
-    size_t align_block_size;
     size_t big_block_size;
-    int blocks_before;
-    int blocks_after;
+    size_t align_block_size = (size + sizeof(sf_header) + 63) & (~63);
 
-    asize = size + align + 2;
-    align_block_size =  (size + sizeof(sf_header) + multiple) & (~multiple);
+    // size_t align_block_size;
 
-    // printf("align block size: %lu\n", align_block_size);
 
-    // printf("asize: %lu, align block size: %lu, big block size: %lu\n",asize,align_block_size,big_block_size);
+    asize = size + align + 64 + sizeof(sf_header);
 
-    sf_block* big_block = (sf_malloc(asize)) - 16;
+    void *payload = sf_malloc(asize);
+    // unsigned int test = payload
+
+    sf_block* big_block = payload-16;
+    int left_to_aligned = align-((unsigned long)big_block->body.payload % align);
+    int blocks_before = (left_to_aligned + 63) & (~63);
 
     big_block_size = big_block->header & BLOCK_SIZE_MASK;
 
+    int blocks_after = big_block_size - (align_block_size + blocks_before);
 
-    printf("\nasize: %lu, align block size: %lu, big block size: %lu\n\n",asize,align_block_size,big_block_size);
+    printf("\nasize: %lu, big_block_size: %lu, left to aligned: %d\n\n",asize,big_block_size,left_to_aligned);
 
     /* STEPS:
-        1) Find the next block that satisfies alignment request: The pointer returned by malloc-16 casted to sf_block* + ((align-1)/32)
-        2)
+        1) Find the next block that satisfies alignment request
+        2) profit?
     */
 
-    blocks_before = (align-64)/64;
-    blocks_after = (big_block_size-(blocks_before * 32)-align_block_size)/64;
+    /*
+        If payload % align == 0, we can immediately allocate the memory at the given payload,
+        then split afterwards assuming no splinters
+    */
+    if (left_to_aligned == 0){
 
-    printf("blocks_before: %d, blocks_after: %d\n", blocks_before, blocks_after);
-
-    if (align == 64){
-        sf_block* next_block = big_block + (2 * (align_block_size/align));
-        next_block->header = (big_block_size-(blocks_before * 64 + align_block_size)) | THIS_BLOCK_ALLOCATED;
+        sf_block* next_block = big_block + align_block_size/32;
+        next_block->header = (big_block_size - align_block_size) | THIS_BLOCK_ALLOCATED;
         next_block->header = next_block->header | PREV_BLOCK_ALLOCATED;
-        sf_free(next_block->body.payload);
 
-        if ((big_block->header & PREV_BLOCK_ALLOCATED) == 1){
+        if ((big_block->header & PREV_BLOCK_ALLOCATED) == PREV_BLOCK_ALLOCATED){
             big_block->header = align_block_size | PREV_BLOCK_ALLOCATED;
+            big_block->header = big_block->header | THIS_BLOCK_ALLOCATED;
+        } else {
+            big_block->header = align_block_size | THIS_BLOCK_ALLOCATED;
         }
-        big_block->header = big_block->header | THIS_BLOCK_ALLOCATED;
+
+        next_block->prev_footer = big_block->header;
+        sf_free(next_block->body.payload);
         return big_block->body.payload;
+
+    } else {
+        void* aligned_payload = big_block->body.payload + left_to_aligned;
+        // int test = ((((unsigned long)aligned_payload) & (align-1)) == 0);
+        // printf("test: %d\nblocks_before: %d\n", test,blocks_before);
+        if (blocks_before > 0){
+            sf_block* memalign_block = big_block + blocks_before/32;
+            sf_block* next_block = memalign_block + align_block_size/32;
+
+            memalign_block->header = align_block_size | THIS_BLOCK_ALLOCATED;
+            memalign_block->header = memalign_block->header | PREV_BLOCK_ALLOCATED;
+
+            if ((big_block->header & PREV_BLOCK_ALLOCATED) == PREV_BLOCK_ALLOCATED){
+                big_block->header = blocks_before | PREV_BLOCK_ALLOCATED;
+                big_block->header = big_block->header | THIS_BLOCK_ALLOCATED;
+            } else {
+                big_block->header = blocks_before | THIS_BLOCK_ALLOCATED;
+            }
+
+            next_block->prev_footer = memalign_block->header;
+            next_block->header = next_block->header | PREV_BLOCK_ALLOCATED;
+
+            sf_free(big_block->body.payload);
+            memalign_block->prev_footer = big_block->header;
+
+            if (blocks_after > 0){
+                memalign_block->header = align_block_size | THIS_BLOCK_ALLOCATED;
+
+                sf_block* next_block = memalign_block + align_block_size/32;
+                sf_block* next_next_block = next_block + (big_block_size - (blocks_before + align_block_size))/32;
+
+                next_block->prev_footer = memalign_block->header;
+                next_block->header = (big_block_size - (blocks_before + align_block_size)) | THIS_BLOCK_ALLOCATED;
+                next_block->header = next_block->header | PREV_BLOCK_ALLOCATED;
+
+                next_next_block->prev_footer = next_block->header;
+                next_next_block->header = next_next_block->header | PREV_BLOCK_ALLOCATED;
+                sf_free(next_block->body.payload);
+
+                return aligned_payload;
+            } else {
+                sf_block* next_block = memalign_block + (big_block_size - blocks_before)/32;
+                next_block->prev_footer = memalign_block->header;
+                next_block->header = next_block->header | PREV_BLOCK_ALLOCATED;
+
+                return aligned_payload;
+            }
+            // printf("big block: %p\nmemalign block: %p\nnext_block: %p\n\n", big_block, memalign_block, next_block);
+        }
+
     }
     return NULL;
 }
