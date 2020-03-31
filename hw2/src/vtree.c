@@ -104,6 +104,7 @@ int		indent = 0,		/* current indent */
 		dupe = FALSE,		/* use duplicate inodes */
 		floating = FALSE,	/* floating column widths */
 		sort = FALSE,
+		link_check = FALSE,
 		cnt_inodes = FALSE,	/* count inodes */
 		quick = FALSE,		/* quick display */
 		visual = FALSE,		/* visual display */
@@ -553,7 +554,7 @@ int	user_file_list_supplied = 0;
 		#endif
 		{0,0,0,0}
 	};
-	while ((option = getopt_long(argc, argv, "dfh:iostqvV", long_options, NULL)) != EOF) {
+	while ((option = getopt_long(argc, argv, "dfh:iostqvVl", long_options, NULL)) != EOF) {
 		switch (option) {
 			case 'f':	floating = TRUE; break;
 			case 'h':	depth = atoi(optarg);
@@ -584,7 +585,8 @@ int	user_file_list_supplied = 0;
 			case 'V':	version++;
 					break;
 			#ifdef LSTAT
-					case 'l': sw_follow_links = 0;
+			case 'l': sw_follow_links = 0;
+					link_check = TRUE;
 					break;
 			#endif
 			default:	err = TRUE;
@@ -631,6 +633,7 @@ int	user_file_list_supplied = 0;
 			if (quick) printf("Quick display only\n");
 			if (visual) printf("Visual tree\n");
 			if (sort) printf("Sort directories before processing\n");
+			if (link_check) printf("Not following symbolic links\n");
 		}
 	}
 
