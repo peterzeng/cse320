@@ -11,25 +11,28 @@
 #include <errno.h>
 
 int wild_check = 0; /* Check to see if find_block() returned wilderness block or not */
-sf_block *prologue;
-sf_block *wilderness;
-sf_block *epilogue;
+// sf_block *prologue;
+// sf_block *wilderness;
+// sf_block *epilogue;
 int index_block_used;
 /*
     Initializes the heap with Prologue, wilderness block, and epilogue
 */
 
 void initialize_heap(void* start)  {
-    prologue = start + 48;
+    sf_block* prologue = start + 48;
+    // prologue = start + 48;
     prologue -> header = 64;
     prologue -> header |= THIS_BLOCK_ALLOCATED;
     prologue -> header |= PREV_BLOCK_ALLOCATED;
 
+    sf_block* wilderness;
     wilderness = prologue + 2;
     wilderness -> prev_footer = prologue -> header;
     wilderness -> header = 3968 | 2;
 
-    epilogue = wilderness + 124;
+    sf_block* epilogue = sf_mem_end()-16;
+    // epilogue = wilderness + 124;
     epilogue -> prev_footer = wilderness -> header;
     epilogue -> header = 1;
 
@@ -47,15 +50,15 @@ void initialize_heap(void* start)  {
 
 /*
     @params: checks size of block to be alloc
-    returns: 0: don't need more memory
-             1: need more memory
+    returns: 0: need more memory
+             1: don't need more memory
 */
 
 
 int check_more_mem(int size_of_block){
     // Start after prologue to see if we have blocks that will fit the requested malloc
-    prologue = sf_mem_start() + 48;
-    epilogue = sf_mem_end()-16;
+    sf_block* prologue = sf_mem_start() + 48;
+    sf_block* epilogue = sf_mem_end()-16;
 
     sf_block *where = prologue + 2;
 
@@ -63,10 +66,10 @@ int check_more_mem(int size_of_block){
         // printf("Where: %p, epilogue: %p\n", where,epilogue);
         if (((where->header) & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
             // printf("current header: %ld\n",where->header);
-            where += (where->header & BLOCK_SIZE_MASK)/32;
+            where += ((where->header) & BLOCK_SIZE_MASK)/32;
         } else {
             if (size_of_block > (where->header & BLOCK_SIZE_MASK)){
-                where += (where->header & BLOCK_SIZE_MASK)/32;
+                where += ((where->header) & BLOCK_SIZE_MASK)/32;
             } else if (size_of_block <= (where->header & BLOCK_SIZE_MASK)){
                 return 1;
             }
@@ -119,31 +122,12 @@ int find_index(int m){
     returns: free block to use in malloc
 */
 
-// sf_block *find_block(int startIndex, sf_block* sentinel){
-//     if (startIndex < NUM_FREE_LISTS-1){
-//         if (sentinel->body.links.next != sentinel){
-//             wild_check = 0;
-//             index_block_used = startIndex;
-//             return sentinel->body.links.next;
-//         } else {
-//             // printf("test Recursion\n");
-//             find_block(startIndex+1, &sf_free_list_heads[startIndex+1]);
-//         }
-//     } else {
-//         // printf("test for startIndex\n");
-//         wild_check = 1;
-//         index_block_used = NUM_FREE_LISTS-1;
-//         return sf_free_list_heads[NUM_FREE_LISTS-1].body.links.next;
-//     }
-
-// }
-
-sf_block *find_block(int startIndex, sf_block* sentinel){
+sf_block *find_block(int startIndex, sf_block* sentinel, int size){
     for (int i = startIndex; i < NUM_FREE_LISTS-1; i++){
         sentinel = &sf_free_list_heads[i];
         // printf("sentinel-> next, %p, sentinel: %p\n", sentinel->body.links.next, sentinel);
 
-        if (sentinel->body.links.next != sentinel){
+        if ((sentinel->body.links.next != sentinel) && ((sentinel->body.links.next)->header & BLOCK_SIZE_MASK) >= size){
             wild_check = 0;
             index_block_used = i;
             return sentinel->body.links.next;
@@ -298,20 +282,24 @@ void *sf_malloc(size_t size) {
     // printf("asize: %zu\n",asize);
 
     while(check_more_mem(asize) == 0){
+        sf_block *old_epilogue = sf_mem_end()-16;
         sf_block *new_end = sf_mem_grow();
+        sf_block *epilogue = sf_mem_end()-16;
+
+        sf_block *wilderness = epilogue - (((old_epilogue->prev_footer) & BLOCK_SIZE_MASK)+PAGE_SZ)/32;
+
         if (new_end == NULL){
             sf_errno = ENOMEM;
             return NULL;
         };
 
-        wilderness->header += 4096;
-        epilogue = wilderness + (4096/32);
+        wilderness->header += PAGE_SZ;
         epilogue->prev_footer = wilderness->header;
     }
 
     int startIndex = find_index(m); /* Starting index of list head to look */
 
-    sf_block* block_to_be_allocated = find_block(startIndex, &sf_free_list_heads[startIndex]);
+    sf_block* block_to_be_allocated = find_block(startIndex, &sf_free_list_heads[startIndex], asize);
 
     // printf("Wilderness test: %p\n", block_to_be_allocated);
 
@@ -329,7 +317,7 @@ void *sf_malloc(size_t size) {
         // printf("test\n");
         // block_to_be_allocated->header
         if (index_block_used == NUM_FREE_LISTS-1){
-
+            sf_block* epilogue = sf_mem_end()-16;
             // WILDERNESS ALLOCATED
             int prev_aloc = block_to_be_allocated->header & PREV_BLOCK_ALLOCATED;
             if (prev_aloc == PREV_BLOCK_ALLOCATED){
@@ -349,11 +337,15 @@ void *sf_malloc(size_t size) {
             block_to_be_allocated->header = block_to_be_allocated->header | THIS_BLOCK_ALLOCATED;
             (block_to_be_allocated+(block_to_be_allocated->header & BLOCK_SIZE_MASK)/32)->prev_footer = block_to_be_allocated->header;
             remove_block_freelist(block_to_be_allocated);
+            sf_block* next_block = block_to_be_allocated + ((block_to_be_allocated->header)&BLOCK_SIZE_MASK)/32;
+            next_block->header = next_block->header | PREV_BLOCK_ALLOCATED;
             index_block_used = 0;
 
             return block_to_be_allocated->body.payload;
         }
     } else {
+        sf_block *epilogue = sf_mem_end()-16;
+        sf_block* wilderness = epilogue - (epilogue->prev_footer & BLOCK_SIZE_MASK)/32;
         if (wild_check == 1){
             /* Set the header size of the space to be allocated first to asize */
                 // printf("wilderness header, %d\n", (int)wilderness->header);
@@ -531,18 +523,14 @@ void sf_free(void *pp) {
             // remove_block_freelist(prev_block);
             return;
         } else {
-            sf_block* next_block = coalesce_block + total_size/32;
-            next_block->prev_footer = coalesce_block->header;
+            sf_block* next_block = coalesce_block + (prev_size + size)/32;
+            remove_block_freelist(next_block);
 
-            if ((next_block->header & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
-                next_block->header = next_block->header & BLOCK_SIZE_MASK;
-                next_block->header = next_block->header | THIS_BLOCK_ALLOCATED;
-            } else {
-                next_block->header = next_block->header & BLOCK_SIZE_MASK;
-            }
-               add_block_freelist(index,coalesce_block);
-               remove_block_freelist(prev_block);
-               remove_block_freelist(next_block);
+            sf_block* next_next_block = coalesce_block + total_size/32;
+            next_next_block->prev_footer = coalesce_block->header;
+
+            add_block_freelist(index,coalesce_block);
+               // remove_block_freelist(prev_block);
         }
 
 
@@ -574,6 +562,8 @@ void sf_free(void *pp) {
         return;
     } else if (type_of_free == 2){
         // 2: prev is alloc, next is free
+        sf_block *epilogue = sf_mem_end()-16;
+        sf_block* wilderness = epilogue - (epilogue->prev_footer & BLOCK_SIZE_MASK)/32;
 
         sf_block* block = pp-16;
 
@@ -695,14 +685,17 @@ void *sf_realloc(void *pp, size_t rsize) {
         if ((old_size-rsize-8) < 64){
             return pp;
         } else {
-            sf_block* new_block = block_to_be_split+asize/32;
+            sf_block* new_block = block_to_be_split + asize/32;
             new_block->header = (old_size-asize) | PREV_BLOCK_ALLOCATED;
             new_block->header = new_block->header | THIS_BLOCK_ALLOCATED;
             sf_free(new_block->body.payload);
             if ((block_to_be_split->header & PREV_BLOCK_ALLOCATED) == PREV_BLOCK_ALLOCATED){
                 block_to_be_split->header = asize | PREV_BLOCK_ALLOCATED;
+            } else {
+                block_to_be_split->header = asize;
             }
             block_to_be_split->header = block_to_be_split->header | THIS_BLOCK_ALLOCATED;
+            new_block->prev_footer = block_to_be_split->header;
             return block_to_be_split->body.payload;
         }
     } else if (asize == csize){
@@ -790,14 +783,21 @@ void *sf_memalign(size_t size, size_t align) {
     // unsigned int test = payload
 
     sf_block* big_block = payload-16;
-    int left_to_aligned = align-((unsigned long)big_block->body.payload % align);
+
+    int left_to_aligned;
+    if ((unsigned long)payload % align != 0){
+        left_to_aligned = align-((unsigned long)big_block->body.payload % align);
+    } else {
+        left_to_aligned = 0;
+    }
+
     int blocks_before = (left_to_aligned + 63) & (~63);
 
     big_block_size = big_block->header & BLOCK_SIZE_MASK;
 
     int blocks_after = big_block_size - (align_block_size + blocks_before);
 
-    printf("\nasize: %lu, big_block_size: %lu, left to aligned: %d\n\n",asize,big_block_size,left_to_aligned);
+    // printf("\nasize: %lu, big_block_size: %lu, left to aligned: %d\n\n",asize,big_block_size,left_to_aligned);
 
     /* STEPS:
         1) Find the next block that satisfies alignment request

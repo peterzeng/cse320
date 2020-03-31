@@ -241,7 +241,8 @@ void sf_mem_init();
 
 /*
  * Any program using the sfmm library must call this function ONCE
- * after all allocation requests are complete. If implemented cleanly,
+ * after all allocation requests are complete. If implassert_free_block_count(0, 1);
+    assert_free_block_count(3904, 1);emented cleanly,
  * your program should have no memory leaks in valgrind after this function
  * is called.
  */

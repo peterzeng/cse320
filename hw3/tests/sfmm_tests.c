@@ -1,4 +1,4 @@
-	#include <criterion/criterion.h>
+#include <criterion/criterion.h>
 #include <errno.h>
 #include <signal.h>
 #include "debug.h"
@@ -206,3 +206,71 @@ Test(sf_memsuite_student, realloc_smaller_block_free_block, .init = sf_mem_init,
 //DO NOT DELETE THESE COMMENTS
 //############################################
 
+Test(sf_memsuite_student, improper_memalign, .init = sf_mem_init, .fini = sf_mem_fini){
+	sf_errno = 0;
+	sf_malloc(10);
+	void *x = sf_memalign(300, 10);
+
+	cr_assert_null(x, "x is not NULL!");
+	assert_free_block_count(0, 1);
+	assert_free_block_count(3904, 1);
+	cr_assert(sf_errno == EINVAL, "sf_errno is not EINVAL!");
+}
+
+Test(sf_memsuite_student, memalign_properly, .init = sf_mem_init, .fini = sf_mem_fini) {
+	// void *y = sf_malloc(1000);
+	int align = 2048;
+	// sf_malloc(500);
+	// sf_free(y);
+	void *check_alignment = sf_memalign(500,align);
+	cr_assert(((unsigned long)check_alignment % align) == 0, "address returned by memalign is not aligned!");
+}
+
+Test(sf_memsuite_student, malloc_after_free, .init = sf_mem_init, .fini = sf_mem_fini) {
+	sf_errno = 0;
+
+	sf_malloc(500);
+	void *y = sf_malloc(2000);
+	sf_malloc(300);
+
+	sf_free(y);
+
+	sf_malloc(400);
+
+	assert_free_block_count(1600, 1);
+	assert_free_block_count(1088, 1);
+
+	cr_assert(sf_errno == 0, "sf_errno is not zero!");
+}
+
+Test(sf_memsuite_student, realloc_zero, .init = sf_mem_init, .fini = sf_mem_fini){
+	sf_errno = 0;
+	void* a = sf_malloc(500);
+	sf_realloc(a, 0);
+
+	assert_free_block_count(3968, 1);
+
+	cr_assert(sf_errno == 0, "sf_errno is not zero!");
+}
+
+Test(sf_memsuite_student, free_coalesce_both, .init = sf_mem_init, .fini = sf_mem_fini){
+	sf_errno = 0;
+
+	sf_malloc(4000);
+	sf_malloc(5000);
+	void* a = sf_malloc(235);
+	void* b = sf_malloc(354);
+	void* c = sf_malloc(542);
+	sf_malloc(2500);
+	sf_malloc(2);
+	sf_free(c);
+	sf_free(a);
+	sf_free(b);
+
+	assert_free_block_count(1216,1);
+	assert_free_block_count(3328,1);
+
+	cr_assert(sf_errno == 0, "sf_errno is not zero!");
+
+
+}
