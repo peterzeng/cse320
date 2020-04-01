@@ -23,6 +23,13 @@ After completing this assignment, you should:
 
 ## Getting Started
 
+You will need to install the `libgcrypt20-dev` crypto library in order to compile
+the basecode.  Do this with the following command:
+
+```
+$ sudo apt install libgcrypt20-dev
+```
+
 Fetch and merge the base code for `hw4` as described in `hw1`.
 You can find it at this link: https://gitlab02.cs.stonybrook.edu/cse320/hw4
 
