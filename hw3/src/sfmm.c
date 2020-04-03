@@ -425,7 +425,7 @@ void *sf_malloc(size_t size) {
 void sf_free(void *pp) {
 
     if (pp == NULL){
-        printf("The pointer is invalid. Aborting...\n");
+        // printf("The pointer is invalid. Aborting...\n");
         abort();
     } else {
         sf_block* block = pp-16;
@@ -434,17 +434,17 @@ void sf_free(void *pp) {
 
             // printf("stupid test cause im stupid 1\n");
 
-            printf("The pointer is invalid. Aborting...\n");
+            // printf("The pointer is invalid. Aborting...\n");
             abort();
         } else if ((block->header & THIS_BLOCK_ALLOCATED) == 0){
             // printf("stupid test cause im stupid 2\n");
 
-            printf("The pointer is invalid. Aborting...\n");
+            // printf("The pointer is invalid. Aborting...\n");
             abort();
         } else if ((pp-sizeof(sf_header)) < (sf_mem_start()+56) || (((pp-16)+(block->header & BLOCK_SIZE_MASK))>(sf_mem_end()-8))){
             // printf("stupid test cause im stupid 3\n");
 
-            printf("The pointer is invalid. Aborting...\n");
+            // printf("The pointer is invalid. Aborting...\n");
             abort();
         } else if ((block->header & PREV_BLOCK_ALLOCATED) == 0){
             int size = block->prev_footer & BLOCK_SIZE_MASK;
@@ -452,7 +452,7 @@ void sf_free(void *pp) {
             if ((prev_block->header & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
                 // printf("stupid test cause im stupid 4\n");
 
-                printf("The pointer is invalid. Aborting...\n");
+                // printf("The pointer is invalid. Aborting...\n");
                 abort();
             }
         }
@@ -630,34 +630,30 @@ void sf_free(void *pp) {
 void *sf_realloc(void *pp, size_t rsize) {
 
     if (pp == NULL){
-        printf("The pointer is invalid. Aborting...\n");
-        abort();
+        sf_errno = EINVAL;
+        return NULL;
     } else {
         sf_block* block = pp-16;
 
         if (((unsigned long)pp & 63) != 0){
             // printf("stupid test cause im stupid 1\n");
-
-            printf("The pointer is invalid. Aborting...\n");
-            abort();
+            sf_errno = EINVAL;
+            return NULL;
         } else if ((block->header & THIS_BLOCK_ALLOCATED) == 0){
             // printf("stupid test cause im stupid 2\n");
-
-            printf("The pointer is invalid. Aborting...\n");
-            abort();
+            sf_errno = EINVAL;
+            return NULL;
         } else if ((pp-sizeof(sf_header)) < (sf_mem_start()+56) || (((pp-16)+(block->header & BLOCK_SIZE_MASK))>(sf_mem_end()-8))){
             // printf("stupid test cause im stupid 3\n");
-
-            printf("The pointer is invalid. Aborting...\n");
-            abort();
+            sf_errno = EINVAL;
+            return NULL;
         } else if ((block->header & PREV_BLOCK_ALLOCATED) == 0){
             int size = block->prev_footer & BLOCK_SIZE_MASK;
             sf_block* prev_block = pp-sizeof(sf_header)-size;
             if ((prev_block->header & THIS_BLOCK_ALLOCATED) == THIS_BLOCK_ALLOCATED){
                 // printf("stupid test cause im stupid 4\n");
-
-                printf("The pointer is invalid. Aborting...\n");
-                abort();
+                sf_errno = EINVAL;
+                return NULL;
             }
         }
     }
@@ -676,6 +672,9 @@ void *sf_realloc(void *pp, size_t rsize) {
 
     if (asize > csize){
         void* larger_block = sf_malloc(rsize);
+        if (larger_block == NULL){
+            return NULL;
+        }
         memcpy(larger_block, pp, csize-sizeof(sf_header));
         sf_free(pp);
         return larger_block;
@@ -701,8 +700,6 @@ void *sf_realloc(void *pp, size_t rsize) {
     } else if (asize == csize){
         return pp;
     }
-
-
 
     return NULL;
 }
