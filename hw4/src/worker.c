@@ -7,9 +7,12 @@
 
 
 volatile sig_atomic_t got_sighup = 0;
+volatile sig_atomic_t got_sigterm = 0;
+
 
 void sigterm_handler(int sig){
-    exit(EXIT_SUCCESS);
+    got_sigterm = 1;
+    // exit(EXIT_SUCCESS);
 }
 
 void sighup_handler(int sig){
@@ -30,9 +33,13 @@ int worker(void) {
 
 
     while(1){
-
         if (kill(getpid(), SIGSTOP) < 0){
             debug("kill error\n");
+        }
+
+        if (got_sigterm){
+            got_sigterm = 0;
+            exit(EXIT_SUCCESS);
         }
 
         size_t size_of_header = sizeof(struct problem);
@@ -53,7 +60,7 @@ int worker(void) {
 
         read(STDIN_FILENO, problem->data, problem->size - size_of_header);
 
-        fflush(STDIN_FILENO);
+        // fflush(STDIN_FILENO);
 
 
         // Get the problem type from problem
