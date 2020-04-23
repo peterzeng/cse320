@@ -24,6 +24,7 @@ void sighup_handler(int sig){
  */
 int worker(void) {
 
+
     if (signal(SIGTERM, sigterm_handler) == SIG_ERR){
         debug("error in termination\n");
     }
@@ -38,22 +39,27 @@ int worker(void) {
         }
 
         if (got_sigterm){
+            // debug("sigterm\n");
             got_sigterm = 0;
             exit(EXIT_SUCCESS);
         }
 
+
+
         size_t size_of_header = sizeof(struct problem);
 
-        debug("size of header: %zu\n",size_of_header);
+        // debug("size of header: %zu\n",size_of_header);
         // printf("size of header: %zu\n",size_of_header);
 
         struct problem *problem = malloc(size_of_header);
+
+        // debug("problem pointer: %p", problem);
 
         if (read(STDIN_FILENO, problem, size_of_header) < 0){
             debug("read error\n");
         }
 
-        debug("size of problem: %zu\n", problem->size);
+        // debug("size of problem: %zu\n", problem->size);
 
         // Malloc enough space for the entire problem
         problem = realloc(problem, problem->size);
@@ -69,7 +75,7 @@ int worker(void) {
         // Solve the problem
         struct result *result;
         if (((result = solvers[problem_type].solve(problem, &got_sighup)) == NULL) || got_sighup != 0){
-            debug("solution failed somehwo\n");
+            debug("solution failed somehow\n");
             struct result *result = malloc(sizeof(struct result));
             result->size = sizeof(struct result);
             result->id = problem->id;
@@ -89,11 +95,12 @@ int worker(void) {
             debug("Resetting sighup\n");
         }
 
+
+
     }
 
     // debug("size of header: %zu\n",size_of_header);
     // problem new_problem = read
-    debug("reeeeeeeeeeeeeeee\n");
     // pid_t pid;
 
     // int olderrno = errno;
