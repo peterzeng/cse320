@@ -50,13 +50,13 @@ void sigchild_handler(int sig){
                 debug("Worker Stopped");
                 sf_change_state(pids[local_index], states[local_index], WORKER_STOPPED);
                 states[local_index] = WORKER_STOPPED;
-
-            } else if (states[local_index] == WORKER_STOPPED){
-                debug("Resetting worker %d to IDLE\n", local_index);
-
-                sf_change_state(pids[local_index], states[local_index], WORKER_IDLE);
-                states[local_index] = WORKER_IDLE;
             }
+            // } else if (states[local_index] == WORKER_STOPPED){
+            //     debug("Resetting worker %d to IDLE\n", local_index);
+
+            //     sf_change_state(pids[local_index], states[local_index], WORKER_IDLE);
+            //     states[local_index] = WORKER_IDLE;
+            // }
         }
 
     got_sigchild = 1;
@@ -80,7 +80,8 @@ int master(int workers) {
 
     pid_t pid;
 
-    struct problem *problem_assigned[workers];
+    // struct problem *problem_assigned[workers];
+    struct problem *problem_assigned;
 
     if (workers < 1){
         workers = 1;
@@ -134,7 +135,11 @@ int master(int workers) {
 
         }
     }
-
+    for (int i = 0; i < workers; i++){
+        if (states[i] == WORKER_STARTED){
+            pause();
+        }
+    }
 
     while(1){
         if (got_sigpipe){
@@ -157,13 +162,15 @@ int master(int workers) {
 
                     if (check_idle){
                         for (int k = 0; k < workers; k++){
-                            kill(pids[i], SIGCONT);
-                            debug("Sending SIGCONT to worker %d",k);
-                            kill(pids[i],SIGTERM);
-                            pause();
+                            kill(pids[k],SIGTERM);
 
+                            kill(pids[k], SIGCONT);
+                            debug("Sending SIGCONT to worker %ld",(long)pids[k]);
+                            if (states[k] == WORKER_RUNNING)
+                                pause();
                             while(1){
-                                if (states[i] == WORKER_EXITED)
+                                // pause();
+                                if (states[k] == WORKER_EXITED)
                                     break;
                             }
                         }
@@ -175,9 +182,9 @@ int master(int workers) {
 
                 }
 
-                problem_assigned[i] = new_problem;
-                sf_send_problem(pids[i], new_problem);
+                problem_assigned = new_problem;
 
+                sf_send_problem(pids[i], new_problem);
                 sigprocmask(SIG_BLOCK, &child_mask, &prev_mask);
                 sf_change_state(pids[i], states[i], WORKER_CONTINUED);
                 states[i] = WORKER_CONTINUED;
@@ -185,7 +192,8 @@ int master(int workers) {
 
                 // write(master_pipes[i][1], new_problem, new_problem->size);
                 kill(pids[i], SIGCONT);
-                // pause();
+                if (states[i] == WORKER_CONTINUED)
+                    pause();
                 debug("Sending SIGCONT to worker %d",i);
                 debug("Writing problem to worker %d",i);
                 // debug("size %ld", new_problem->size);
@@ -196,7 +204,7 @@ int master(int workers) {
         // CHECK FOR STOPPED WORKER
         check_stop:for (int i = 0; i < workers; i++){
             if(states[i] == WORKER_STOPPED){
-                // debug("test");
+                // debug("stopped worker");
                 int check_solution;
                 struct result *new_result = malloc(sizeof(struct result));
                 read(worker_pipes[i][0], new_result, sizeof(struct result));
@@ -205,7 +213,7 @@ int master(int workers) {
 
                 sf_recv_result(pids[i], new_result);
 
-                if ((check_solution = (post_result(new_result, problem_assigned[i]))) == 0){
+                if ((check_solution = (post_result(new_result, problem_assigned))) == 0){
                     // Solution works
                     free(new_result);
                     sigprocmask(SIG_BLOCK, &child_mask, &prev_mask);
@@ -214,17 +222,17 @@ int master(int workers) {
                     sigprocmask(SIG_SETMASK, &prev_mask, NULL);
 
                     // Cancels other workers working on the same problem
-
                     for (int j = 0; j < workers; j++){
-                        if ((problem_assigned[j] == problem_assigned[i]) && (i != j)){
+                        if (states[j] != WORKER_IDLE){
                             sf_cancel(pids[j]);
-                            sigprocmask(SIG_BLOCK, &child_mask, &prev_mask);
-                            sf_change_state(pids[i], states[i], WORKER_STOPPED);
-                            states[i] = WORKER_STOPPED;
-                            sigprocmask(SIG_SETMASK, &prev_mask, NULL);
-
                             kill(pids[j], SIGHUP);
-                            pause();
+                            if (states[j] == WORKER_RUNNING)
+                                pause();
+
+                            // sigprocmask(SIG_BLOCK, &child_mask, &prev_mask);
+                            sf_change_state(pids[j], states[j], WORKER_IDLE);
+                            states[j] = WORKER_IDLE;
+                            // sigprocmask(SIG_SETMASK, &prev_mask, NULL);
                         }
                     }
                 } else {
@@ -232,8 +240,8 @@ int master(int workers) {
                     free(new_result);
                     debug("Solution failed");
                     sigprocmask(SIG_BLOCK, &child_mask, &prev_mask);
-                    sf_change_state(pids[i], states[i], WORKER_STOPPED);
-                    states[i] = WORKER_STOPPED;
+                    sf_change_state(pids[i], states[i], WORKER_IDLE);
+                    states[i] = WORKER_IDLE;
                     sigprocmask(SIG_SETMASK, &prev_mask, NULL);
                 }
             }

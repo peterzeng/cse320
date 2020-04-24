@@ -40,7 +40,7 @@ int worker(void) {
         }
 
         if (got_sigterm){
-            debug("Killing self");
+            debug("Terminating worker %ld", (long)getpid());
             got_sigterm = 0;
             exit(EXIT_SUCCESS);
         }
