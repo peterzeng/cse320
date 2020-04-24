@@ -24,7 +24,6 @@ void sighup_handler(int sig){
  */
 int worker(void) {
 
-
     if (signal(SIGTERM, sigterm_handler) == SIG_ERR){
         debug("error in termination\n");
     }
@@ -34,17 +33,17 @@ int worker(void) {
 
 
     while(1){
+
+        // debug("Test");
         if (kill(getpid(), SIGSTOP) < 0){
             debug("kill error\n");
         }
 
         if (got_sigterm){
-            // debug("sigterm\n");
+            debug("Killing self");
             got_sigterm = 0;
             exit(EXIT_SUCCESS);
         }
-
-
 
         size_t size_of_header = sizeof(struct problem);
 
@@ -75,26 +74,24 @@ int worker(void) {
         // Solve the problem
         struct result *result;
         if (((result = solvers[problem_type].solve(problem, &got_sighup)) == NULL) || got_sighup != 0){
-            debug("solution failed somehow\n");
+            // debug("solution failed somehow\n");
             struct result *result = malloc(sizeof(struct result));
             result->size = sizeof(struct result);
+
+
             result->id = problem->id;
             result->failed = 1;
+            debug("[%ld:Worker] Writing failed result to Master", (long)getpid());
             write(STDOUT_FILENO, result, result->size);
         } else {
-            debug("writing a solution\n");
+            debug("[%ld:Worker] Writing result to Master", (long)getpid());
+            // debug("result size in worker: %ld\n", result->size);
+
             write(STDOUT_FILENO, result, result->size);
         }
 
         free(result);
         free(problem);
-
-
-        if (got_sighup){
-            got_sighup = 0;
-            debug("Resetting sighup\n");
-        }
-
 
 
     }
