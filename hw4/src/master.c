@@ -174,6 +174,8 @@ int master(int workers) {
                                     break;
                             }
                         }
+                        free(states);
+                        free(pids);
                         sf_end();
                         exit(EXIT_SUCCESS);
                     } else {
