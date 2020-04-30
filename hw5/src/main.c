@@ -77,8 +77,11 @@ int main(int argc, char* argv[]){
     // Signal(SIGHUP, sighup_handler);
 
     // Perform required initialization of the PBX module.
+
     debug("Initializing PBX...");
-    pbx = pbx_init();
+    if ((pbx = pbx_init()) == NULL){
+        terminate(EXIT_FAILURE);
+    }
 
     // TODO: Set up the server socket and enter a loop to accept connections
     // on this socket.  For each connection, a thread should be started to
