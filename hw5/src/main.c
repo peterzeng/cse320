@@ -34,35 +34,31 @@ int main(int argc, char* argv[]){
     // Option processing should be performed here.
     // Option '-p <port>' is required in order to specify the port number
     // on which the server should listen.
-
-    int option;
-    int port;
     int index;
+    int arg_check = 0;
 
-    while((option = getopt(argc, argv, "p:")) != EOF) {
-        switch(option) {
-            case 'p':
-                for (int i = 0; i < argc; i++){
-                    if (!(strcmp(argv[i], "-p"))){
-                        index = i + 1;
-                    }
-                    // debug("%s", argv[i]);
-                }
-
-
-                if ((port = atoi(optarg++)) <= 0) {
-                    fprintf(stderr, "Usage: bin/pbx -p <port>");
+    for (int i = 0; i < argc; i++){
+        if (!(strcmp(argv[i], "-p"))){
+            if (argc >= i+1){
+                if (atoi(argv[i+1]) <= 0){
+                    fprintf(stderr, "Usage: bin/pbx -p <port>\n");
                     exit(EXIT_FAILURE);
+                } else {
+                    index = i + 1;
+                    arg_check = 1;
                 }
-                break;
-            default:
-                fprintf(stderr, "Usage: bin/pbx -p <port>");
+            } else {
+                fprintf(stderr, "Usage: bin/pbx -p <port>\n");
                 exit(EXIT_FAILURE);
-
+            }
         }
     }
 
-    debug("Port %d", port);
+    if (!arg_check){
+        fprintf(stderr, "Usage: bin/pbx -p <port>\n");
+        exit(EXIT_FAILURE);
+    }
+
     struct sigaction new_action, old_action;
 
     new_action.sa_handler = sighup_handler;
@@ -79,6 +75,7 @@ int main(int argc, char* argv[]){
     // Perform required initialization of the PBX module.
 
     debug("Initializing PBX...");
+    debug("Port %d", atoi(argv[index]));
     if ((pbx = pbx_init()) == NULL){
         terminate(EXIT_FAILURE);
     }
@@ -88,6 +85,7 @@ int main(int argc, char* argv[]){
     // run function pbx_client_service().  In addition, you should install
     // a SIGHUP handler, so that receipt of SIGHUP will perform a clean
     // shutdown of the server.
+
 
     int listenfd, *connfdp;
     socklen_t clientlen;

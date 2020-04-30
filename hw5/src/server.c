@@ -25,7 +25,7 @@
  * descriptor has been retrieved.
  * @return  NULL
  *
- * This function executes a "service loop" that receives messages from
+ * This function executes a "service loop" that receives messages froms
  * the client and dispatches to appropriate functions to carry out
  * the client's requests.  The service loop ends when the network connection
  * shuts down and EOF is seen.  This could occur either as a result of the
