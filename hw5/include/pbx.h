@@ -147,7 +147,7 @@ int tu_extension(TU *tu);
 int tu_pickup(TU *tu);
 
 /*
- * Hang up a TU (i.e. replace the handset on the switchhook).
+ * Hang up a TU (i.e. replace the handsxet on the switchhook).
  *
  *   If the TU was in the TU_CONNECTED state, then it goes to the TU_ON_HOOK state.
  *     In addition, in this case the peer TU (the one to which the call is currently
