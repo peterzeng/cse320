@@ -96,7 +96,8 @@ void *pbx_client_service(void *arg){
                 tu_dial(client, atoi(message_buf));
             }
         } else if (check_substring(message_buf, "chat", 0, 4)){
-            fscanf(client_pointer, "%s", message_buf);
+            fscanf(client_pointer, "%[^\n]s", message_buf);
+            // read(client_fd, message_buf, sizeof(message_buf));
             tu_chat(client, message_buf);
         } else {
             if (!strcmp(message_buf, "pickup")){
