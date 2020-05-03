@@ -11,8 +11,8 @@ volatile sig_atomic_t got_sigterm = 0;
 
 
 void sigterm_handler(int sig){
-    got_sigterm = 1;
-    // exit(EXIT_SUCCESS);
+    // got_sigterm = 1;
+    exit(EXIT_SUCCESS);
 }
 
 void sighup_handler(int sig){
@@ -39,16 +39,13 @@ int worker(void) {
             debug("kill error\n");
         }
 
-        if (got_sigterm){
-            debug("Terminating worker %ld", (long)getpid());
-            got_sigterm = 0;
-            exit(EXIT_SUCCESS);
-        }
+        // if (got_sigterm){
+        //     debug("Terminating worker %ld", (long)getpid());
+        //     got_sigterm = 0;
+        //     exit(EXIT_SUCCESS);
+        // }
 
         size_t size_of_header = sizeof(struct problem);
-
-        // debug("size of header: %zu\n",size_of_header);
-        // printf("size of header: %zu\n",size_of_header);
 
         struct problem *problem = malloc(size_of_header);
 
@@ -96,11 +93,5 @@ int worker(void) {
 
     }
 
-    // debug("size of header: %zu\n",size_of_header);
-    // problem new_problem = read
-    // pid_t pid;
-
-    // int olderrno = errno;
-    // TO BE IMPLEMENTED
     return EXIT_FAILURE;
 }
