@@ -113,9 +113,13 @@ TU *pbx_register(PBX *pbx, int fd){
 }
 
 int pbx_unregister(PBX* pbx, TU *tu){
+    // debug("unregister");
     if (pbx->tunits[tu->fd] == NULL){
         return -1;
     }
+    if (close(tu->fd) == -1)
+        debug("close didn't work properly");
+
     pbx->tunits[tu->fd] = NULL;
     free(tu);
     return 0;
