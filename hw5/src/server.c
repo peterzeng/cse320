@@ -48,7 +48,7 @@ int check_substring(char string[], char substring[], int start, int end){
 
 int is_string_number(char string[]){
     int check = 1;
-    for (int i = 0; i < strlen(string); i++){
+    for (int i = 0; i < strlen(string)-1; i++){
         if (!isdigit(string[i])){
             check = 0;
         }
@@ -82,34 +82,51 @@ void *pbx_client_service(void *arg){
 
     // Make a buffer for a string
 
-    char message_buf[MAXLINE];
+    char *message_buf;
+    int c;
+    int count;
 
     // char chat_buf[MAXLINE];
-
     FILE *client_pointer = fdopen(client_fd, "r");
 
-    while (fscanf(client_pointer, "%s", message_buf) != EOF){
+    while (((c = fgetc(client_pointer)) != EOF)){
+        count = 0;
+        message_buf = malloc(sizeof(char) * (count+1));
+        *(message_buf+count) = c;
 
-        // debug("initial: %s",message_buf);
+        while(((c = fgetc(client_pointer)) != '\r')){
+            count++;
+            message_buf = realloc(message_buf, sizeof(char) * (count+1));
+            *(message_buf+count) = c;
+        }
+
+        fgetc(client_pointer);
+        count++;
+        message_buf = realloc(message_buf, sizeof(char) * count);
+        *(message_buf+count) = '\0';
+
+        // debug("%s",message_buf);
+
         if (check_substring(message_buf, "dial", 0, 4)){
-            // debug("dial?");
-            fscanf(client_pointer, "%s", message_buf);
-            // debug("new: %s", message_buf);
-            if (is_string_number(message_buf)){
+
+            if (is_string_number(message_buf+5)){
                 // debug("number");
                 tu_dial(client, atoi(message_buf));
             }
         } else if (check_substring(message_buf, "chat", 0, 4)){
-            fscanf(client_pointer, "%[^\n]s", message_buf);
-            // read(client_fd, message_buf, sizeof(message_buf));
-            tu_chat(client, message_buf);
+
+            tu_chat(client, message_buf+5);
+
         } else {
+
             if (!strcmp(message_buf, "pickup")){
                 tu_pickup(client);
             } else if (!strcmp(message_buf, "hangup")){
                 tu_hangup(client);
             }
         }
+
+        free(message_buf);
     }
 
     pbx_unregister(pbx, client);
