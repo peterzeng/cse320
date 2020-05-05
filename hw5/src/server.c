@@ -128,6 +128,8 @@ void *pbx_client_service(void *arg){
 
         free(message_buf);
     }
+    if (message_buf != NULL)
+        free(message_buf);
 
     pbx_unregister(pbx, client);
 
