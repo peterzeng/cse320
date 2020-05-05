@@ -23,7 +23,7 @@ volatile sig_atomic_t got_sighup = 0;
 
 void sighup_handler(int sig){
     got_sighup = 1;
-    pbx_shutdown(pbx);
+    terminate(EXIT_SUCCESS);
 }
 /*
  * "PBX" telephone exchange simulation.
@@ -103,7 +103,7 @@ int main(int argc, char* argv[]){
 
 
     fprintf(stderr, "You have to finish implementing main() "
-	    "before the PBX server will function.\n");
+        "before the PBX server will function.\n");
 
     terminate(EXIT_FAILURE);
 }

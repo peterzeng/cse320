@@ -36,11 +36,13 @@
 int check_substring(char string[], char substring[], int start, int end){
     int check = 1;
     for (int i = start; i < end; i++){
+        // debug("string: %c", string[i]);
+        // debug("substring: %c", substring[i]);
+        // debug("I: %d", i);
         if (string[i] != substring[i-start]){
             check = 0;
         }
     }
-
     return check;
 }
 
@@ -72,7 +74,7 @@ void *pbx_client_service(void *arg){
     }
 
     if ((client_fd = tu_fileno(client)) == -1){
-        debug("no file descriptor");
+        debug("No file descriptor");
         exit(EXIT_FAILURE);
     }
 
@@ -89,10 +91,12 @@ void *pbx_client_service(void *arg){
     while (fscanf(client_pointer, "%s", message_buf) != EOF){
 
         // debug("initial: %s",message_buf);
-        if (check_substring(message_buf, "dial ", 0, 4)){
+        if (check_substring(message_buf, "dial", 0, 4)){
+            // debug("dial?");
             fscanf(client_pointer, "%s", message_buf);
             // debug("new: %s", message_buf);
             if (is_string_number(message_buf)){
+                // debug("number");
                 tu_dial(client, atoi(message_buf));
             }
         } else if (check_substring(message_buf, "chat", 0, 4)){
@@ -107,6 +111,8 @@ void *pbx_client_service(void *arg){
             }
         }
     }
+
+    pbx_unregister(pbx, client);
 
     return NULL;
 }
