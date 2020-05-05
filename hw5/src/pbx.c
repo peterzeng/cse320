@@ -114,14 +114,29 @@ TU *pbx_register(PBX *pbx, int fd){
 
 int pbx_unregister(PBX* pbx, TU *tu){
     // debug("unregister");
+    P(&mutex);
     if (pbx->tunits[tu->fd] == NULL){
         return -1;
+    }
+
+    if (tu->state == TU_CONNECTED){
+        if (tu->connected){
+            pbx->tunits[tu->connected]->state = TU_DIAL_TONE;
+            char *c = state_to_string(TU_DIAL_TONE);
+            dprintf(tu->connected, "%s\r\n", c);
+            reset_tu(pbx->tunits[tu->connected]);
+        } else {
+            debug("not connected, this is impossible theoretically");
+            V(&mutex);
+            return -1;
+        }
     }
     if (close(tu->fd) == -1)
         debug("close didn't work properly");
 
     pbx->tunits[tu->fd] = NULL;
     free(tu);
+    V(&mutex);
     return 0;
 }
 
