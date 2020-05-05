@@ -255,17 +255,18 @@ int tu_dial(TU *tu, int ext){
     // CALLED is ext
 
     // check that extension refers to an actual extension
-    if (pbx->tunits[ext] == NULL){
-        debug("not a valid extension");
+
+
+    if (tu->state == TU_DIAL_TONE){
+        // CHECK STATE OF DIALED EXTENSION
+        if (pbx->tunits[ext] == NULL){
+        // debug("not a valid extension");
         tu->state = TU_ERROR;
         char* c = state_to_string(tu->state);
         dprintf(tu->fd, "%s\r\n", c);
         V(&mutex);
         return 0;
     }
-
-    if (tu->state == TU_DIAL_TONE){
-        // CHECK STATE OF DIALED EXTENSION
         if (pbx->tunits[ext]->state == TU_ON_HOOK){
             // CALLER -> RING_BACK
             // CALLED -> RINGING
