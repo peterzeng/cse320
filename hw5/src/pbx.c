@@ -179,17 +179,17 @@ int tu_pickup(TU *tu){
             pbx->tunits[tu->caller]->state = TU_CONNECTED;
             dprintf(tu->caller, "%s %d\r\n", c, tu->fd);
         } else {
-            // debug("no caller but ringing");
+            debug("no caller but ringing");
+            V(&mutex);
             return -1;
         }
 
     } else {
         // debug("pickup not ringing or on hook");
-        char *c = state_to_string(tu->state);
-        dprintf(tu->fd, "%s\r\n", c);
+        dprintf(tu->fd, "%s\r\n", tu_state_names[tu->state]);
+
     }
     V(&mutex);
-
     return 0;
 }
 
@@ -207,9 +207,10 @@ int tu_hangup(TU *tu){
             pbx->tunits[tu->connected]->state = TU_DIAL_TONE;
 
             char* c = state_to_string(pbx->tunits[tu->connected]->state);
-            dprintf(tu->connected, "%s %d\r\n", c, tu->connected);
-            reset_tu(tu);
+            dprintf(tu->connected, "%s\r\n", c);
             reset_tu(pbx->tunits[tu->connected]);
+            reset_tu(tu);
+            // debug("test");
         } else {
             debug("tu->connected false");
             V(&mutex);
@@ -225,14 +226,15 @@ int tu_hangup(TU *tu){
             pbx->tunits[tu->called]->state = TU_ON_HOOK;
             char* c = state_to_string(pbx->tunits[tu->called]->state);
             dprintf(tu->called, "%s %d\r\n", c, tu->called);
+            reset_tu(pbx->tunits[tu->called]);
             reset_tu(tu);
-            reset_tu(pbx->tunits[tu->connected]);
         } else {
             debug("tu->called false");
             V(&mutex);
             return -1;
         }
     } else if (tu->state == TU_RINGING){
+        // debug("stupid");
         tu->state = TU_ON_HOOK;
         char *c = state_to_string(tu->state);
         dprintf(tu->fd, "%s %d\r\n", c, tu->fd);
@@ -241,8 +243,8 @@ int tu_hangup(TU *tu){
             pbx->tunits[tu->caller]->state = TU_DIAL_TONE;;
             char* c = state_to_string(pbx->tunits[tu->caller]->state);
             dprintf(tu->caller, "%s\r\n", c);
+            reset_tu(pbx->tunits[tu->caller]);
             reset_tu(tu);
-            reset_tu(pbx->tunits[tu->connected]);
         } else {
             debug("tu->caller false");
             V(&mutex);
@@ -275,32 +277,32 @@ int tu_dial(TU *tu, int ext){
     if (tu->state == TU_DIAL_TONE){
         // CHECK STATE OF DIALED EXTENSION
         if (pbx->tunits[ext] == NULL){
-        // debug("not a valid extension");
-        tu->state = TU_ERROR;
-        char* c = state_to_string(tu->state);
-        dprintf(tu->fd, "%s\r\n", c);
-        V(&mutex);
-        return 0;
-    }
-        if (pbx->tunits[ext]->state == TU_ON_HOOK){
-            // CALLER -> RING_BACK
-            // CALLED -> RINGING
-            // SET CALLED->CALLER, set CALLER->CALLED
-
-            pbx->tunits[ext]->caller = tu->fd;
-            tu->called = ext;
-
-            tu->state = TU_RING_BACK;
+            // debug("not a valid extension");
+            tu->state = TU_ERROR;
             char* c = state_to_string(tu->state);
             dprintf(tu->fd, "%s\r\n", c);
-
-            pbx->tunits[ext]->state = TU_RINGING;
-            c = state_to_string(pbx->tunits[ext]->state);
-            dprintf(ext, "%s\r\n", c);
+            V(&mutex);
+            return 0;
         } else {
-            tu->state = TU_BUSY_SIGNAL;
-            char* c = state_to_string(tu->state);
-            dprintf(tu->fd, "%s\r\n", c);
+            if (pbx->tunits[ext]->state == TU_ON_HOOK){
+                // CALLER -> RING_BACK
+                // CALLED -> RINGING
+                // SET CALLED->CALLER, set CALLER->CALLED
+                pbx->tunits[ext]->caller = tu->fd;
+                tu->called = ext;
+
+                tu->state = TU_RING_BACK;
+                char* c = state_to_string(tu->state);
+                dprintf(tu->fd, "%s\r\n", c);
+
+                pbx->tunits[ext]->state = TU_RINGING;
+                c = state_to_string(pbx->tunits[ext]->state);
+                dprintf(ext, "%s\r\n", c);
+            } else {
+                tu->state = TU_BUSY_SIGNAL;
+                char* c = state_to_string(tu->state);
+                dprintf(tu->fd, "%s\r\n", c);
+            }
         }
     } else {
         if (tu->state == TU_CONNECTED){
@@ -323,6 +325,7 @@ int tu_dial(TU *tu, int ext){
     return 0;
 }
 
+
 int tu_chat(TU *tu, char *msg){
     if (tu->state != TU_CONNECTED){
         if (tu->state == TU_ON_HOOK) {
@@ -334,11 +337,15 @@ int tu_chat(TU *tu, char *msg){
         }
         // debug("not connected");
         return -1;
-    }
-    if (tu->connected){
-        dprintf(tu->connected, "CHAT %s\r\n", msg);
     } else {
-        return -1;
+        if (tu->connected){
+            dprintf(tu->connected, "CHAT %s\r\n", msg);
+            dprintf(tu->fd, "%s %d\r\n", tu_state_names[tu->state], tu->connected);
+        } else {
+            debug("CONNECTED STATE BUT NOT CONNECTED");
+            return -1;
+        }
     }
+
     return 0;
 }
