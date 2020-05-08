@@ -57,6 +57,7 @@ int is_string_number(char string[]){
 }
 
 void *pbx_client_service(void *arg){
+
     int client_fd, connection_fd;
     TU *client;
     connection_fd = *(int*)arg;
@@ -100,18 +101,22 @@ void *pbx_client_service(void *arg){
             *(message_buf+count) = c;
         }
 
-        fgetc(client_pointer);
-        count++;
-        message_buf = realloc(message_buf, sizeof(char) * count);
-        *(message_buf+count) = '\0';
+        if (fgetc(client_pointer) != EOF){
+            count++;
+            message_buf = realloc(message_buf, sizeof(char) * count);
+            *(message_buf+count) = '\0';
+        } else {
+            debug("error");
+            return NULL;
+        }
 
         // debug("%s",message_buf);
 
         if (check_substring(message_buf, "dial", 0, 4)){
 
             if (is_string_number(message_buf+5)){
-                // debug("number");
-                tu_dial(client, atoi(message_buf));
+                // debug("number %d", atoi(message_buf+5));
+                tu_dial(client, atoi(message_buf+5));
             }
         } else if (check_substring(message_buf, "chat", 0, 4)){
 
@@ -132,7 +137,7 @@ void *pbx_client_service(void *arg){
     //     free(message_buf);
     //     // debug("free");
     // }
-
+    // close(client_pointer);
     pbx_unregister(pbx, client);
 
     return NULL;

@@ -336,7 +336,7 @@ int tu_chat(TU *tu, char *msg){
         return -1;
     }
     if (tu->connected){
-        dprintf(tu->connected, "CHAT%s\r\n", msg);
+        dprintf(tu->connected, "CHAT %s\r\n", msg);
     } else {
         return -1;
     }
